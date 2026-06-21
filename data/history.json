@@ -10,5 +10,11 @@
     "jawaban": "123",
     "topik": "deret_angka",
     "tanggal": "2026-06-21"
+  },
+  {
+    "soal": "Diketahui fungsi f(x) = 2x + 5 dan (f o g)(x) = 6x + 7. Jika g^(-1)(x) adalah invers dari fungsi g(x), maka nilai g^(-1)(1) adalah ...",
+    "jawaban": "0",
+    "topik": "fungsi_grafik",
+    "tanggal": "2026-06-21"
   }
 ]
