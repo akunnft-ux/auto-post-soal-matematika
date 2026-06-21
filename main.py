@@ -45,6 +45,22 @@ TOPIC_LABELS = {
     "fungsi_grafik": "Fungsi & Grafik",
 }
 
+HASHTAG_POOL = [
+    "#SoalMatematika", "#CPNS2026", "#BelajarMatematika",
+    "#MatematikaDasar", "#CPNS", "#TIUCPNS", "#SKDCPNS",
+    "#TryoutCPNS", "#RuangBelajar", "#Matematika",
+    "#LatihanCPNS", "#StudiCPNS",
+]
+
+EMOJI_POOL = ["🧮", "📐", "📝", "✏️", "📊", "➗", "➕", "❌"]
+
+FOOTER_POOL = [
+    "",
+    "Simak pembahasan di akhir video",
+    "Semoga membantu",
+    "Selamat belajar",
+]
+
 TOPIC_PROMPTS = {
     "deret_angka": (
         "soal Deret Angka atau Pola Bilangan (barisan & deret). "
@@ -260,11 +276,13 @@ def buat_gambar_soal(soal_data, topic, filename="soal/soal_hari_ini.png"):
     footer_y = IMG_HEIGHT - 90
     draw.rectangle([(0, footer_y - 10), (IMG_WIDTH, IMG_HEIGHT)], fill=COLOR_WHITE)
     draw.line([(margin, footer_y), (IMG_WIDTH - margin, footer_y)], fill=COLOR_TOSCA_LIGHT, width=2)
-    draw.text(
-        (IMG_WIDTH / 2, footer_y + 30),
-        "Jawab di komentar! Simpan & share ke temanmu  📚",
-        fill=COLOR_FOOTER, anchor="mm", font=font_footer
-    )
+    footer = random.choice(FOOTER_POOL)
+    if footer:
+        draw.text(
+            (IMG_WIDTH / 2, footer_y + 30),
+            footer,
+            fill=COLOR_FOOTER, anchor="mm", font=font_footer
+        )
 
     img.save(filename)
     return filename
@@ -285,28 +303,38 @@ def post_to_facebook(image_path, caption):
     return result
 
 
+def compliance_check(caption):
+    disallowed = [
+        "comment", "tag", "share this", "subscri", "follow",
+        "like", "komentar",
+    ]
+    caption_lower = caption.lower()
+    for pattern in disallowed:
+        if pattern in caption_lower:
+            raise ValueError(f"Compliance: engagement bait pattern '{pattern}' detected in caption")
+    return True
+
+
 def format_caption(soal_data: dict, topic: str) -> str:
     label = TOPIC_LABELS.get(topic, topic)
+    emoji = random.choice(EMOJI_POOL)
+    tags = " ".join(random.sample(HASHTAG_POOL, k=random.randint(2, 3)))
+    op = "\n".join(f"{chr(65 + i)}. {p}" for i, p in enumerate(soal_data["pilihan"]))
 
-    lines = [
-        f"📐 SOAL {label.upper()}",
-        "",
-        soal_data["soal"],
-        "",
+    templates = [
+        f"{{emoji}} {{label}}\n\n{{soal}}\n\n{{pilihan}}\n\n{{tags}}",
+        f"{{label}}\n\n{{soal}}\n\n{{emoji}} {{pilihan}}\n\n{{tags}}",
+        f"{{emoji}} Latihan {{label}}\n\n{{soal}}\n\n{{pilihan}}\n\n{{tags}}",
+        f"{{soal}}\n\n{{pilihan}}\n\n{{tags}}",
+        f"{{emoji}} {{label}}\n\n{{soal}}\n\n{{emoji}} {{pilihan}}\n\n{{tags}}",
+        f"Soal {{label}}:\n\n{{soal}}\n\n{{emoji}} {{pilihan}}\n\n{{tags}}",
     ]
-
-    for i, p in enumerate(soal_data["pilihan"]):
-        lines.append(f"{chr(65 + i)}. {p}")
-
-    lines.extend([
-        "",
-        "Jawab di komentar ya! 👇",
-        "Simpan & share ke teman yang juga persiapan CPNS/TKA/SNBT!",
-        "",
-        "#CPNS2026 #TIUCPNS #SoalMatematika #SKDCPNS #TryOutCPNS #TPS #SNBT #Matematika",
-    ])
-
-    return "\n".join(lines)
+    template = random.choice(templates)
+    caption = template.format(
+        emoji=emoji, label=label,
+        soal=soal_data["soal"], pilihan=op, tags=tags,
+    )
+    return caption
 
 
 def main():
@@ -328,6 +356,7 @@ def main():
     print(f"Gambar: {gambar}")
 
     caption = format_caption(soal, topic)
+    compliance_check(caption)
     result = post_to_facebook(gambar, caption)
     print(f"Posting berhasil! Post ID: {result.get('id', 'unknown')}")
 

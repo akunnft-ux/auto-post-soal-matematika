@@ -2,9 +2,7 @@ name: Auto Post Soal Matematika CPNS/TKA/SNBT
 
 on:
   schedule:
-    - cron: "0 6 * * *"
-    - cron: "0 10 * * *"
-    - cron: "0 13 * * *"
+    - cron: "0 12 * * *"
   workflow_dispatch:
 
 permissions:
@@ -39,6 +37,8 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config pull.rebase true
           git add data/history.json
           git diff --staged --quiet || git commit -m "chore: update history [skip ci]"
+          git pull
           git push
