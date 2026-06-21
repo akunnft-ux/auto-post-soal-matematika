@@ -2,7 +2,7 @@ name: Auto Post Soal Matematika CPNS/TKA/SNBT
 
 on:
   schedule:
-    - cron: "0 12 * * *"
+    - cron: "30 13 * * *"
   workflow_dispatch:
 
 permissions:
