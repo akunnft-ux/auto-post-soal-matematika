@@ -4,5 +4,11 @@
     "jawaban": "10 hari",
     "topik": "aritmatika_aljabar",
     "tanggal": "2026-06-21"
+  },
+  {
+    "soal": "Tentukan angka selanjutnya dari barisan bilangan berikut: 2, 3, 6, 15, 42, ...",
+    "jawaban": "123",
+    "topik": "deret_angka",
+    "tanggal": "2026-06-21"
   }
 ]
