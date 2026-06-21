@@ -16,5 +16,11 @@
     "jawaban": "0",
     "topik": "fungsi_grafik",
     "tanggal": "2026-06-21"
+  },
+  {
+    "soal": "Dalam sebuah kelas, 60% siswa lulus mata pelajaran Matematika, 70% siswa lulus mata pelajaran IPA, dan 80% siswa lulus setidaknya satu dari kedua mata pelajaran tersebut. Jika seorang siswa dipilih secara acak dari kelas tersebut dan diketahui bahwa siswa tersebut lulus Matematika, berapakah peluang bahwa siswa tersebut juga lulus IPA?",
+    "jawaban": "5/6",
+    "topik": "peluang_statistika",
+    "tanggal": "2026-06-21"
   }
 ]
