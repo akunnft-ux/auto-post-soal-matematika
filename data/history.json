@@ -22,5 +22,11 @@
     "jawaban": "5/6",
     "topik": "peluang_statistika",
     "tanggal": "2026-06-21"
+  },
+  {
+    "soal": "Sebuah kerucut tegak lingkaran disisipkan di dalam sebuah bola dengan jari-jari R. Titik puncak kerucut berada pada permukaan bola dan alas kerucut menyentuh permukaan bola. Tentukan volume maksimum kerucut yang dapat disisipkan dalam bola tersebut.",
+    "jawaban": "(32/81)πR³",
+    "topik": "geometri",
+    "tanggal": "2026-06-22"
   }
 ]
