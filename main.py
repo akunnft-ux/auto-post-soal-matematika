@@ -344,14 +344,14 @@ def check_telegram_mode():
     token = os.environ.get("TELEGRAM_BOT_TOKEN")
     chat_id = os.environ.get("TELEGRAM_CHAT_ID")
     if not token or not chat_id:
-        return "facebook"
+        return "telegram"
 
-    current_mode = "facebook"
+    current_mode = "telegram"
     last_id = 0
     if os.path.exists(MODE_FILE):
         with open(MODE_FILE) as f:
             d = json.load(f)
-            current_mode = d.get("mode", "facebook")
+            current_mode = d.get("mode", "telegram")
             last_id = d.get("last_update_id", 0)
 
     try:
@@ -366,7 +366,7 @@ def check_telegram_mode():
                     last_id = uid
                     text = (upd.get("message") or {}).get("text", "").strip().lower()
                     if text == "/mode facebook":
-                        current_mode = "facebook"
+                        current_mode = "telegram"
                         requests.post(
                             f"https://api.telegram.org/bot{token}/sendMessage",
                             json={"chat_id": chat_id, "text": "✅ Mode berubah ke FACEBOOK"},
