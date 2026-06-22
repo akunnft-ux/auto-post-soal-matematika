@@ -364,7 +364,7 @@ Tidak ada API yang kita hosting. Kita mengonsumsi API eksternal:
 
 | API | Method | Endpoint | Purpose |
 |---|---|---|---|
-| Gemini | POST | `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent` | Generate soal |
+| Gemini | POST | `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent` | Generate soal |
 | Facebook Graph | POST | `https://graph.facebook.com/{page-id}/photos` | Post gambar |
 | Telegram | POST | `https://api.telegram.org/bot{token}/sendMessage` | Kirim notifikasi |
 

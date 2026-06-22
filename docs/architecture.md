@@ -259,7 +259,7 @@ No performance concern for 3x/day execution. Each session:
 | Risk | Impact | Mitigation |
 |---|---|---|
 | Token Facebook expire | Posting gagal total | Gunakan System User Token; maintenance reminder di repo |
-| Gemini API change | Format response berubah | Pin model version (gemini-2.5-flash); error handling robust |
+| Gemini API change | Format response berubah | Pin model version (gemini-3.1-flash-lite); error handling robust |
 | GitHub Actions outage | Posting terlewat | workflow_dispatch untuk manual trigger |
 | Font rendering issue | Gambar error | Fallback ke default Pillow font |
 

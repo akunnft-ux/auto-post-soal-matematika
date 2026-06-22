@@ -19,7 +19,7 @@ Tidak ada web UI. Default Stack (Next.js/Supabase/Vercel) **tidak berlaku**.
 
 Stack yang digunakan:
 - **Runtime**: Python 3.12
-- **AI**: Google Gemini API (gemini-2.5-flash)
+- **AI**: Google Gemini API (gemini-3.1-flash-lite)
 - **Image Processing**: Pillow
 - **Platform**: Facebook Graph API
 - **Scheduler**: GitHub Actions (cron)
