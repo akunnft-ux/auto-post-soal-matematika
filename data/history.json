@@ -34,5 +34,11 @@
     "jawaban": "3/22",
     "topik": "peluang_statistika",
     "tanggal": "2026-06-22"
+  },
+  {
+    "soal": "Tentukan angka selanjutnya dari barisan bilangan berikut: 3, 4, 8, 17, 33, ...",
+    "jawaban": "58",
+    "topik": "deret_angka",
+    "tanggal": "2026-06-22"
   }
 ]
