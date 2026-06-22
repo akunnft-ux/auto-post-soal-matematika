@@ -20,14 +20,23 @@ MAX_HISTORY_ITEMS = 180
 IMG_WIDTH = 1080
 IMG_HEIGHT = 1080
 
-COLOR_TOSCA = (13, 148, 136)
-COLOR_TOSCA_LIGHT = (204, 251, 241)
-COLOR_TOSCA_DARK = (15, 118, 110)
-COLOR_BG = (240, 253, 250)
-COLOR_TEXT = (15, 23, 42)
-COLOR_TEXT_SECONDARY = (71, 85, 105)
-COLOR_FOOTER = (148, 163, 184)
+COLOR_BG = (255, 248, 231)          # warm cream #FFF8E7
+COLOR_NAVY = (27, 42, 74)            # navy #1B2A4A
+COLOR_ORANGE = (255, 140, 66)        # bright orange #FF8C42
 COLOR_WHITE = (255, 255, 255)
+COLOR_TEXT = (44, 62, 80)            # dark slate #2C3E50
+COLOR_FOOTER = (149, 165, 166)       # gray #95A5A6
+COLOR_STICKY = (255, 243, 176)       # sticky note yellow #FFF3B0
+
+TOPIC_COLORS = {
+    "deret_angka":         ((46, 134, 222), (214, 234, 248)),    # blue
+    "aritmatika_aljabar":  ((39, 174, 96), (213, 245, 227)),     # green
+    "peluang_statistika":  ((142, 68, 173), (232, 218, 239)),    # purple
+    "geometri":            ((231, 76, 60), (250, 219, 216)),     # red/pink
+    "fungsi_grafik":       ((243, 156, 18), (253, 235, 208)),    # orange/gold
+}
+
+DODDLE_ICONS = ["★", "◆", "●", "✓", "➤"]
 
 TOPICS = [
     "deret_angka",
@@ -217,41 +226,61 @@ def draw_rounded_rect(draw, xy, radius, fill):
 def buat_gambar_soal(soal_data, topic, filename="soal/soal_hari_ini.png"):
     os.makedirs(os.path.dirname(filename), exist_ok=True)
 
-    img = Image.new("RGB", (IMG_WIDTH, IMG_HEIGHT))
+    img = Image.new("RGB", (IMG_WIDTH, IMG_HEIGHT), COLOR_BG)
     draw = ImageDraw.Draw(img)
-    draw.rectangle([(0, 0), (IMG_WIDTH, IMG_HEIGHT)], fill=COLOR_BG)
 
-    font_heading = ImageFont.truetype(FONT_BOLD, 42)
+    font_heading = ImageFont.truetype(FONT_BOLD, 48)
     font_subtitle = ImageFont.truetype(FONT_REGULAR, 26)
-    font_badge = ImageFont.truetype(FONT_BOLD, 22)
-    font_soal = ImageFont.truetype(FONT_REGULAR, 32)
+    font_badge = ImageFont.truetype(FONT_BOLD, 24)
+    font_soal = ImageFont.truetype(FONT_REGULAR, 34)
     font_pilihan = ImageFont.truetype(FONT_REGULAR, 30)
     font_footer = ImageFont.truetype(FONT_REGULAR, 22)
+    font_icon = ImageFont.truetype(FONT_BOLD, 28)
 
     margin = 60
     usable_width = IMG_WIDTH - 2 * margin
+    header_h = 160
 
-    draw.rectangle([(0, 0), (IMG_WIDTH, 150)], fill=COLOR_TOSCA)
-    draw.rectangle([(0, 150), (IMG_WIDTH, 155)], fill=COLOR_TOSCA_DARK)
+    topic_accent, topic_bg = TOPIC_COLORS.get(topic, (COLOR_NAVY, (220, 220, 220)))
 
-    draw.text((IMG_WIDTH / 2, 58), "SOAL MATEMATIKA", fill=COLOR_WHITE, anchor="mm", font=font_heading)
-    draw.text((IMG_WIDTH / 2, 110), "CPNS  •  TKA  •  SNBT", fill=COLOR_TOSCA_LIGHT, anchor="mm", font=font_subtitle)
+    # ── Header ──
+    draw.rounded_rectangle([(0, 0), (IMG_WIDTH, header_h)], radius=0, fill=COLOR_NAVY)
+    draw.rounded_rectangle([(0, header_h - 8), (IMG_WIDTH, header_h + 4)], radius=0, fill=COLOR_ORANGE)
 
-    badge_label = TOPIC_LABELS.get(topic, topic)
-    badge_w = draw.textlength(badge_label, font=font_badge) + 40
+    draw.text((IMG_WIDTH / 2, 55), "SOAL MATEMATIKA", fill=COLOR_WHITE, anchor="mm", font=font_heading)
+    draw.text((IMG_WIDTH / 2, 115), "CPNS  •  TKA  •  SNBT", fill=(255, 200, 150), anchor="mm", font=font_subtitle)
+
+    # Sticky note corner
+    sticky_x = IMG_WIDTH - 120
+    sticky_y = 20
+    draw.rounded_rectangle([(sticky_x, sticky_y), (sticky_x + 80, sticky_y + 70)], radius=6, fill=COLOR_STICKY, outline=(200, 180, 100), width=2)
+    draw.text((sticky_x + 40, sticky_y + 35), "✏️", fill=(80, 60, 20), anchor="mm", font=font_icon)
+
+    # Decorative star top-left
+    draw.text((40, 25), "★", fill=(255, 200, 100), anchor="mm", font=font_icon)
+    draw.text((100, 130), "✦", fill=(255, 200, 100), anchor="mm", font=font_icon)
+
+    # ── Topic badge ──
+    topic_label = TOPIC_LABELS.get(topic, topic)
+    badge_label = f"★ {topic_label}"
+    badge_w = draw.textlength(badge_label, font=font_badge) + 44
     badge_x = (IMG_WIDTH - badge_w) / 2
-    draw_rounded_rect(draw, [badge_x, 190, badge_x + badge_w, 230], radius=20, fill=COLOR_TOSCA)
-    draw.text((IMG_WIDTH / 2, 210), badge_label, fill=COLOR_WHITE, anchor="mm", font=font_badge)
+    badge_y = header_h + 28
+    draw_rounded_rect(draw, [badge_x, badge_y, badge_x + badge_w, badge_y + 42], radius=21, fill=topic_accent)
+    draw.rounded_rectangle([badge_x + 4, badge_y + 4, badge_x + badge_w - 4, badge_y + 38], radius=17, fill=None, outline=COLOR_WHITE, width=2)
+    draw.text((IMG_WIDTH / 2, badge_y + 21), badge_label, fill=COLOR_WHITE, anchor="mm", font=font_badge)
 
-    y = 270
+    # ── Soal text ──
+    y = badge_y + 80
 
     soal_lines = wrap_text(soal_data["soal"], font_soal, draw, usable_width)
     for line in soal_lines:
         draw.text((margin, y), line, fill=COLOR_TEXT, font=font_soal)
-        y += 50
+        y += 52
 
-    y += 40
+    y += 30
 
+    # ── Pilihan ──
     for i, p in enumerate(soal_data["pilihan"]):
         letter = chr(65 + i)
         option_text = f"{letter}.  {p}"
@@ -259,29 +288,46 @@ def buat_gambar_soal(soal_data, topic, filename="soal/soal_hari_ini.png"):
         option_lines = wrap_text(option_text, font_pilihan, draw, usable_width - 50)
 
         bg_y = y - 8
-        text_block_h = len(option_lines) * 44 + 16
-        draw_rounded_rect(draw, [margin, bg_y, IMG_WIDTH - margin, bg_y + text_block_h], radius=12, fill=COLOR_WHITE)
-
+        text_block_h = len(option_lines) * 44 + 18
+        draw_rounded_rect(draw, [margin, bg_y, IMG_WIDTH - margin, bg_y + text_block_h], radius=14, fill=COLOR_WHITE)
         draw.rounded_rectangle(
-            [margin, bg_y, margin + 6, bg_y + text_block_h],
-            radius=3, fill=COLOR_TOSCA
+            [margin + 2, bg_y + 2, IMG_WIDTH - margin - 2, bg_y + text_block_h - 2],
+            radius=12, fill=None, outline=topic_bg, width=2
+        )
+        draw.rounded_rectangle(
+            [margin, bg_y, margin + 8, bg_y + text_block_h],
+            radius=4, fill=topic_accent
         )
 
         for line in option_lines:
-            draw.text((margin + 25, y), line, fill=COLOR_TEXT, font=font_pilihan)
+            draw.text((margin + 30, y), line, fill=COLOR_TEXT, font=font_pilihan)
             y += 44
 
-        y += 16
+        y += 14
 
-    footer_y = IMG_HEIGHT - 90
-    draw.rectangle([(0, footer_y - 10), (IMG_WIDTH, IMG_HEIGHT)], fill=COLOR_WHITE)
-    draw.line([(margin, footer_y), (IMG_WIDTH - margin, footer_y)], fill=COLOR_TOSCA_LIGHT, width=2)
+    # ── Footer ──
+    footer_y = IMG_HEIGHT - 80
+    draw.line([(margin, footer_y), (IMG_WIDTH - margin, footer_y)], fill=topic_bg, width=3)
+
+    deco_icon = random.choice(DODDLE_ICONS)
     footer = random.choice(FOOTER_POOL)
     if footer:
         draw.text(
-            (IMG_WIDTH / 2, footer_y + 30),
+            (IMG_WIDTH / 2 - 20, footer_y + 32),
             footer,
             fill=COLOR_FOOTER, anchor="mm", font=font_footer
+        )
+        fw = draw.textlength(footer, font=font_footer)
+        draw.text(
+            (IMG_WIDTH / 2 + fw / 2 + 20, footer_y + 32),
+            f" {deco_icon}",
+            fill=COLOR_ORANGE, anchor="mm", font=font_footer
+        )
+    else:
+        draw.text(
+            (IMG_WIDTH / 2, footer_y + 32),
+            deco_icon,
+            fill=COLOR_ORANGE, anchor="mm", font=font_icon
         )
 
     img.save(filename)
