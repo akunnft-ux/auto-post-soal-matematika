@@ -28,5 +28,11 @@
     "jawaban": "(32/81)πR³",
     "topik": "geometri",
     "tanggal": "2026-06-22"
+  },
+  {
+    "soal": "Dalam sebuah kotak terdapat 5 bola merah, 4 bola putih, dan 3 bola hijau. Jika diambil 3 bola secara acak sekaligus, berapakah peluang terambilnya ketiga bola tersebut dengan warna yang berbeda?",
+    "jawaban": "3/22",
+    "topik": "peluang_statistika",
+    "tanggal": "2026-06-22"
   }
 ]
