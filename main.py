@@ -337,6 +337,63 @@ def format_caption(soal_data: dict, topic: str) -> str:
     return caption
 
 
+MODE_FILE = "data/mode.json"
+
+
+def check_telegram_mode():
+    token = os.environ.get("TELEGRAM_BOT_TOKEN")
+    chat_id = os.environ.get("TELEGRAM_CHAT_ID")
+    if not token or not chat_id:
+        return "facebook"
+
+    current_mode = "facebook"
+    last_id = 0
+    if os.path.exists(MODE_FILE):
+        with open(MODE_FILE) as f:
+            d = json.load(f)
+            current_mode = d.get("mode", "facebook")
+            last_id = d.get("last_update_id", 0)
+
+    try:
+        resp = requests.get(
+            f"https://api.telegram.org/bot{token}/getUpdates",
+            params={"offset": last_id + 1, "timeout": 5},
+        )
+        if resp.ok:
+            for upd in resp.json().get("result", []):
+                uid = upd["update_id"]
+                if uid > last_id:
+                    last_id = uid
+                    text = (upd.get("message") or {}).get("text", "").strip().lower()
+                    if text == "/mode facebook":
+                        current_mode = "facebook"
+                    elif text == "/mode telegram":
+                        current_mode = "telegram"
+    except Exception as e:
+        print(f"[WARN] Telegram mode check failed: {e}")
+
+    os.makedirs("data", exist_ok=True)
+    with open(MODE_FILE, "w") as f:
+        json.dump({"mode": current_mode, "last_update_id": last_id}, f)
+    return current_mode
+
+
+def post_to_telegram(image_path, caption):
+    token = os.environ.get("TELEGRAM_BOT_TOKEN")
+    chat_id = os.environ.get("TELEGRAM_CHAT_ID")
+    if not token or not chat_id:
+        raise ValueError("TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID required")
+    url = f"https://api.telegram.org/bot{token}/sendPhoto"
+    with open(image_path, "rb") as f:
+        files = {"photo": f}
+        data = {"chat_id": chat_id, "caption": caption[:1024]}
+        resp = requests.post(url, files=files, data=data, timeout=60)
+    if not resp.ok:
+        raise RuntimeError(f"Telegram sendPhoto failed: {resp.status_code} {resp.text}")
+    msg_id = resp.json()["result"]["message_id"]
+    print(f"[OK] Sent to Telegram. Message ID: {msg_id}")
+
+
 def main():
     print("Memulai generate soal...")
 
@@ -357,8 +414,13 @@ def main():
 
     caption = format_caption(soal, topic)
     compliance_check(caption)
-    result = post_to_facebook(gambar, caption)
-    print(f"Posting berhasil! Post ID: {result.get('id', 'unknown')}")
+    post_mode = check_telegram_mode()
+    print(f"[INFO] Post mode: {post_mode.upper()}")
+    if post_mode == "telegram":
+        post_to_telegram(gambar, caption)
+    else:
+        result = post_to_facebook(gambar, caption)
+        print(f"Posting berhasil! Post ID: {result.get('id', 'unknown')}")
 
     history_item = {
         "soal": soal["soal"],
