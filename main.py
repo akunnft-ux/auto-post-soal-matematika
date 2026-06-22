@@ -367,8 +367,18 @@ def check_telegram_mode():
                     text = (upd.get("message") or {}).get("text", "").strip().lower()
                     if text == "/mode facebook":
                         current_mode = "facebook"
+                        requests.post(
+                            f"https://api.telegram.org/bot{token}/sendMessage",
+                            json={"chat_id": chat_id, "text": "✅ Mode berubah ke FACEBOOK"},
+                            timeout=10,
+                        )
                     elif text == "/mode telegram":
                         current_mode = "telegram"
+                        requests.post(
+                            f"https://api.telegram.org/bot{token}/sendMessage",
+                            json={"chat_id": chat_id, "text": "✅ Mode berubah ke TELEGRAM"},
+                            timeout=10,
+                        )
     except Exception as e:
         print(f"[WARN] Telegram mode check failed: {e}")
 
