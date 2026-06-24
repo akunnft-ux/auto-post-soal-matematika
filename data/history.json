@@ -46,5 +46,11 @@
     "jawaban": "Rp216.000",
     "topik": "aritmatika_aljabar",
     "tanggal": "2026-06-24"
+  },
+  {
+    "soal": "Dalam sebuah turnamen catur, terdapat 10 peserta yang saling bertanding satu sama lain tepat satu kali (sistem kompetisi penuh). Jika di tengah turnamen terdapat 2 orang peserta yang mengundurkan diri sehingga pertandingan yang melibatkan mereka dibatalkan, berapakah selisih total pertandingan yang seharusnya terjadi dengan total pertandingan yang benar-benar terlaksana?",
+    "jawaban": "17 pertandingan",
+    "topik": "peluang_statistika",
+    "tanggal": "2026-06-24"
   }
 ]
