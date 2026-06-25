@@ -64,5 +64,11 @@
     "jawaban": "41/55",
     "topik": "peluang_statistika",
     "tanggal": "2026-06-25"
+  },
+  {
+    "soal": "Sebuah mobil menempuh jarak dari kota A ke kota B dengan kecepatan rata-rata 60 km/jam. Jika mobil tersebut kembali dari kota B ke kota A melalui rute yang sama dengan kecepatan rata-rata 40 km/jam, berapakah kecepatan rata-rata mobil tersebut untuk keseluruhan perjalanan (pergi-pulang)?",
+    "jawaban": "48 km/jam",
+    "topik": "aritmatika_aljabar",
+    "tanggal": "2026-06-25"
   }
 ]
