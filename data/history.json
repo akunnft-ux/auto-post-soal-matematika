@@ -58,5 +58,11 @@
     "jawaban": "-7",
     "topik": "fungsi_grafik",
     "tanggal": "2026-06-25"
+  },
+  {
+    "soal": "Sebuah kantong berisi 8 kelereng merah dan 4 kelereng biru. Jika diambil 3 kelereng sekaligus secara acak, berapakah peluang terambilnya setidaknya 2 kelereng merah?",
+    "jawaban": "41/55",
+    "topik": "peluang_statistika",
+    "tanggal": "2026-06-25"
   }
 ]
