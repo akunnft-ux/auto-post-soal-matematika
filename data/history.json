@@ -52,5 +52,11 @@
     "jawaban": "17 pertandingan",
     "topik": "peluang_statistika",
     "tanggal": "2026-06-24"
+  },
+  {
+    "soal": "Diketahui fungsi kuadrat f(x) = ax² + bx + c memiliki titik puncak (2, 5). Jika grafik fungsi tersebut melalui titik (0, 1), maka nilai dari a - b + c adalah...",
+    "jawaban": "-7",
+    "topik": "fungsi_grafik",
+    "tanggal": "2026-06-25"
   }
 ]
