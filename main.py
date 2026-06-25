@@ -70,6 +70,26 @@ FOOTER_POOL = [
     "Selamat belajar",
 ]
 
+HOOK_TEMPLATES = [
+    "Coba soal matematika ini! 🧐",
+    "90% orang salah jawab. Kamu bisa? ⚡",
+    "Kuis matematika untuk CPNS! 🎯",
+    "Jangan terkecoh dengan soal ini! 💡",
+    "Kebanyakan orang menjawab salah. Ayo coba! 🤔",
+    "Tes kemampuan matematikamu! 📝",
+    "Siap untuk soal hari ini? 🔥",
+]
+
+CTA_POOL = [
+    "Tulis jawabanmu di komentar! ✏️",
+    "Share ke temanmu biar ikut belajar! 📤",
+    "Follow untuk soal CPNS setiap hari! 🔥",
+    "Jangan lupa like dan share! 💪",
+    "Simpan postingan ini untuk latihan! 📌",
+]
+
+LEARNING_CONFIG_FILE = "self_learning/learning_config.json"
+
 TOPIC_PROMPTS = {
     "deret_angka": (
         "soal Deret Angka atau Pola Bilangan (barisan & deret). "
@@ -367,18 +387,19 @@ def format_caption(soal_data: dict, topic: str) -> str:
     tags = " ".join(random.sample(HASHTAG_POOL, k=random.randint(2, 3)))
     op = "\n".join(f"{chr(65 + i)}. {p}" for i, p in enumerate(soal_data["pilihan"]))
 
+    hook = random.choice(HOOK_TEMPLATES)
+    cta = random.choice(CTA_POOL)
+
     templates = [
-        f"{{emoji}} {{label}}\n\n{{soal}}\n\n{{pilihan}}\n\n{{tags}}",
-        f"{{label}}\n\n{{soal}}\n\n{{emoji}} {{pilihan}}\n\n{{tags}}",
-        f"{{emoji}} Latihan {{label}}\n\n{{soal}}\n\n{{pilihan}}\n\n{{tags}}",
-        f"{{soal}}\n\n{{pilihan}}\n\n{{tags}}",
-        f"{{emoji}} {{label}}\n\n{{soal}}\n\n{{emoji}} {{pilihan}}\n\n{{tags}}",
-        f"Soal {{label}}:\n\n{{soal}}\n\n{{emoji}} {{pilihan}}\n\n{{tags}}",
+        f"{{hook}}\n\n{{emoji}} {{label}}\n\n{{soal}}\n\n{{pilihan}}\n\n{{cta}}\n\n{{tags}}",
+        f"{{hook}}\n\n{{label}}\n\n{{soal}}\n\n{{emoji}} {{pilihan}}\n\n{{cta}}\n\n{{tags}}",
+        f"{{hook}}\n\n{{emoji}} Latihan {{label}}\n\n{{soal}}\n\n{{pilihan}}\n\n{{cta}}\n\n{{tags}}",
+        f"{{hook}}\n\n{{soal}}\n\n{{pilihan}}\n\n{{cta}}\n\n{{tags}}",
     ]
     template = random.choice(templates)
     caption = template.format(
-        emoji=emoji, label=label,
-        soal=soal_data["soal"], pilihan=op, tags=tags,
+        hook=hook, emoji=emoji, label=label,
+        soal=soal_data["soal"], pilihan=op, cta=cta, tags=tags,
     )
     return caption
 
@@ -434,6 +455,105 @@ def check_telegram_mode():
     return current_mode
 
 
+def load_and_apply_learning_config():
+    if not os.path.exists(LEARNING_CONFIG_FILE):
+        return
+    try:
+        with open(LEARNING_CONFIG_FILE) as f:
+            cfg = json.load(f)
+    except Exception as e:
+        print(f"[WARN] Failed to load learning config: {e}")
+        return
+
+    global HOOK_TEMPLATES, CTA_POOL, HASHTAG_POOL
+    changed = []
+    if "hook_templates" in cfg and cfg["hook_templates"]:
+        HOOK_TEMPLATES = cfg["hook_templates"]
+        changed.append("hooks")
+    if "cta_pool" in cfg and cfg["cta_pool"]:
+        CTA_POOL = cfg["cta_pool"]
+        changed.append("CTA")
+    if "hashtag_pool" in cfg and cfg["hashtag_pool"]:
+        HASHTAG_POOL = cfg["hashtag_pool"]
+        changed.append("hashtags")
+    if changed:
+        print(f"[SL] Applied learning config: {', '.join(changed)}")
+
+
+def process_telegram_csv():
+    token = os.environ.get("TELEGRAM_BOT_TOKEN")
+    chat_id = os.environ.get("TELEGRAM_CHAT_ID")
+    if not token or not chat_id:
+        return
+
+    last_id = 0
+    if os.path.exists(MODE_FILE):
+        with open(MODE_FILE) as f:
+            last_id = json.load(f).get("last_update_id", 0)
+
+    try:
+        resp = requests.get(
+            f"https://api.telegram.org/bot{token}/getUpdates",
+            params={"offset": last_id + 1, "timeout": 5},
+        )
+        if not resp.ok:
+            return
+
+        for upd in resp.json().get("result", []):
+            uid = upd["update_id"]
+            if uid <= last_id:
+                continue
+            msg = upd.get("message") or {}
+            doc = msg.get("document")
+            if doc and doc.get("file_name", "").lower().endswith(".csv"):
+                print(f"[SL] CSV detected: {doc['file_name']}")
+                tmp_path = f"/tmp/sl_csv_{doc['file_id']}.csv"
+                if _download_telegram_file(doc["file_id"], tmp_path, token):
+                    try:
+                        from self_learning import run_self_learning
+                        result = run_self_learning(tmp_path)
+                        notify_telegram(_format_sl_summary(result))
+                    except Exception as e:
+                        notify_telegram(f"[SL] Self-learning FAILED: {e}")
+                    finally:
+                        if os.path.exists(tmp_path):
+                            os.remove(tmp_path)
+    except Exception as e:
+        print(f"[WARN] process_telegram_csv failed: {e}")
+
+
+def _download_telegram_file(file_id, dest_path, token):
+    resp = requests.get(
+        f"https://api.telegram.org/bot{token}/getFile?file_id={file_id}", timeout=15
+    )
+    if not resp.ok:
+        return False
+    file_path = resp.json()["result"]["file_path"]
+    dl = requests.get(
+        f"https://api.telegram.org/file/bot{token}/{file_path}", timeout=30
+    )
+    if not dl.ok:
+        return False
+    with open(dest_path, "wb") as f:
+        f.write(dl.content)
+    print(f"[SL] CSV downloaded ({len(dl.content)} bytes)")
+    return True
+
+
+def _format_sl_summary(result: dict) -> str:
+    if result.get("status") == "skipped":
+        return f"[SL] Self-learning skipped: {result.get('reason', 'unknown')}"
+    lines = ["[SL] Self-learning selesai!"]
+    lines.append(f"Records diproses: {result.get('records_parsed', 0)}")
+    cls = result.get("classifications", {})
+    if cls:
+        lines.append(f"Viral: {cls.get('viral', 0)} | Good: {cls.get('good', 0)} | Bad: {cls.get('bad', 0)}")
+    changes = result.get("changes_made", [])
+    if changes:
+        lines.append(f"Perubahan: {', '.join(changes)}")
+    return "\n".join(lines)
+
+
 def post_to_telegram(image_path, caption):
     token = os.environ.get("TELEGRAM_BOT_TOKEN")
     chat_id = os.environ.get("TELEGRAM_CHAT_ID")
@@ -452,6 +572,9 @@ def post_to_telegram(image_path, caption):
 
 def main():
     print("Memulai generate soal...")
+
+    load_and_apply_learning_config()
+    process_telegram_csv()
 
     history = load_history()
     print(f"Histori: {len(history)} item")

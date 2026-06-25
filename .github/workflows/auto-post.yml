@@ -38,16 +38,16 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: python main.py
 
-      - name: Commit history
+      - name: Commit data
         if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/history.json data/mode.json
+          git add data/*.json self_learning/learning_config.json 2>/dev/null || true
           git stash
           git fetch origin
           git reset --hard origin/main
           git stash pop || true
-          git add data/history.json data/mode.json
-          git diff --staged --quiet || git commit -m "chore: update history [skip ci]"
+          git add data/*.json self_learning/learning_config.json 2>/dev/null || true
+          git diff --staged --quiet || git commit -m "chore: update data [skip ci]"
           git push

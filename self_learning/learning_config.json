@@ -1,0 +1,34 @@
+{
+  "hook_templates": [
+    "Coba soal matematika ini! 🧐",
+    "90% orang salah jawab. Kamu bisa? ⚡",
+    "Kuis matematika untuk CPNS! 🎯",
+    "Jangan terkecoh dengan soal ini! 💡",
+    "Kebanyakan orang menjawab salah. Ayo coba! 🤔",
+    "Tes kemampuan matematikamu! 📝",
+    "Siap untuk soal hari ini? 🔥"
+  ],
+  "cta_pool": [
+    "Tulis jawabanmu di komentar! ✏️",
+    "Share ke temanmu biar ikut belajar! 📤",
+    "Follow untuk soal CPNS setiap hari! 🔥",
+    "Jangan lupa like dan share! 💪",
+    "Simpan postingan ini untuk latihan! 📌"
+  ],
+  "hashtag_pool": [
+    "#SoalMatematika",
+    "#CPNS2026",
+    "#BelajarMatematika",
+    "#MatematikaDasar",
+    "#CPNS",
+    "#TIUCPNS",
+    "#SKDCPNS",
+    "#TryoutCPNS",
+    "#RuangBelajar",
+    "#Matematika",
+    "#LatihanCPNS",
+    "#StudiCPNS"
+  ],
+  "variable_rotation_index": 0,
+  "updated_at": null
+}
