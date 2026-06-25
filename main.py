@@ -1,6 +1,7 @@
 import os
 import json
 import random
+import re
 import requests
 from datetime import datetime, date
 from PIL import Image, ImageDraw, ImageFont
@@ -81,11 +82,11 @@ HOOK_TEMPLATES = [
 ]
 
 CTA_POOL = [
-    "Tulis jawabanmu di komentar! ✏️",
     "Share ke temanmu biar ikut belajar! 📤",
-    "Follow untuk soal CPNS setiap hari! 🔥",
-    "Jangan lupa like dan share! 💪",
     "Simpan postingan ini untuk latihan! 📌",
+    "Coba kerjakan soal ini! 🧮",
+    "Latihan rutin biar makin jago! 📚",
+    "Ayo asah kemampuanmu! ⚡",
 ]
 
 LEARNING_CONFIG_FILE = "self_learning/learning_config.json"
@@ -370,13 +371,13 @@ def post_to_facebook(image_path, caption):
 
 
 def compliance_check(caption):
-    disallowed = [
-        "comment", "tag", "share this", "subscri", "follow",
-        "like", "komentar",
+    disallowed_bait_patterns = [
+        "comment.*if you", "comment.*if agree", "tag.*friends",
+        "tag 5", "share this.*see", "share.*to win",
     ]
     caption_lower = caption.lower()
-    for pattern in disallowed:
-        if pattern in caption_lower:
+    for pattern in disallowed_bait_patterns:
+        if re.search(pattern, caption_lower):
             raise ValueError(f"Compliance: engagement bait pattern '{pattern}' detected in caption")
     return True
 
