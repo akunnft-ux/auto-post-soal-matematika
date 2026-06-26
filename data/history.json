@@ -76,5 +76,11 @@
     "jawaban": "60 tahun",
     "topik": "aritmatika_aljabar",
     "tanggal": "2026-06-26"
+  },
+  {
+    "soal": "Tentukan dua angka selanjutnya dari barisan bilangan berikut: 5, 7, 11, 19, 35, ...",
+    "jawaban": "67, 131",
+    "topik": "deret_angka",
+    "tanggal": "2026-06-26"
   }
 ]
