@@ -88,5 +88,11 @@
     "jawaban": "94, 190",
     "topik": "deret_angka",
     "tanggal": "2026-06-27"
+  },
+  {
+    "soal": "Dalam sebuah rapat yang dihadiri oleh 8 orang, akan dipilih 3 orang untuk menjadi ketua, sekretaris, dan bendahara. Jika posisi tersebut tidak boleh dirangkap oleh orang yang sama dan terdapat 2 orang yang harus selalu dipilih karena mereka adalah panitia inti, berapa banyak susunan pengurus yang mungkin terbentuk?",
+    "jawaban": "60",
+    "topik": "peluang_statistika",
+    "tanggal": "2026-06-27"
   }
 ]
