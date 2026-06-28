@@ -100,5 +100,11 @@
     "jawaban": "1,5 meter",
     "topik": "geometri",
     "tanggal": "2026-06-28"
+  },
+  {
+    "soal": "Tentukan angka selanjutnya dari barisan bilangan berikut: 1, 2, 6, 21, 88, ...",
+    "jawaban": "445",
+    "topik": "deret_angka",
+    "tanggal": "2026-06-28"
   }
 ]
