@@ -112,5 +112,11 @@
     "jawaban": "0",
     "topik": "fungsi_grafik",
     "tanggal": "2026-06-29"
+  },
+  {
+    "soal": "Tentukan dua angka selanjutnya dari barisan bilangan berikut: 3, 7, 16, 35, 74, ...",
+    "jawaban": "153, 312",
+    "topik": "deret_angka",
+    "tanggal": "2026-06-29"
   }
 ]
