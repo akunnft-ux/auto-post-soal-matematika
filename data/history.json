@@ -124,5 +124,12 @@
     "jawaban": "10 jam",
     "topik": "aritmatika_aljabar",
     "tanggal": "2026-06-29"
+  },
+  {
+    "tipe": "fakta",
+    "topik": "geometri",
+    "tanggal": "2026-06-29",
+    "judul": "Paradoks Garis Pantai (Coastline Paradox)",
+    "isi_fakta": "Panjang garis pantai suatu wilayah tidak memiliki nilai tetap karena bergantung "
   }
 ]
