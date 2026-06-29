@@ -47,6 +47,22 @@ TOPICS = [
     "fungsi_grafik",
 ]
 
+CONTENT_TYPES = ["soal", "materi", "fakta"]
+
+CONTENT_TYPE_LABELS = {
+    "soal": "SOAL MATEMATIKA",
+    "materi": "MATERI MATEMATIKA",
+    "fakta": "FAKTA MATEMATIKA",
+}
+
+CONTENT_TYPE_HEADER_SUB = {
+    "soal": "CPNS  •  TKA  •  SNBT",
+    "materi": "Belajar Konsep & Rumus",
+    "fakta": "Fakta Menarik",
+}
+
+CONTENT_TYPE_WEIGHTS = [3, 3, 2]  # soal : materi : fakta
+
 TOPIC_LABELS = {
     "deret_angka": "Deret Angka & Pola Bilangan",
     "aritmatika_aljabar": "Aritmatika & Aljabar",
@@ -145,6 +161,22 @@ HOOK_TEMPLATES = [
     "Siap untuk soal hari ini? 🔥",
 ]
 
+HOOK_MATERI = [
+    "Pahami konsep matematika ini! 📖",
+    "Materi penting buat CPNS! 🎯",
+    "Kuasai rumus ini biar makin jago! 💡",
+    "Yuk belajar matematika! 📚",
+    "Rumus ini sering keluar di tes! 🔥",
+]
+
+HOOK_FAKTA = [
+    "Tahukah kamu? 🤔",
+    "Fakta matematika yang mengejutkan! ✨",
+    "Matematika itu penuh kejutan! 🔍",
+    "Unik banget! Cek fakta ini! 😮",
+    "Whoa! Fakta matematika hari ini! ⚡",
+]
+
 CTA_POOL = [
     "Share ke temanmu biar ikut belajar! 📤",
     "Simpan postingan ini untuk latihan! 📌",
@@ -153,33 +185,77 @@ CTA_POOL = [
     "Ayo asah kemampuanmu! ⚡",
 ]
 
+CTA_MATERI = [
+    "Catat rumusnya buat belajar! 📝",
+    "Share biar temanmu paham juga! 📤",
+    "Simpan buat referensi belajar! 📌",
+    "Latihan soal terkait materi ini! 📚",
+]
+
+CTA_FAKTA = [
+    "Bagikan fakta ini ke temanmu! 📤",
+    "Kaget juga ya? Simak terus! 😄",
+    "Follow buat fakta lainnya! 🔔",
+    "Share biar makin banyak yang tahu! 📤",
+]
+
 LEARNING_CONFIG_FILE = "self_learning/learning_config.json"
 
 TOPIC_PROMPTS = {
-    "deret_angka": (
-        "soal Deret Angka atau Pola Bilangan (barisan & deret). "
-        "Contoh: deret Fibonacci, deret aritmatika, deret geometri, pola kuadrat, pola segitiga, dll."
-    ),
-    "aritmatika_aljabar": (
-        "soal Aritmatika atau Aljabar. "
-        "Contoh: perbandingan, kecepatan/jarak/waktu, persamaan linier, sistem persamaan, "
-        "persamaan kuadrat, perbandingan senilai/berbalik nilai, bunga, diskon, skala, dll."
-    ),
-    "peluang_statistika": (
-        "soal Peluang atau Statistika. "
-        "Contoh: peluang kejadian, kombinasi, permutasi, mean/median/modus, "
-        "rata-rata gabungan, diagram, frekuensi, dll."
-    ),
-    "geometri": (
-        "soal Geometri. "
-        "Contoh: luas & keliling bangun datar, volume bangun ruang, "
-        "kesebangunan, teorema Pythagoras, sudut, garis singgung, dll."
-    ),
-    "fungsi_grafik": (
-        "soal Fungsi atau Grafik. "
-        "Contoh: fungsi linier, fungsi kuadrat, gradien, persamaan garis, "
-        "domain/range, komposisi fungsi, invers fungsi, dll."
-    ),
+    "deret_angka": {
+        "soal": "soal Deret Angka atau Pola Bilangan (barisan & deret). "
+                "Contoh: deret Fibonacci, deret aritmatika, deret geometri, pola kuadrat, pola segitiga, dll.",
+        "materi": "MATERI tentang Deret Angka atau Pola Bilangan. "
+                  "Jelaskan konsep barisan & deret (aritmatika, geometri, Fibonacci, pola kuadrat). "
+                  "Sertakan rumus utama dan contoh penerapan singkat.",
+        "fakta": "FAKTA menarik tentang Deret Angka atau Pola Bilangan. "
+                 "Misal: keunikan deret Fibonacci di alam, pola bilangan segitiga Pascal, dll. "
+                 "Beri fakta yang mengejutkan dan edukatif.",
+    },
+    "aritmatika_aljabar": {
+        "soal": "soal Aritmatika atau Aljabar. "
+                "Contoh: perbandingan, kecepatan/jarak/waktu, persamaan linier, sistem persamaan, "
+                "persamaan kuadrat, perbandingan senilai/berbalik nilai, bunga, diskon, skala, dll.",
+        "materi": "MATERI tentang Aritmatika atau Aljabar. "
+                  "Jelaskan konsep seperti persamaan kuadrat, sistem persamaan linier, atau perbandingan. "
+                  "Sertakan rumus utama, langkah penyelesaian, dan contoh.",
+        "fakta": "FAKTA menarik tentang Aritmatika atau Aljabar. "
+                 "Misal: sejarah aljabar, keunikan angka nol, teka-teki matematika terkenal, dll. "
+                 "Beri fakta yang mengejutkan dan edukatif.",
+    },
+    "peluang_statistika": {
+        "soal": "soal Peluang atau Statistika. "
+                "Contoh: peluang kejadian, kombinasi, permutasi, mean/median/modus, "
+                "rata-rata gabungan, diagram, frekuensi, dll.",
+        "materi": "MATERI tentang Peluang atau Statistika. "
+                  "Jelaskan konsep seperti permutasi-kombinasi, peluang kejadian, atau ukuran pemusatan data. "
+                  "Sertakan rumus utama, interpretasi, dan contoh.",
+        "fakta": "FAKTA menarik tentang Peluang atau Statistika. "
+                 "Misal: paradoks Monty Hall, birthday paradox, kesalahan statistik terkenal, dll. "
+                 "Beri fakta yang mengejutkan dan edukatif.",
+    },
+    "geometri": {
+        "soal": "soal Geometri. "
+                "Contoh: luas & keliling bangun datar, volume bangun ruang, "
+                "kesebangunan, teorema Pythagoras, sudut, garis singgung, dll.",
+        "materi": "MATERI tentang Geometri. "
+                  "Jelaskan konsep seperti teorema Pythagoras, kesebangunan, atau rumus volume bangun ruang. "
+                  "Sertakan rumus utama, visualisasi konsep, dan contoh.",
+        "fakta": "FAKTA menarik tentang Geometri. "
+                 "Misal: bilangan phi (π) dan keunikannya, fraktal di alam, geometri non-Euclid, dll. "
+                 "Beri fakta yang mengejutkan dan edukatif.",
+    },
+    "fungsi_grafik": {
+        "soal": "soal Fungsi atau Grafik. "
+                "Contoh: fungsi linier, fungsi kuadrat, gradien, persamaan garis, "
+                "domain/range, komposisi fungsi, invers fungsi, dll.",
+        "materi": "MATERI tentang Fungsi atau Grafik. "
+                  "Jelaskan konsep seperti fungsi kuadrat, komposisi fungsi, atau transformasi grafik. "
+                  "Sertakan rumus utama, sifat-sifat fungsi, dan contoh.",
+        "fakta": "FAKTA menarik tentang Fungsi atau Grafik. "
+                 "Misal: aplikasi fungsi dalam kehidupan nyata, grafik terkenal, keunikan fungsi trigonometri, dll. "
+                 "Beri fakta yang mengejutkan dan edukatif.",
+    },
 }
 
 client = genai.Client(api_key=GEMINI_API_KEY)
@@ -237,14 +313,19 @@ def pick_topic(history: list) -> str:
     return random.choice(available)
 
 
-def generate_soal(topic, history, max_retry=3):
+def pick_content_type() -> str:
+    return random.choices(CONTENT_TYPES, weights=CONTENT_TYPE_WEIGHTS, k=1)[0]
+
+
+def generate_content(topic, content_type, history, max_retry=3):
     history_text = "\n".join(
         f"- {(h['soal'] if isinstance(h, dict) else h)[:80]}"
         for h in history[-20:]
     ) or "(belum ada histori)"
 
-    prompt = f"""
-    Buat 1 {TOPIC_PROMPTS[topic]}
+    if content_type == "soal":
+        prompt = f"""
+    Buat 1 {TOPIC_PROMPTS[topic][content_type]}
     Level: sedang hingga sulit (CPNS / TKA / SNBT).
 
     JANGAN membuat soal yang mirip dengan daftar berikut (histori):
@@ -253,10 +334,38 @@ def generate_soal(topic, history, max_retry=3):
     Jawab HANYA dengan JSON valid, tanpa markdown, tanpa penjelasan tambahan.
     Format:
     {{
+      "tipe": "soal",
       "soal": "teks soal lengkap",
       "pilihan": ["pilihan A", "pilihan B", "pilihan C", "pilihan D"],
       "jawaban": "pilihan yang benar (sama persis dengan teks pilihan)",
       "penjelasan": "penjelasan cara menyelesaikan soal"
+    }}
+    """
+    elif content_type == "materi":
+        prompt = f"""
+    Buat 1 {TOPIC_PROMPTS[topic][content_type]}
+
+    Jawab HANYA dengan JSON valid, tanpa markdown, tanpa penjelasan tambahan.
+    Format:
+    {{
+      "tipe": "materi",
+      "judul": "judul materi singkat dan menarik",
+      "isi_materi": "penjelasan konsep lengkap, mudah dipahami, 2-3 paragraf pendek",
+      "rumus": "rumus utama jika ada (dalam teks, misal: Rumus: a² + b² = c²)",
+      "contoh": "contoh singkat penerapan materi"
+    }}
+    """
+    else:  # fakta
+        prompt = f"""
+    Buat 1 {TOPIC_PROMPTS[topic][content_type]}
+
+    Jawab HANYA dengan JSON valid, tanpa markdown, tanpa penjelasan tambahan.
+    Format:
+    {{
+      "tipe": "fakta",
+      "judul": "judul fakta singkat dan menarik",
+      "isi_fakta": "penjelasan fakta yang menarik dan edukatif, 1-2 paragraf",
+      "sumber": "sumber atau konteks singkat (opsional)"
     }}
     """
 
@@ -269,19 +378,30 @@ def generate_soal(topic, history, max_retry=3):
                     response_mime_type="application/json"
                 ),
             )
-            soal = json.loads(response.text.strip())
+            data = json.loads(response.text.strip())
 
-            required_keys = {"soal", "pilihan", "jawaban", "penjelasan"}
-            if not required_keys.issubset(soal.keys()):
-                raise ValueError("Field JSON tidak lengkap")
-            if not isinstance(soal["pilihan"], list) or len(soal["pilihan"]) != 4:
-                raise ValueError("Pilihan harus array 4 item")
-            if soal["jawaban"] not in soal["pilihan"]:
-                raise ValueError("Jawaban tidak ada di pilihan")
-            if is_soal_duplicate(soal["soal"], history):
-                raise ValueError("Soal duplikat dengan histori")
+            if data.get("tipe") == "soal":
+                required_keys = {"soal", "pilihan", "jawaban", "penjelasan"}
+                if not required_keys.issubset(data.keys()):
+                    raise ValueError("Field soal tidak lengkap")
+                if not isinstance(data["pilihan"], list) or len(data["pilihan"]) != 4:
+                    raise ValueError("Pilihan harus array 4 item")
+                if data["jawaban"] not in data["pilihan"]:
+                    raise ValueError("Jawaban tidak ada di pilihan")
+                if is_soal_duplicate(data["soal"], history):
+                    raise ValueError("Soal duplikat dengan histori")
+            elif data.get("tipe") == "materi":
+                required_keys = {"judul", "isi_materi", "rumus", "contoh"}
+                if not required_keys.issubset(data.keys()):
+                    raise ValueError("Field materi tidak lengkap")
+            elif data.get("tipe") == "fakta":
+                required_keys = {"judul", "isi_fakta"}
+                if not required_keys.issubset(data.keys()):
+                    raise ValueError("Field fakta tidak lengkap")
+            else:
+                raise ValueError(f"Tipe konten tidak dikenal: {data.get('tipe')}")
 
-            return soal
+            return data
         except Exception as e:
             print(f"[Percobaan {attempt}/{max_retry}] Gagal: {e}")
 
@@ -308,7 +428,125 @@ def draw_rounded_rect(draw, xy, radius, fill):
     draw.rounded_rectangle([x1, y1, x2, y2], radius=radius, fill=fill)
 
 
-def buat_gambar_soal(soal_data, topic, filename="soal/soal_hari_ini.png"):
+def render_soal(draw, data, topic, margin, usable_width, font_soal, font_pilihan, font_badge, topic_accent, topic_bg, badge_y, header_h):
+    y = badge_y + 80
+    soal_lines = wrap_text(data["soal"], font_soal, draw, usable_width)
+    for line in soal_lines:
+        draw.text((margin, y), line, fill=COLOR_TEXT, font=font_soal)
+        y += 52
+    y += 30
+    for i, p in enumerate(data["pilihan"]):
+        letter = chr(65 + i)
+        option_text = f"{letter}.  {p}"
+        option_lines = wrap_text(option_text, font_pilihan, draw, usable_width - 50)
+        bg_y = y - 8
+        text_block_h = len(option_lines) * 44 + 18
+        draw_rounded_rect(draw, [margin, bg_y, IMG_WIDTH - margin, bg_y + text_block_h], radius=14, fill=COLOR_WHITE)
+        draw.rounded_rectangle([margin + 2, bg_y + 2, IMG_WIDTH - margin - 2, bg_y + text_block_h - 2], radius=12, fill=None, outline=topic_bg, width=2)
+        draw.rounded_rectangle([margin, bg_y, margin + 8, bg_y + text_block_h], radius=4, fill=topic_accent)
+        for line in option_lines:
+            draw.text((margin + 30, y), line, fill=COLOR_TEXT, font=font_pilihan)
+            y += 44
+        y += 14
+    return y
+
+
+def render_materi(draw, data, topic, margin, usable_width, font_soal, font_materi_judul, font_materi_body, font_label, topic_accent, topic_bg, badge_y, header_h):
+    y = badge_y + 60
+
+    font_rumus = ImageFont.truetype(FONT_BOLD, 28)
+
+    # ── Icon + Label ──
+    label = "📖 MATERI"
+    lw = draw.textlength(label, font=font_label)
+    draw_rounded_rect(draw, [margin, y, margin + lw + 24, y + 34], radius=6, fill=topic_accent)
+    draw.text((margin + 12, y + 17), label, fill=COLOR_WHITE, anchor="lm", font=font_label)
+    y += 50
+
+    # ── Judul ──
+    judul_lines = wrap_text(data["judul"], font_materi_judul, draw, usable_width)
+    for line in judul_lines:
+        draw.text((margin, y), line, fill=COLOR_NAVY, font=font_materi_judul)
+        y += 42
+    y += 10
+
+    # ── Isi Materi ──
+    isi_lines = wrap_text(data["isi_materi"], font_materi_body, draw, usable_width)
+    for line in isi_lines:
+        draw.text((margin, y), line, fill=COLOR_TEXT, font=font_materi_body)
+        y += 36
+    y += 12
+
+    # ── Rumus box ──
+    rumus_text = data.get("rumus", "")
+    if rumus_text:
+        rumus_pad = 14
+        rumus_lines = wrap_text(rumus_text, font_rumus, draw, usable_width - 2 * rumus_pad)
+        rumus_h = len(rumus_lines) * 36 + 2 * rumus_pad
+        draw_rounded_rect(draw, [margin, y, IMG_WIDTH - margin, y + rumus_h], radius=10, fill=tuple(min(c + 220, 255) for c in topic_accent))
+        draw.rounded_rectangle([margin, y, IMG_WIDTH - margin, y + rumus_h], radius=10, fill=None, outline=topic_accent, width=2)
+        draw.text((margin + 12, y + rumus_pad), "📐", fill=topic_accent, font=font_label)
+        rumus_y = y + rumus_pad + 4
+        for line in rumus_lines:
+            draw.text((margin + 44, rumus_y), line, fill=COLOR_NAVY, font=font_rumus)
+            rumus_y += 36
+        y += rumus_h + 20
+
+    # ── Contoh ──
+    contoh_text = data.get("contoh", "")
+    if contoh_text:
+        c_label = "💡 Contoh"
+        draw.text((margin, y), c_label, fill=topic_accent, font=font_materi_judul)
+        y += 38
+        contoh_lines = wrap_text(contoh_text, font_materi_body, draw, usable_width)
+        for line in contoh_lines:
+            draw.text((margin, y), line, fill=COLOR_TEXT, font=font_materi_body)
+            y += 36
+
+    return y
+
+
+def render_fakta(draw, data, topic, margin, usable_width, font_soal, font_materi_judul, font_materi_body, font_label, topic_accent, topic_bg, badge_y, header_h):
+    y = badge_y + 60
+
+    # ── Icon + Label ──
+    label = "✨ FAKTA"
+    lw = draw.textlength(label, font=font_label)
+    draw_rounded_rect(draw, [margin, y, margin + lw + 24, y + 34], radius=6, fill=topic_accent)
+    draw.text((margin + 12, y + 17), label, fill=COLOR_WHITE, anchor="lm", font=font_label)
+    y += 55
+
+    # ── Judul ──
+    judul_lines = wrap_text(data["judul"], font_materi_judul, draw, usable_width)
+    for line in judul_lines:
+        draw.text((margin, y), line, fill=COLOR_NAVY, font=font_materi_judul)
+        y += 42
+    y += 10
+
+    # ── Decorative large quote mark ──
+    draw.text((margin, y), "❝", fill=topic_accent, font=ImageFont.truetype(FONT_BOLD, 60))
+    y += 10
+
+    # ── Isi Fakta ──
+    isi_lines = wrap_text(data["isi_fakta"], font_materi_body, draw, usable_width)
+    for line in isi_lines:
+        draw.text((margin + 20, y), line, fill=COLOR_TEXT, font=font_materi_body)
+        y += 36
+    y += 5
+
+    # ── Closing quote ──
+    draw.text((IMG_WIDTH - margin - 20, y), "❞", fill=topic_accent, font=ImageFont.truetype(FONT_BOLD, 60), anchor="rt")
+
+    # ── Sumber ──
+    sumber = data.get("sumber", "")
+    if sumber:
+        y += 50
+        draw.text((margin, y), f"📌 {sumber}", fill=COLOR_FOOTER, font=ImageFont.truetype(FONT_REGULAR, 22))
+
+    return y
+
+
+def buat_gambar_konten(data, topic, content_type, filename="soal/konten_hari_ini.png"):
     os.makedirs(os.path.dirname(filename), exist_ok=True)
 
     img = Image.new("RGB", (IMG_WIDTH, IMG_HEIGHT), COLOR_BG)
@@ -326,6 +564,9 @@ def buat_gambar_soal(soal_data, topic, filename="soal/soal_hari_ini.png"):
     font_pilihan = ImageFont.truetype(FONT_REGULAR, 30)
     font_footer = ImageFont.truetype(FONT_REGULAR, 22)
     font_icon = ImageFont.truetype(FONT_BOLD, 28)
+    font_materi_judul = ImageFont.truetype(FONT_BOLD, 30)
+    font_materi_body = ImageFont.truetype(FONT_REGULAR, 26)
+    font_label = ImageFont.truetype(FONT_BOLD, 22)
 
     margin = 60
     usable_width = IMG_WIDTH - 2 * margin
@@ -333,12 +574,14 @@ def buat_gambar_soal(soal_data, topic, filename="soal/soal_hari_ini.png"):
 
     topic_accent, topic_bg = TOPIC_COLORS.get(topic, (COLOR_NAVY, (220, 220, 220)))
 
-    # ── Header ──
+    # ── Common Header ──
     draw.rounded_rectangle([(0, 0), (IMG_WIDTH, header_h)], radius=0, fill=COLOR_NAVY)
     draw.rounded_rectangle([(0, header_h - 8), (IMG_WIDTH, header_h + 4)], radius=0, fill=COLOR_ORANGE)
 
-    draw.text((IMG_WIDTH / 2, 55), "SOAL MATEMATIKA", fill=COLOR_WHITE, anchor="mm", font=font_heading)
-    draw.text((IMG_WIDTH / 2, 115), "CPNS  •  TKA  •  SNBT", fill=(255, 200, 150), anchor="mm", font=font_subtitle)
+    header_title = CONTENT_TYPE_LABELS.get(content_type, "SOAL MATEMATIKA")
+    header_sub = CONTENT_TYPE_HEADER_SUB.get(content_type, "CPNS  •  TKA  •  SNBT")
+    draw.text((IMG_WIDTH / 2, 55), header_title, fill=COLOR_WHITE, anchor="mm", font=font_heading)
+    draw.text((IMG_WIDTH / 2, 115), header_sub, fill=(255, 200, 150), anchor="mm", font=font_subtitle)
 
     # Sticky note corner
     sticky_x = IMG_WIDTH - 120
@@ -360,43 +603,18 @@ def buat_gambar_soal(soal_data, topic, filename="soal/soal_hari_ini.png"):
     draw.rounded_rectangle([badge_x + 4, badge_y + 4, badge_x + badge_w - 4, badge_y + 38], radius=17, fill=None, outline=COLOR_WHITE, width=2)
     draw.text((IMG_WIDTH / 2, badge_y + 21), badge_label, fill=COLOR_WHITE, anchor="mm", font=font_badge)
 
-    # ── Soal text ──
-    y = badge_y + 80
-
-    soal_lines = wrap_text(soal_data["soal"], font_soal, draw, usable_width)
-    for line in soal_lines:
-        draw.text((margin, y), line, fill=COLOR_TEXT, font=font_soal)
-        y += 52
-
-    y += 30
-
-    # ── Pilihan ──
-    for i, p in enumerate(soal_data["pilihan"]):
-        letter = chr(65 + i)
-        option_text = f"{letter}.  {p}"
-
-        option_lines = wrap_text(option_text, font_pilihan, draw, usable_width - 50)
-
-        bg_y = y - 8
-        text_block_h = len(option_lines) * 44 + 18
-        draw_rounded_rect(draw, [margin, bg_y, IMG_WIDTH - margin, bg_y + text_block_h], radius=14, fill=COLOR_WHITE)
-        draw.rounded_rectangle(
-            [margin + 2, bg_y + 2, IMG_WIDTH - margin - 2, bg_y + text_block_h - 2],
-            radius=12, fill=None, outline=topic_bg, width=2
-        )
-        draw.rounded_rectangle(
-            [margin, bg_y, margin + 8, bg_y + text_block_h],
-            radius=4, fill=topic_accent
-        )
-
-        for line in option_lines:
-            draw.text((margin + 30, y), line, fill=COLOR_TEXT, font=font_pilihan)
-            y += 44
-
-        y += 14
+    # ── Content body ──
+    if content_type == "soal":
+        y = render_soal(draw, data, topic, margin, usable_width, font_soal, font_pilihan, font_badge, topic_accent, topic_bg, badge_y, header_h)
+    elif content_type == "materi":
+        y = render_materi(draw, data, topic, margin, usable_width, font_soal, font_materi_judul, font_materi_body, font_label, topic_accent, topic_bg, badge_y, header_h)
+    else:  # fakta
+        y = render_fakta(draw, data, topic, margin, usable_width, font_soal, font_materi_judul, font_materi_body, font_label, topic_accent, topic_bg, badge_y, header_h)
 
     # ── Footer ──
-    footer_y = IMG_HEIGHT - 80
+    footer_y = min(IMG_HEIGHT - 80, y + 60)
+    if footer_y > IMG_HEIGHT - 80:
+        footer_y = IMG_HEIGHT - 80
     draw.line([(margin, footer_y), (IMG_WIDTH - margin, footer_y)], fill=topic_bg, width=3)
 
     deco_icon = random.choice(DODDLE_ICONS)
@@ -451,26 +669,57 @@ def compliance_check(caption):
     return True
 
 
-def format_caption(soal_data: dict, topic: str) -> str:
+def format_caption(data: dict, topic: str) -> str:
     label = TOPIC_LABELS.get(topic, topic)
     emoji = random.choice(EMOJI_POOL)
     tags = " ".join(random.sample(HASHTAG_POOL, k=random.randint(2, 3)))
-    op = "\n".join(f"{chr(65 + i)}. {p}" for i, p in enumerate(soal_data["pilihan"]))
+    content_type = data.get("tipe", "soal")
 
-    hook = random.choice(HOOK_TEMPLATES)
-    cta = random.choice(CTA_POOL)
+    if content_type == "soal":
+        hook = random.choice(HOOK_TEMPLATES)
+        cta = random.choice(CTA_POOL)
+        op = "\n".join(f"{chr(65 + i)}. {p}" for i, p in enumerate(data["pilihan"]))
+        templates = [
+            f"{{hook}}\n\n{{emoji}} {{label}}\n\n{{soal}}\n\n{{pilihan}}\n\n{{cta}}\n\n{{tags}}",
+            f"{{hook}}\n\n{{label}}\n\n{{soal}}\n\n{{emoji}} {{pilihan}}\n\n{{cta}}\n\n{{tags}}",
+            f"{{hook}}\n\n{{emoji}} Latihan {{label}}\n\n{{soal}}\n\n{{pilihan}}\n\n{{cta}}\n\n{{tags}}",
+            f"{{hook}}\n\n{{soal}}\n\n{{pilihan}}\n\n{{cta}}\n\n{{tags}}",
+        ]
+        template = random.choice(templates)
+        caption = template.format(
+            hook=hook, emoji=emoji, label=label,
+            soal=data["soal"], pilihan=op, cta=cta, tags=tags,
+        )
+    elif content_type == "materi":
+        hook = random.choice(HOOK_MATERI)
+        cta = random.choice(CTA_MATERI)
+        templates = [
+            f"{{hook}}\n\n{{emoji}} {{label}}\n\n**{{judul}}**\n\n{{isi}}\n\n📐 {{rumus}}\n\n💡 {{contoh}}\n\n{{cta}}\n\n{{tags}}",
+            f"{{hook}}\n\n{{emoji}} {{label}}\n\n{{isi}}\n\n📐 Rumus: {{rumus}}\n\n{{cta}}\n\n{{tags}}",
+            f"📚 {{label}}\n\n**{{judul}}**\n\n{{isi}}\n\n{{cta}}\n\n{{tags}}",
+        ]
+        template = random.choice(templates)
+        caption = template.format(
+            hook=hook, emoji=emoji, label=label,
+            judul=data["judul"], isi=data["isi_materi"],
+            rumus=data.get("rumus", ""), contoh=data.get("contoh", ""),
+            cta=cta, tags=tags,
+        )
+    else:  # fakta
+        hook = random.choice(HOOK_FAKTA)
+        cta = random.choice(CTA_FAKTA)
+        templates = [
+            f"{{hook}}\n\n{{emoji}} {{label}}\n\n**{{judul}}**\n\n{{isi}}\n\n{{cta}}\n\n{{tags}}",
+            f"{{hook}}\n\n{{isi}}\n\n{{emoji}} {{label}}\n\n{{cta}}\n\n{{tags}}",
+            f"✨ {{label}}\n\n**{{judul}}**\n\n{{isi}}\n\n{{cta}}\n\n{{tags}}",
+        ]
+        template = random.choice(templates)
+        caption = template.format(
+            hook=hook, emoji=emoji, label=label,
+            judul=data["judul"], isi=data["isi_fakta"],
+            cta=cta, tags=tags,
+        )
 
-    templates = [
-        f"{{hook}}\n\n{{emoji}} {{label}}\n\n{{soal}}\n\n{{pilihan}}\n\n{{cta}}\n\n{{tags}}",
-        f"{{hook}}\n\n{{label}}\n\n{{soal}}\n\n{{emoji}} {{pilihan}}\n\n{{cta}}\n\n{{tags}}",
-        f"{{hook}}\n\n{{emoji}} Latihan {{label}}\n\n{{soal}}\n\n{{pilihan}}\n\n{{cta}}\n\n{{tags}}",
-        f"{{hook}}\n\n{{soal}}\n\n{{pilihan}}\n\n{{cta}}\n\n{{tags}}",
-    ]
-    template = random.choice(templates)
-    caption = template.format(
-        hook=hook, emoji=emoji, label=label,
-        soal=soal_data["soal"], pilihan=op, cta=cta, tags=tags,
-    )
     return caption
 
 
@@ -640,8 +889,26 @@ def post_to_telegram(image_path, caption):
     print(f"[OK] Sent to Telegram. Message ID: {msg_id}")
 
 
+def make_history_item(data: dict, topic: str, content_type: str) -> dict:
+    item = {
+        "tipe": content_type,
+        "topik": topic,
+        "tanggal": date.today().isoformat(),
+    }
+    if content_type == "soal":
+        item["soal"] = data["soal"]
+        item["jawaban"] = data["jawaban"]
+    elif content_type == "materi":
+        item["judul"] = data["judul"]
+        item["isi_materi"] = data["isi_materi"][:80]
+    else:
+        item["judul"] = data["judul"]
+        item["isi_fakta"] = data["isi_fakta"][:80]
+    return item
+
+
 def main():
-    print("Memulai generate soal...")
+    print("Memulai generate konten...")
 
     load_and_apply_learning_config()
     process_telegram_csv()
@@ -652,16 +919,24 @@ def main():
     topic = pick_topic(history)
     print(f"Topik terpilih: {topic} ({TOPIC_LABELS.get(topic, topic)})")
 
-    soal = generate_soal(topic, history)
-    if not soal:
-        raise RuntimeError("Gagal generate soal setelah beberapa percobaan")
+    content_type = pick_content_type()
+    print(f"Tipe konten: {content_type.upper()}")
 
-    print(f"Soal: {soal['soal'][:60]}...")
+    data = generate_content(topic, content_type, history)
+    if not data:
+        raise RuntimeError("Gagal generate konten setelah beberapa percobaan")
 
-    gambar = buat_gambar_soal(soal, topic)
+    if content_type == "soal":
+        print(f"Soal: {data['soal'][:60]}...")
+    elif content_type == "materi":
+        print(f"Materi: {data['judul']}")
+    else:
+        print(f"Fakta: {data['judul']}")
+
+    gambar = buat_gambar_konten(data, topic, content_type)
     print(f"Gambar: {gambar}")
 
-    caption = format_caption(soal, topic)
+    caption = format_caption(data, topic)
     compliance_check(caption)
     post_mode = check_telegram_mode()
     print(f"[INFO] Post mode: {post_mode.upper()}")
@@ -671,12 +946,7 @@ def main():
         result = post_to_facebook(gambar, caption)
         print(f"Posting berhasil! Post ID: {result.get('id', 'unknown')}")
 
-    history_item = {
-        "soal": soal["soal"],
-        "jawaban": soal["jawaban"],
-        "topik": topic,
-        "tanggal": date.today().isoformat(),
-    }
+    history_item = make_history_item(data, topic, content_type)
     history.append(history_item)
     save_history(history)
 
