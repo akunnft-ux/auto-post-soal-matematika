@@ -71,6 +71,70 @@ FOOTER_POOL = [
     "Selamat belajar",
 ]
 
+_topic_image_cache = {}
+
+
+def get_topic_image(topic, size=200, opacity=0.15):
+    key = (topic, size)
+    if key not in _topic_image_cache:
+        img = Image.new("RGBA", (size, size), (0, 0, 0, 0))
+        draw = ImageDraw.Draw(img)
+        accent, _ = TOPIC_COLORS.get(topic, ((100, 100, 100), (220, 220, 220)))
+        accent_rgba = (*accent, 255)
+        light_rgba = (*accent, 60)
+        cx, cy = size // 2, size // 2
+        r = size // 2 - 12
+
+        if topic == "geometri":
+            pts = [(cx - r, cy + r), (cx + r, cy + r), (cx - r, cy - r)]
+            draw.polygon(pts, fill=light_rgba, outline=accent_rgba, width=3)
+            draw.text((cx - r - 10, cy + r - 8), "a", fill=accent_rgba, anchor="rb")
+            draw.text((cx + r + 10, cy + r - 8), "b", fill=accent_rgba, anchor="lb")
+            draw.text((cx - r - 10, cy - r + 8), "c", fill=accent_rgba, anchor="rt")
+
+        elif topic == "fungsi_grafik":
+            draw.line([(12, cy), (size - 12, cy)], fill=accent_rgba, width=2)
+            draw.line([(cx, 12), (cx, size - 12)], fill=accent_rgba, width=2)
+            arr = [(cx + int(x / r * r * 0.85), cy - int((x / r) ** 2 * r * 0.75)) for x in range(-r, r + 1)]
+            draw.line(arr, fill=accent_rgba, width=3)
+
+        elif topic == "peluang_statistika":
+            bw = r // 4
+            gap = 8
+            heights = [int(r * 0.75), int(r * 0.95), int(r * 0.55)]
+            colors = [(*accent, 200), (*accent, 220), (*accent, 150)]
+            for i in range(3):
+                x1 = cx - r + i * (bw + gap)
+                y1 = cy + r
+                y2 = y1 - heights[i]
+                draw.rectangle([x1, y2, x1 + bw, y1], fill=colors[i], outline=accent_rgba, width=2)
+
+        elif topic == "deret_angka":
+            draw.line([(15, cy), (size - 15, cy)], fill=accent_rgba, width=3)
+            spacing = 2 * r // 5
+            dot_rad = 5
+            for i in range(5):
+                px = cx - 2 * spacing + i * spacing
+                dr = dot_rad + i
+                draw.ellipse([px - dr, cy - dr, px + dr, cy + dr], fill=accent_rgba)
+
+        elif topic == "aritmatika_aljabar":
+            draw.line([(cx - r, cy + 10), (cx + r, cy + 10)], fill=accent_rgba, width=3)
+            draw.line([(cx - r, cy + 10), (cx - r, cy - 30)], fill=accent_rgba, width=2)
+            draw.line([(cx + r, cy + 10), (cx + r, cy - 30)], fill=accent_rgba, width=2)
+            draw.polygon([(cx - 7, cy + 10), (cx + 7, cy + 10), (cx, cy + 22)], fill=accent_rgba)
+            draw.text((cx - r, cy - 40), "x+5=10", fill=accent_rgba, anchor="mt", font=ImageFont.truetype(FONT_BOLD, 16))
+
+        _topic_image_cache[key] = img
+    else:
+        img = _topic_image_cache[key].copy()
+
+    if opacity < 1.0:
+        alpha = img.split()[3]
+        alpha = alpha.point(lambda p: int(p * opacity))
+        img.putalpha(alpha)
+    return img
+
 HOOK_TEMPLATES = [
     "Coba soal matematika ini! 🧐",
     "90% orang salah jawab. Kamu bisa? ⚡",
@@ -249,6 +313,11 @@ def buat_gambar_soal(soal_data, topic, filename="soal/soal_hari_ini.png"):
 
     img = Image.new("RGB", (IMG_WIDTH, IMG_HEIGHT), COLOR_BG)
     draw = ImageDraw.Draw(img)
+
+    topic_img = get_topic_image(topic, size=240, opacity=0.12)
+    wx = IMG_WIDTH - 240 - 40
+    wy = IMG_HEIGHT - 240 - 60
+    img.paste(topic_img, (wx, wy), topic_img)
 
     font_heading = ImageFont.truetype(FONT_BOLD, 48)
     font_subtitle = ImageFont.truetype(FONT_REGULAR, 26)
