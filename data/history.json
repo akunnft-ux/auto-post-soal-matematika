@@ -106,5 +106,11 @@
     "jawaban": "445",
     "topik": "deret_angka",
     "tanggal": "2026-06-28"
+  },
+  {
+    "soal": "Diketahui fungsi f(x) = x² - 4x + 3. Jika g(x) = ax + b, dan diketahui (f o g)(x) = x² + 2x, maka nilai dari a + b adalah...",
+    "jawaban": "0",
+    "topik": "fungsi_grafik",
+    "tanggal": "2026-06-29"
   }
 ]
