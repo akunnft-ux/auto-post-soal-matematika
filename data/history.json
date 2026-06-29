@@ -118,5 +118,11 @@
     "jawaban": "153, 312",
     "topik": "deret_angka",
     "tanggal": "2026-06-29"
+  },
+  {
+    "soal": "Sebuah perusahaan memiliki dua jenis mesin, yaitu mesin A dan mesin B. Jika kedua mesin bekerja bersama-sama, produksi akan selesai dalam 6 jam. Namun, jika mesin A bekerja sendiri, produksi selesai 5 jam lebih cepat daripada jika mesin B bekerja sendiri. Berapa waktu yang dibutuhkan jika hanya mesin A yang bekerja?",
+    "jawaban": "10 jam",
+    "topik": "aritmatika_aljabar",
+    "tanggal": "2026-06-29"
   }
 ]
