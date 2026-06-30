@@ -131,5 +131,12 @@
     "tanggal": "2026-06-29",
     "judul": "Paradoks Garis Pantai (Coastline Paradox)",
     "isi_fakta": "Panjang garis pantai suatu wilayah tidak memiliki nilai tetap karena bergantung "
+  },
+  {
+    "tipe": "fakta",
+    "topik": "aritmatika_aljabar",
+    "tanggal": "2026-06-30",
+    "judul": "Asal-usul Kata Aljabar",
+    "isi_fakta": "Kata 'aljabar' berasal dari judul buku 'Al-Kitab al-Mukhtasar fi Hisab al-Jabr w"
   }
 ]
