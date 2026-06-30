@@ -319,7 +319,7 @@ def pick_content_type() -> str:
 
 def generate_content(topic, content_type, history, max_retry=3):
     history_text = "\n".join(
-        f"- {(h['soal'] if isinstance(h, dict) else h)[:80]}"
+        f"- {(h.get('soal') or h.get('judul') or str(h))[:80]}"
         for h in history[-20:]
     ) or "(belum ada histori)"
 
