@@ -409,6 +409,7 @@ def generate_content(topic, content_type, history, max_retry=3):
 
 
 def wrap_text(text, font, draw, max_width):
+    text = text.replace("\n", " ")
     words = text.split(" ")
     lines, current = [], ""
     for word in words:
