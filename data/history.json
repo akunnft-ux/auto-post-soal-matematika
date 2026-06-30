@@ -138,5 +138,12 @@
     "tanggal": "2026-06-30",
     "judul": "Asal-usul Kata Aljabar",
     "isi_fakta": "Kata 'aljabar' berasal dari judul buku 'Al-Kitab al-Mukhtasar fi Hisab al-Jabr w"
+  },
+  {
+    "tipe": "fakta",
+    "topik": "peluang_statistika",
+    "tanggal": "2026-06-30",
+    "judul": "Paradoks Ulang Tahun (Birthday Paradox)",
+    "isi_fakta": "Dalam sebuah kelompok yang hanya terdiri dari 23 orang, kemungkinan setidaknya a"
   }
 ]
