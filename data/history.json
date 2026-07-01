@@ -145,5 +145,12 @@
     "tanggal": "2026-06-30",
     "judul": "Paradoks Ulang Tahun (Birthday Paradox)",
     "isi_fakta": "Dalam sebuah kelompok yang hanya terdiri dari 23 orang, kemungkinan setidaknya a"
+  },
+  {
+    "tipe": "soal",
+    "topik": "deret_angka",
+    "tanggal": "2026-07-01",
+    "soal": "Tentukan angka selanjutnya dari barisan bilangan berikut: 2, 6, 14, 30, 62, ...",
+    "jawaban": "126"
   }
 ]
