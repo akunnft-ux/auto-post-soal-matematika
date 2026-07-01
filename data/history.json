@@ -152,5 +152,12 @@
     "tanggal": "2026-07-01",
     "soal": "Tentukan angka selanjutnya dari barisan bilangan berikut: 2, 6, 14, 30, 62, ...",
     "jawaban": "126"
+  },
+  {
+    "tipe": "materi",
+    "topik": "geometri",
+    "tanggal": "2026-07-01",
+    "judul": "Memahami Teorema Pythagoras",
+    "isi_materi": "Teorema Pythagoras adalah aturan dasar dalam geometri yang berlaku khusus untuk "
   }
 ]
