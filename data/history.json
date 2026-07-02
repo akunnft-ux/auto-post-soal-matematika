@@ -180,5 +180,12 @@
     "tanggal": "2026-07-02",
     "judul": "Memahami Ukuran Pemusatan Data: Mean, Median, dan Modus",
     "isi_materi": "Ukuran pemusatan data adalah metode statistik untuk menentukan titik pusat dari "
+  },
+  {
+    "tipe": "materi",
+    "topik": "deret_angka",
+    "tanggal": "2026-07-02",
+    "judul": "Menguasai Pola Bilangan dan Deret",
+    "isi_materi": "Barisan bilangan adalah kumpulan angka yang disusun berdasarkan aturan tertentu."
   }
 ]
