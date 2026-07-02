@@ -166,5 +166,12 @@
     "tanggal": "2026-07-01",
     "soal": "Sebuah bak air dapat diisi penuh oleh keran A dalam 12 menit, keran B dalam 15 menit, dan keran C dalam 20 menit. Jika ketiga keran dibuka bersama-sama selama 2 menit, kemudian keran A ditutup dan pengisian dilanjutkan oleh keran B dan C saja hingga penuh, berapa menit total waktu yang dibutuhkan untuk mengisi bak tersebut sampai penuh?",
     "jawaban": "8 menit"
+  },
+  {
+    "tipe": "materi",
+    "topik": "aritmatika_aljabar",
+    "tanggal": "2026-07-02",
+    "judul": "Memahami Persamaan Kuadrat",
+    "isi_materi": "Persamaan kuadrat adalah persamaan polinomial orde dua dengan bentuk umum ax² + "
   }
 ]
