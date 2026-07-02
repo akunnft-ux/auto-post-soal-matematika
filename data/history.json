@@ -173,5 +173,12 @@
     "tanggal": "2026-07-02",
     "judul": "Memahami Persamaan Kuadrat",
     "isi_materi": "Persamaan kuadrat adalah persamaan polinomial orde dua dengan bentuk umum ax² + "
+  },
+  {
+    "tipe": "materi",
+    "topik": "peluang_statistika",
+    "tanggal": "2026-07-02",
+    "judul": "Memahami Ukuran Pemusatan Data: Mean, Median, dan Modus",
+    "isi_materi": "Ukuran pemusatan data adalah metode statistik untuk menentukan titik pusat dari "
   }
 ]
