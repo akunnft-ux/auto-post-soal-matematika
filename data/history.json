@@ -229,5 +229,12 @@
     "tanggal": "2026-07-03",
     "soal": "Sebuah balok memiliki panjang, lebar, dan tinggi dengan perbandingan 4 : 3 : 2. Jika luas permukaan balok tersebut adalah 468 cm², berapakah volume balok tersebut dalam cm³?",
     "jawaban": "648"
+  },
+  {
+    "tipe": "soal",
+    "topik": "fungsi_grafik",
+    "tanggal": "2026-07-03",
+    "soal": "Diketahui fungsi kuadrat f(x) = ax² + bx + c memiliki titik puncak (2, -1) dan melalui titik (0, 3). Jika fungsi tersebut digeser ke kanan sejauh 2 satuan dan ke bawah sejauh 3 satuan, maka persamaan fungsi baru g(x) adalah...",
+    "jawaban": "g(x) = x² - 8x + 13"
   }
 ]
