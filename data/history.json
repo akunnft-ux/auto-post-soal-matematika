@@ -222,5 +222,12 @@
     "tanggal": "2026-07-03",
     "judul": "Memahami Persamaan Kuadrat",
     "isi_materi": "Persamaan kuadrat adalah persamaan polinomial orde dua yang memiliki bentuk umum"
+  },
+  {
+    "tipe": "soal",
+    "topik": "geometri",
+    "tanggal": "2026-07-03",
+    "soal": "Sebuah balok memiliki panjang, lebar, dan tinggi dengan perbandingan 4 : 3 : 2. Jika luas permukaan balok tersebut adalah 468 cm², berapakah volume balok tersebut dalam cm³?",
+    "jawaban": "648"
   }
 ]
