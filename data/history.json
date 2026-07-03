@@ -215,5 +215,12 @@
     "tanggal": "2026-07-03",
     "soal": "Diketahui f(x) = 2x - 3 dan (g ∘ f)(x) = 4x² - 16x + 17. Nilai dari g(-1) adalah...",
     "jawaban": "5"
+  },
+  {
+    "tipe": "materi",
+    "topik": "aritmatika_aljabar",
+    "tanggal": "2026-07-03",
+    "judul": "Memahami Persamaan Kuadrat",
+    "isi_materi": "Persamaan kuadrat adalah persamaan polinomial orde dua yang memiliki bentuk umum"
   }
 ]
