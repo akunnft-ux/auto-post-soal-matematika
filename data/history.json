@@ -208,5 +208,12 @@
     "tanggal": "2026-07-03",
     "judul": "Paradoks Ulang Tahun",
     "isi_fakta": "Paradoks Ulang Tahun menyatakan bahwa dalam sebuah ruangan yang hanya berisi 23 "
+  },
+  {
+    "tipe": "soal",
+    "topik": "fungsi_grafik",
+    "tanggal": "2026-07-03",
+    "soal": "Diketahui f(x) = 2x - 3 dan (g ∘ f)(x) = 4x² - 16x + 17. Nilai dari g(-1) adalah...",
+    "jawaban": "5"
   }
 ]
