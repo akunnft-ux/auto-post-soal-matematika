@@ -201,5 +201,12 @@
     "tanggal": "2026-07-03",
     "soal": "Tentukan dua angka selanjutnya dari barisan bilangan berikut: 2, 3, 7, 16, 32, ...",
     "jawaban": "57, 93"
+  },
+  {
+    "tipe": "fakta",
+    "topik": "peluang_statistika",
+    "tanggal": "2026-07-03",
+    "judul": "Paradoks Ulang Tahun",
+    "isi_fakta": "Paradoks Ulang Tahun menyatakan bahwa dalam sebuah ruangan yang hanya berisi 23 "
   }
 ]
