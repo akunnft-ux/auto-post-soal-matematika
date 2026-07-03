@@ -194,5 +194,12 @@
     "tanggal": "2026-07-02",
     "judul": "Memahami Fungsi Kuadrat dan Grafiknya",
     "isi_materi": "Fungsi kuadrat adalah fungsi polinomial tingkat dua yang grafiknya membentuk kur"
+  },
+  {
+    "tipe": "soal",
+    "topik": "deret_angka",
+    "tanggal": "2026-07-03",
+    "soal": "Tentukan dua angka selanjutnya dari barisan bilangan berikut: 2, 3, 7, 16, 32, ...",
+    "jawaban": "57, 93"
   }
 ]
