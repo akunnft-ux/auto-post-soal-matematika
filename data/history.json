@@ -243,5 +243,13 @@
     "tanggal": "2026-07-04",
     "judul": "Paradoks Ulang Tahun (Birthday Paradox)",
     "isi_fakta": "Secara intuitif, banyak orang mengira butuh ratusan orang dalam satu ruangan aga"
+  },
+  {
+    "kategori": "cpns",
+    "tipe": "fakta",
+    "topik": "teori_bilangan",
+    "tanggal": "2026-07-04",
+    "judul": "Fenomena Bilangan Harshad dan Sifat Keterbagiannya",
+    "isi_fakta": "Dalam teori bilangan, terdapat kelompok angka unik yang disebut Bilangan Harshad"
   }
 ]
