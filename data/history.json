@@ -251,5 +251,13 @@
     "tanggal": "2026-07-04",
     "judul": "Fenomena Bilangan Harshad dan Sifat Keterbagiannya",
     "isi_fakta": "Dalam teori bilangan, terdapat kelompok angka unik yang disebut Bilangan Harshad"
+  },
+  {
+    "kategori": "sekolah_smp",
+    "tipe": "soal",
+    "topik": "aritmatika_aljabar",
+    "tanggal": "2026-07-04",
+    "soal": "Seorang kurir paket harus mengirimkan barang ke dua lokasi berbeda, yaitu Desa A dan Desa B. Kecepatan rata-rata motor kurir tersebut adalah 45 km/jam. Jarak dari gudang ke Desa A adalah 30 km, kemudian dari Desa A lanjut ke Desa B sejauh 45 km. Jika kurir tersebut berangkat dari gudang pada pukul 08.00 dan menghabiskan waktu total 15 menit untuk menurunkan paket di setiap desa, pada pukul berapakah kurir tersebut sampai di Desa B?",
+    "jawaban": "10.00"
   }
 ]
