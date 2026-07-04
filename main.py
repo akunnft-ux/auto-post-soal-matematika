@@ -29,12 +29,16 @@ COLOR_TEXT = (44, 62, 80)            # dark slate #2C3E50
 COLOR_FOOTER = (149, 165, 166)       # gray #95A5A6
 COLOR_STICKY = (255, 243, 176)       # sticky note yellow #FFF3B0
 
+CATEGORIES_FILE = "data/categories.json"
+
 TOPIC_COLORS = {
     "deret_angka":         ((46, 134, 222), (214, 234, 248)),    # blue
     "aritmatika_aljabar":  ((39, 174, 96), (213, 245, 227)),     # green
     "peluang_statistika":  ((142, 68, 173), (232, 218, 239)),    # purple
     "geometri":            ((231, 76, 60), (250, 219, 216)),     # red/pink
     "fungsi_grafik":       ((243, 156, 18), (253, 235, 208)),    # orange/gold
+    "teori_bilangan":      ((0, 150, 136), (224, 242, 241)),     # teal
+    "kombinatorika":       ((233, 30, 99), (252, 228, 236)),     # pink
 }
 
 DODDLE_ICONS = ["★", "◆", "●", "✓", "➤"]
@@ -45,9 +49,30 @@ TOPICS = [
     "peluang_statistika",
     "geometri",
     "fungsi_grafik",
+    "teori_bilangan",
+    "kombinatorika",
 ]
 
 CONTENT_TYPES = ["soal", "materi", "fakta"]
+
+CONTENT_TYPE_WEIGHTS = [3, 3, 2]  # soal : materi : fakta
+
+TOPIC_LABELS = {
+    "deret_angka": "Deret Angka & Pola Bilangan",
+    "aritmatika_aljabar": "Aritmatika & Aljabar",
+    "peluang_statistika": "Peluang & Statistika",
+    "geometri": "Geometri",
+    "fungsi_grafik": "Fungsi & Grafik",
+    "teori_bilangan": "Teori Bilangan",
+    "kombinatorika": "Kombinatorika",
+}
+
+HASHTAG_POOL = [
+    "#SoalMatematika", "#CPNS2026", "#BelajarMatematika",
+    "#MatematikaDasar", "#CPNS", "#TIUCPNS", "#SKDCPNS",
+    "#TryoutCPNS", "#RuangBelajar", "#Matematika",
+    "#LatihanCPNS", "#StudiCPNS",
+]
 
 CONTENT_TYPE_LABELS = {
     "soal": "SOAL MATEMATIKA",
@@ -60,23 +85,6 @@ CONTENT_TYPE_HEADER_SUB = {
     "materi": "Belajar Konsep & Rumus",
     "fakta": "Fakta Menarik",
 }
-
-CONTENT_TYPE_WEIGHTS = [3, 3, 2]  # soal : materi : fakta
-
-TOPIC_LABELS = {
-    "deret_angka": "Deret Angka & Pola Bilangan",
-    "aritmatika_aljabar": "Aritmatika & Aljabar",
-    "peluang_statistika": "Peluang & Statistika",
-    "geometri": "Geometri",
-    "fungsi_grafik": "Fungsi & Grafik",
-}
-
-HASHTAG_POOL = [
-    "#SoalMatematika", "#CPNS2026", "#BelajarMatematika",
-    "#MatematikaDasar", "#CPNS", "#TIUCPNS", "#SKDCPNS",
-    "#TryoutCPNS", "#RuangBelajar", "#Matematika",
-    "#LatihanCPNS", "#StudiCPNS",
-]
 
 EMOJI_POOL = ["🧮", "📐", "📝", "✏️", "📊", "➗", "➕", "❌"]
 
@@ -140,6 +148,16 @@ def get_topic_image(topic, size=200, opacity=0.15):
             draw.line([(cx + r, cy + 10), (cx + r, cy - 30)], fill=accent_rgba, width=2)
             draw.polygon([(cx - 7, cy + 10), (cx + 7, cy + 10), (cx, cy + 22)], fill=accent_rgba)
             draw.text((cx - r, cy - 40), "x+5=10", fill=accent_rgba, anchor="mt", font=ImageFont.truetype(FONT_BOLD, 16))
+
+        elif topic == "teori_bilangan":
+            draw.text((cx, cy - 25), "42", fill=accent_rgba, anchor="mm", font=ImageFont.truetype(FONT_BOLD, 48))
+            pts = [(cx - r + 10, cy + r - 10), (cx + r - 10, cy + r - 10), (cx, cy - r + 10)]
+            draw.polygon(pts, fill=light_rgba, outline=accent_rgba, width=2)
+
+        elif topic == "kombinatorika":
+            draw.text((cx, cy - 15), "n!", fill=accent_rgba, anchor="mm", font=ImageFont.truetype(FONT_BOLD, 56))
+            arr = [(cx - r + i * 10, cy + 15 + (i % 3) * 8) for i in range(1 + (size - 24) // 10)]
+            draw.line(arr, fill=accent_rgba, width=2)
 
         _topic_image_cache[key] = img
     else:
@@ -255,6 +273,28 @@ TOPIC_PROMPTS = {
         "fakta": "FAKTA menarik tentang Fungsi atau Grafik. "
                  "Misal: aplikasi fungsi dalam kehidupan nyata, grafik terkenal, keunikan fungsi trigonometri, dll. "
                  "Beri fakta yang mengejutkan dan edukatif.",
+     },
+    "teori_bilangan": {
+        "soal": "soal Teori Bilangan. "
+                "Contoh: bilangan prima, faktorisasi prima, KPK/FPB, modulo, "
+                "sisa pembagian, bilangan bulat, sistem bilangan, dll.",
+        "materi": "MATERI tentang Teori Bilangan. "
+                  "Jelaskan konsep seperti bilangan prima, faktorisasi, KPK/FPB, atau modulo. "
+                  "Sertakan rumus utama, sifat-sifat bilangan, dan contoh.",
+        "fakta": "FAKTA menarik tentang Teori Bilangan. "
+                 "Misal: keunikan bilangan prima, teorema Fermat, bilangan sempurna, dll. "
+                 "Beri fakta yang mengejutkan dan edukatif.",
+    },
+    "kombinatorika": {
+        "soal": "soal Kombinatorika. "
+                "Contoh: aturan perkalian/penjumlahan, permutasi, kombinasi, "
+                "prinsip inklusi-eksklusi, pigeonhole principle, dll.",
+        "materi": "MATERI tentang Kombinatorika. "
+                  "Jelaskan konsep seperti permutasi, kombinasi, atau prinsip pencacahan. "
+                  "Sertakan rumus utama dan contoh penerapan.",
+        "fakta": "FAKTA menarik tentang Kombinatorika. "
+                 "Misal: angka ajaib 7, permutasi dalam kehidupan, teka-teki kombinatorika terkenal, dll. "
+                 "Beri fakta yang mengejutkan dan edukatif.",
     },
 }
 
@@ -269,6 +309,43 @@ def notify_telegram(message: str):
         requests.post(url, data={"chat_id": TELEGRAM_CHAT_ID, "text": message}, timeout=10)
     except Exception as e:
         print(f"Gagal kirim notifikasi Telegram: {e}")
+
+
+def load_categories():
+    if not os.path.exists(CATEGORIES_FILE):
+        print("[WARN] categories.json not found, using legacy mode")
+        return None
+    try:
+        with open(CATEGORIES_FILE, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception as e:
+        print(f"[WARN] Failed to load categories: {e}")
+        return None
+
+
+def get_category_keys(categories):
+    return list(categories.keys()) if categories else []
+
+
+def get_category_weights(categories):
+    return [categories[k]["weight"] for k in categories] if categories else []
+
+
+def pick_category(categories, history):
+    if not categories:
+        return None
+    keys = get_category_keys(categories)
+    weights = get_category_weights(categories)
+    used_today = set()
+    today_str = date.today().isoformat()
+    for item in history:
+        if isinstance(item, dict) and item.get("tanggal") == today_str:
+            used_today.add(item.get("kategori"))
+    available = [(k, w) for k, w in zip(keys, weights) if k not in used_today]
+    if not available:
+        available = list(zip(keys, weights))
+    chosen = random.choices([k for k, w in available], weights=[w for k, w in available], k=1)[0]
+    return chosen
 
 
 def load_history():
@@ -288,18 +365,20 @@ def save_history(history):
         json.dump(history, f, ensure_ascii=False, indent=2)
 
 
-def get_used_topics_today(history):
+def get_used_combos_today(history):
     today_str = date.today().isoformat()
     used = set()
     for item in history:
         if isinstance(item, dict) and item.get("tanggal") == today_str:
-            used.add(item.get("topik"))
+            used.add((item.get("kategori"), item.get("topik")))
     return used
 
 
-def is_soal_duplicate(soal_text, history):
+def is_soal_duplicate(soal_text, history, kategori=None):
     soal_lower = soal_text.lower()
     for item in history:
+        if kategori and item.get("kategori") != kategori:
+            continue
         existing = item if isinstance(item, str) else item.get("soal", "")
         existing_lower = existing.lower()
         if existing == soal_text:
@@ -313,11 +392,16 @@ def is_soal_duplicate(soal_text, history):
     return False
 
 
-def pick_topic(history: list) -> str:
-    used_today = get_used_topics_today(history)
-    available = [t for t in TOPICS if t not in used_today]
+def pick_topic(history, kategori=None, categories=None):
+    used_today = get_used_combos_today(history)
+    if categories and kategori:
+        cat_config = categories.get(kategori, {})
+        valid_topics = cat_config.get("valid_topics", TOPICS)
+    else:
+        valid_topics = TOPICS
+    available = [t for t in valid_topics if (kategori, t) not in used_today]
     if not available:
-        available = TOPICS
+        available = valid_topics
     return random.choice(available)
 
 
@@ -325,11 +409,19 @@ def pick_content_type() -> str:
     return random.choices(CONTENT_TYPES, weights=CONTENT_TYPE_WEIGHTS, k=1)[0]
 
 
-def generate_content(topic, content_type, history, max_retry=3):
+def generate_content(topic, content_type, history, kategori=None, categories=None, max_retry=3):
     history_text = "\n".join(
         f"- {(h.get('soal') or h.get('judul') or str(h))[:120]}"
         for h in history[-50:]
     ) or "(belum ada histori)"
+
+    if categories and kategori:
+        cat = categories.get(kategori, {})
+        audience = cat.get("audience", "")
+        level = cat.get("level", "sedang hingga sulit")
+        category_context = f"Target: {audience}\nLevel kesulitan: {level}"
+    else:
+        category_context = "Level: sedang hingga sulit (CPNS / TKA / SNBT)"
 
     originality_rule = (
         "KONTEN HARUS ORISINIL DAN BELUM PERNAH ADA SEBELUMNYA.\n"
@@ -344,7 +436,7 @@ def generate_content(topic, content_type, history, max_retry=3):
     if content_type == "soal":
         prompt = f"""
     Buat 1 {TOPIC_PROMPTS[topic][content_type]}
-    Level: sedang hingga sulit (CPNS / TKA / SNBT).
+    {category_context}
 
     {originality_rule}
 
@@ -364,6 +456,7 @@ def generate_content(topic, content_type, history, max_retry=3):
     elif content_type == "materi":
         prompt = f"""
     Buat 1 {TOPIC_PROMPTS[topic][content_type]}
+    {category_context}
 
     {originality_rule}
 
@@ -383,6 +476,7 @@ def generate_content(topic, content_type, history, max_retry=3):
     else:  # fakta
         prompt = f"""
     Buat 1 {TOPIC_PROMPTS[topic][content_type]}
+    {category_context}
 
     {originality_rule}
 
@@ -419,7 +513,7 @@ def generate_content(topic, content_type, history, max_retry=3):
                     raise ValueError("Pilihan harus array 4 item")
                 if data["jawaban"] not in data["pilihan"]:
                     raise ValueError("Jawaban tidak ada di pilihan")
-                if is_soal_duplicate(data["soal"], history):
+                if is_soal_duplicate(data["soal"], history, kategori):
                     raise ValueError("Soal duplikat dengan histori")
             elif data.get("tipe") == "materi":
                 required_keys = {"judul", "isi_materi", "rumus", "contoh"}
@@ -578,7 +672,7 @@ def render_fakta(draw, data, topic, margin, usable_width, font_soal, font_materi
     return y
 
 
-def buat_gambar_konten(data, topic, content_type, filename="soal/konten_hari_ini.png"):
+def buat_gambar_konten(data, topic, content_type, kategori=None, categories=None, filename="soal/konten_hari_ini.png"):
     os.makedirs(os.path.dirname(filename), exist_ok=True)
 
     img = Image.new("RGB", (IMG_WIDTH, IMG_HEIGHT), COLOR_BG)
@@ -610,8 +704,13 @@ def buat_gambar_konten(data, topic, content_type, filename="soal/konten_hari_ini
     draw.rounded_rectangle([(0, 0), (IMG_WIDTH, header_h)], radius=0, fill=COLOR_NAVY)
     draw.rounded_rectangle([(0, header_h - 8), (IMG_WIDTH, header_h + 4)], radius=0, fill=COLOR_ORANGE)
 
-    header_title = CONTENT_TYPE_LABELS.get(content_type, "SOAL MATEMATIKA")
-    header_sub = CONTENT_TYPE_HEADER_SUB.get(content_type, "CPNS  •  TKA  •  SNBT")
+    if categories and kategori:
+        cat = categories.get(kategori, {})
+        header_title = cat.get("header_label", CONTENT_TYPE_LABELS.get(content_type, "MATEMATIKA"))
+        header_sub = cat.get("header_sub", CONTENT_TYPE_HEADER_SUB.get(content_type, ""))
+    else:
+        header_title = CONTENT_TYPE_LABELS.get(content_type, "SOAL MATEMATIKA")
+        header_sub = CONTENT_TYPE_HEADER_SUB.get(content_type, "CPNS  •  TKA  •  SNBT")
     draw.text((IMG_WIDTH / 2, 55), header_title, fill=COLOR_WHITE, anchor="mm", font=font_heading)
     draw.text((IMG_WIDTH / 2, 115), header_sub, fill=(255, 200, 150), anchor="mm", font=font_subtitle)
 
@@ -701,15 +800,34 @@ def compliance_check(caption):
     return True
 
 
-def format_caption(data: dict, topic: str) -> str:
+def format_caption(data: dict, topic: str, kategori=None, categories=None) -> str:
     label = TOPIC_LABELS.get(topic, topic)
     emoji = random.choice(EMOJI_POOL)
-    tags = " ".join(random.sample(HASHTAG_POOL, k=random.randint(2, 3)))
     content_type = data.get("tipe", "soal")
 
+    if categories and kategori:
+        cat = categories.get(kategori, {})
+        hashtag_pool = cat.get("hashtag_pool", HASHTAG_POOL)
+        hooks_soal = cat.get("hooks_soal", HOOK_TEMPLATES)
+        hooks_materi = cat.get("hooks_materi", HOOK_MATERI)
+        hooks_fakta = cat.get("hooks_fakta", HOOK_FAKTA)
+        cta_soal = cat.get("cta_soal", CTA_POOL)
+        cta_materi = cat.get("cta_materi", CTA_MATERI)
+        cta_fakta = cat.get("cta_fakta", CTA_FAKTA)
+    else:
+        hashtag_pool = HASHTAG_POOL
+        hooks_soal = HOOK_TEMPLATES
+        hooks_materi = HOOK_MATERI
+        hooks_fakta = HOOK_FAKTA
+        cta_soal = CTA_POOL
+        cta_materi = CTA_MATERI
+        cta_fakta = CTA_FAKTA
+
+    tags = " ".join(random.sample(hashtag_pool, k=min(random.randint(2, 3), len(hashtag_pool))))
+
     if content_type == "soal":
-        hook = random.choice(HOOK_TEMPLATES)
-        cta = random.choice(CTA_POOL)
+        hook = random.choice(hooks_soal)
+        cta = random.choice(cta_soal)
         op = "\n".join(f"{chr(65 + i)}. {p}" for i, p in enumerate(data["pilihan"]))
         templates = [
             f"{{hook}}\n\n{{emoji}} {{label}}\n\n{{soal}}\n\n{{pilihan}}\n\n{{cta}}\n\n{{tags}}",
@@ -723,8 +841,8 @@ def format_caption(data: dict, topic: str) -> str:
             soal=data["soal"], pilihan=op, cta=cta, tags=tags,
         )
     elif content_type == "materi":
-        hook = random.choice(HOOK_MATERI)
-        cta = random.choice(CTA_MATERI)
+        hook = random.choice(hooks_materi)
+        cta = random.choice(cta_materi)
         templates = [
             f"{{hook}}\n\n{{emoji}} {{label}}\n\n**{{judul}}**\n\n{{isi}}\n\n📐 {{rumus}}\n\n💡 {{contoh}}\n\n{{cta}}\n\n{{tags}}",
             f"{{hook}}\n\n{{emoji}} {{label}}\n\n{{isi}}\n\n📐 Rumus: {{rumus}}\n\n{{cta}}\n\n{{tags}}",
@@ -738,8 +856,8 @@ def format_caption(data: dict, topic: str) -> str:
             cta=cta, tags=tags,
         )
     else:  # fakta
-        hook = random.choice(HOOK_FAKTA)
-        cta = random.choice(CTA_FAKTA)
+        hook = random.choice(hooks_fakta)
+        cta = random.choice(cta_fakta)
         templates = [
             f"{{hook}}\n\n{{emoji}} {{label}}\n\n**{{judul}}**\n\n{{isi}}\n\n{{cta}}\n\n{{tags}}",
             f"{{hook}}\n\n{{isi}}\n\n{{emoji}} {{label}}\n\n{{cta}}\n\n{{tags}}",
@@ -921,8 +1039,9 @@ def post_to_telegram(image_path, caption):
     print(f"[OK] Sent to Telegram. Message ID: {msg_id}")
 
 
-def make_history_item(data: dict, topic: str, content_type: str) -> dict:
+def make_history_item(data: dict, topic: str, content_type: str, kategori=None) -> dict:
     item = {
+        "kategori": kategori or "cpns",
         "tipe": content_type,
         "topik": topic,
         "tanggal": date.today().isoformat(),
@@ -945,16 +1064,24 @@ def main():
     load_and_apply_learning_config()
     process_telegram_csv()
 
+    categories = load_categories()
     history = load_history()
     print(f"Histori: {len(history)} item")
 
-    topic = pick_topic(history)
+    kategori = pick_category(categories, history)
+    if kategori and categories:
+        cat_label = categories[kategori]["label"]
+        print(f"Kategori: {kategori} ({cat_label})")
+    else:
+        print("Kategori: (legacy mode)")
+
+    topic = pick_topic(history, kategori, categories)
     print(f"Topik terpilih: {topic} ({TOPIC_LABELS.get(topic, topic)})")
 
     content_type = pick_content_type()
     print(f"Tipe konten: {content_type.upper()}")
 
-    data = generate_content(topic, content_type, history)
+    data = generate_content(topic, content_type, history, kategori, categories)
     if not data:
         raise RuntimeError("Gagal generate konten setelah beberapa percobaan")
 
@@ -965,10 +1092,10 @@ def main():
     else:
         print(f"Fakta: {data['judul']}")
 
-    gambar = buat_gambar_konten(data, topic, content_type)
+    gambar = buat_gambar_konten(data, topic, content_type, kategori, categories)
     print(f"Gambar: {gambar}")
 
-    caption = format_caption(data, topic)
+    caption = format_caption(data, topic, kategori, categories)
     compliance_check(caption)
     post_mode = check_telegram_mode()
     print(f"[INFO] Post mode: {post_mode.upper()}")
@@ -978,7 +1105,7 @@ def main():
         result = post_to_facebook(gambar, caption)
         print(f"Posting berhasil! Post ID: {result.get('id', 'unknown')}")
 
-    history_item = make_history_item(data, topic, content_type)
+    history_item = make_history_item(data, topic, content_type, kategori)
     history.append(history_item)
     save_history(history)
 
