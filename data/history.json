@@ -267,5 +267,13 @@
     "tanggal": "2026-07-04",
     "judul": "Eksplorasi Polinomial Simetris dalam Sistem Persamaan Non-Linear",
     "isi_materi": "Dalam kompetisi olimpiade, sering ditemukan sistem persamaan yang melibatkan var"
+  },
+  {
+    "kategori": "sekolah_sd",
+    "tipe": "soal",
+    "topik": "aritmatika_aljabar",
+    "tanggal": "2026-07-04",
+    "soal": "Di sebuah peternakan, Kak Bimo memiliki koleksi kelinci. Jumlah kelinci putih ada 14 ekor, sedangkan jumlah kelinci cokelat adalah 9 ekor lebih banyak dari kelinci putih. Jika Kak Bimo memberikan 5 ekor kelinci cokelat kepada temannya, berapakah jumlah total kelinci yang tersisa di peternakan Kak Bimo sekarang?",
+    "jawaban": "32 ekor"
   }
 ]
