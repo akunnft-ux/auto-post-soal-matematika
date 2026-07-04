@@ -298,10 +298,18 @@ def get_used_topics_today(history):
 
 
 def is_soal_duplicate(soal_text, history):
+    soal_lower = soal_text.lower()
     for item in history:
         existing = item if isinstance(item, str) else item.get("soal", "")
+        existing_lower = existing.lower()
         if existing == soal_text:
             return True
+        words_soal = set(soal_lower.split())
+        words_existing = set(existing_lower.split())
+        if len(words_soal) > 0 and len(words_existing) > 0:
+            overlap = len(words_soal & words_existing) / max(len(words_soal), len(words_existing))
+            if overlap > 0.70:
+                return True
     return False
 
 
@@ -319,16 +327,28 @@ def pick_content_type() -> str:
 
 def generate_content(topic, content_type, history, max_retry=3):
     history_text = "\n".join(
-        f"- {(h.get('soal') or h.get('judul') or str(h))[:80]}"
-        for h in history[-20:]
+        f"- {(h.get('soal') or h.get('judul') or str(h))[:120]}"
+        for h in history[-50:]
     ) or "(belum ada histori)"
+
+    originality_rule = (
+        "KONTEN HARUS ORISINIL DAN BELUM PERNAH ADA SEBELUMNYA.\n"
+        "Buat konten yang SAMA SEKALI BARU, tidak mirip dengan konten di atas.\n"
+        "Gunakan konteks/cerita/angka/sudut pandang yang BERBEDA dari histori.\n"
+        "JANGAN menggunakan soal standar textbook — buat variasi unik.\n"
+        "Hindari pola soal yang sama (misal: jangan selalu 'Dalam sebuah kotak terdapat...').\n"
+        "Variasikan struktur kalimat, angka, dan konteks cerita.\n"
+        "Angka-angka dalam soal harus BERBEDA dari histori di atas."
+    )
 
     if content_type == "soal":
         prompt = f"""
     Buat 1 {TOPIC_PROMPTS[topic][content_type]}
     Level: sedang hingga sulit (CPNS / TKA / SNBT).
 
-    JANGAN membuat soal yang mirip dengan daftar berikut (histori):
+    {originality_rule}
+
+    Histori konten sebelumnya (JANGAN buat yang mirip):
     {history_text}
 
     Jawab HANYA dengan JSON valid, tanpa markdown, tanpa penjelasan tambahan.
@@ -345,6 +365,11 @@ def generate_content(topic, content_type, history, max_retry=3):
         prompt = f"""
     Buat 1 {TOPIC_PROMPTS[topic][content_type]}
 
+    {originality_rule}
+
+    Histori konten sebelumnya (JANGAN buat yang mirip):
+    {history_text}
+
     Jawab HANYA dengan JSON valid, tanpa markdown, tanpa penjelasan tambahan.
     Format:
     {{
@@ -358,6 +383,11 @@ def generate_content(topic, content_type, history, max_retry=3):
     else:  # fakta
         prompt = f"""
     Buat 1 {TOPIC_PROMPTS[topic][content_type]}
+
+    {originality_rule}
+
+    Histori konten sebelumnya (JANGAN buat yang mirip):
+    {history_text}
 
     Jawab HANYA dengan JSON valid, tanpa markdown, tanpa penjelasan tambahan.
     Format:
@@ -375,7 +405,8 @@ def generate_content(topic, content_type, history, max_retry=3):
                 model="gemini-3.1-flash-lite",
                 contents=prompt,
                 config=types.GenerateContentConfig(
-                    response_mime_type="application/json"
+                    response_mime_type="application/json",
+                    temperature=0.95,
                 ),
             )
             data = json.loads(response.text.strip())
