@@ -283,5 +283,13 @@
     "tanggal": "2026-07-05",
     "judul": "Misteri Bilangan Narcissistic (Armstrong Numbers)",
     "isi_fakta": "Bilangan Narcissistic adalah bilangan n-digit yang nilainya tepat sama dengan ju"
+  },
+  {
+    "kategori": "cpns",
+    "tipe": "fakta",
+    "topik": "geometri",
+    "tanggal": "2026-07-05",
+    "judul": "Geometri Hiperbolik: Ruang di Mana Jumlah Sudut Segitiga Selalu Kurang dari 180 Derajat",
+    "isi_fakta": "Dalam geometri Euclidean yang kita pelajari di sekolah, jumlah sudut interior se"
   }
 ]
