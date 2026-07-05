@@ -275,5 +275,13 @@
     "tanggal": "2026-07-04",
     "soal": "Di sebuah peternakan, Kak Bimo memiliki koleksi kelinci. Jumlah kelinci putih ada 14 ekor, sedangkan jumlah kelinci cokelat adalah 9 ekor lebih banyak dari kelinci putih. Jika Kak Bimo memberikan 5 ekor kelinci cokelat kepada temannya, berapakah jumlah total kelinci yang tersisa di peternakan Kak Bimo sekarang?",
     "jawaban": "32 ekor"
+  },
+  {
+    "kategori": "utbk",
+    "tipe": "fakta",
+    "topik": "teori_bilangan",
+    "tanggal": "2026-07-05",
+    "judul": "Misteri Bilangan Narcissistic (Armstrong Numbers)",
+    "isi_fakta": "Bilangan Narcissistic adalah bilangan n-digit yang nilainya tepat sama dengan ju"
   }
 ]
