@@ -299,5 +299,13 @@
     "tanggal": "2026-07-06",
     "judul": "Geometri Transformasi Proyektif dan Rasio Perpotongan",
     "isi_materi": "Dalam geometri tingkat lanjut, kita melampaui perhitungan luas sederhana menuju "
+  },
+  {
+    "kategori": "sekolah_smp",
+    "tipe": "soal",
+    "topik": "deret_angka",
+    "tanggal": "2026-07-06",
+    "soal": "Seorang arsitek sedang merancang taman vertikal dengan pola pemasangan pot bunga pada dinding berbentuk segitiga. Pada baris pertama terdapat 4 pot, baris kedua 9 pot, baris ketiga 16 pot, dan baris keempat 25 pot. Jika pola ini terus berlanjut mengikuti aturan yang sama, berapakah jumlah pot bunga yang harus disiapkan arsitek tersebut pada baris ke-7?",
+    "jawaban": "64 pot"
   }
 ]
