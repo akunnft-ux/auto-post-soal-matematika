@@ -307,5 +307,13 @@
     "tanggal": "2026-07-06",
     "soal": "Seorang arsitek sedang merancang taman vertikal dengan pola pemasangan pot bunga pada dinding berbentuk segitiga. Pada baris pertama terdapat 4 pot, baris kedua 9 pot, baris ketiga 16 pot, dan baris keempat 25 pot. Jika pola ini terus berlanjut mengikuti aturan yang sama, berapakah jumlah pot bunga yang harus disiapkan arsitek tersebut pada baris ke-7?",
     "jawaban": "64 pot"
+  },
+  {
+    "kategori": "anbk",
+    "tipe": "soal",
+    "topik": "geometri",
+    "tanggal": "2026-07-06",
+    "soal": "Seorang desainer grafis membuat logo berbentuk belah ketupat yang ditempatkan tepat di dalam sebuah lingkaran dengan jari-jari 10 cm. Keempat titik sudut belah ketupat tersebut menempel pada keliling lingkaran, di mana panjang diagonal pertama belah ketupat sama dengan diameter lingkaran. Jika luas daerah di dalam lingkaran namun di luar belah ketupat adalah (100π - 100) cm², berapakah panjang diagonal kedua dari belah ketupat tersebut?",
+    "jawaban": "20 cm"
   }
 ]
