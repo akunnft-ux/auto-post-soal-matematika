@@ -291,5 +291,13 @@
     "tanggal": "2026-07-05",
     "judul": "Geometri Hiperbolik: Ruang di Mana Jumlah Sudut Segitiga Selalu Kurang dari 180 Derajat",
     "isi_fakta": "Dalam geometri Euclidean yang kita pelajari di sekolah, jumlah sudut interior se"
+  },
+  {
+    "kategori": "cpns",
+    "tipe": "materi",
+    "topik": "geometri",
+    "tanggal": "2026-07-06",
+    "judul": "Geometri Transformasi Proyektif dan Rasio Perpotongan",
+    "isi_materi": "Dalam geometri tingkat lanjut, kita melampaui perhitungan luas sederhana menuju "
   }
 ]
