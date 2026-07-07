@@ -315,5 +315,13 @@
     "tanggal": "2026-07-06",
     "soal": "Seorang desainer grafis membuat logo berbentuk belah ketupat yang ditempatkan tepat di dalam sebuah lingkaran dengan jari-jari 10 cm. Keempat titik sudut belah ketupat tersebut menempel pada keliling lingkaran, di mana panjang diagonal pertama belah ketupat sama dengan diameter lingkaran. Jika luas daerah di dalam lingkaran namun di luar belah ketupat adalah (100π - 100) cm², berapakah panjang diagonal kedua dari belah ketupat tersebut?",
     "jawaban": "20 cm"
+  },
+  {
+    "kategori": "cpns",
+    "tipe": "soal",
+    "topik": "kombinatorika",
+    "tanggal": "2026-07-07",
+    "soal": "Dalam sebuah protokol keamanan siber, kode akses terdiri dari 7 digit angka yang dibentuk dari himpunan {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}. Kode tersebut harus memenuhi syarat bahwa jumlah dari semua digit yang menempati posisi ganjil (posisi ke-1, ke-3, ke-5, dan ke-7) harus bernilai genap, sedangkan jumlah dari semua digit yang menempati posisi genap (posisi ke-2, ke-4, dan ke-6) harus bernilai ganjil. Berapakah total variasi kode akses yang mungkin terbentuk?",
+    "jawaban": "2.500.000"
   }
 ]
