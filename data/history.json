@@ -331,5 +331,13 @@
     "tanggal": "2026-07-07",
     "judul": "Petualangan Kombinatorial: Menyusun Konstelasi Bintang",
     "isi_materi": "Dalam dunia astronomi kreatif, kita sering dihadapkan pada tantangan menyusun be"
+  },
+  {
+    "kategori": "utbk",
+    "tipe": "materi",
+    "topik": "teori_bilangan",
+    "tanggal": "2026-07-08",
+    "judul": "Analisis Keterbagian dan Modulo dalam Sistem Kriptografi Kuno",
+    "isi_materi": "Teori bilangan bukan sekadar menghitung, melainkan memahami struktur tersembunyi"
   }
 ]
