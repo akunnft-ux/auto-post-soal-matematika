@@ -339,5 +339,13 @@
     "tanggal": "2026-07-08",
     "judul": "Analisis Keterbagian dan Modulo dalam Sistem Kriptografi Kuno",
     "isi_materi": "Teori bilangan bukan sekadar menghitung, melainkan memahami struktur tersembunyi"
+  },
+  {
+    "kategori": "cpns",
+    "tipe": "fakta",
+    "topik": "deret_angka",
+    "tanggal": "2026-07-08",
+    "judul": "Fenomena Bilangan Kaprekar dan Keseimbangan Iteratif",
+    "isi_fakta": "Bilangan Kaprekar, khususnya angka 6174 yang dikenal sebagai Konstanta Kaprekar,"
   }
 ]
