@@ -347,5 +347,13 @@
     "tanggal": "2026-07-08",
     "judul": "Fenomena Bilangan Kaprekar dan Keseimbangan Iteratif",
     "isi_fakta": "Bilangan Kaprekar, khususnya angka 6174 yang dikenal sebagai Konstanta Kaprekar,"
+  },
+  {
+    "kategori": "olimpiade_sd",
+    "tipe": "soal",
+    "topik": "teori_bilangan",
+    "tanggal": "2026-07-09",
+    "soal": "Seorang pustakawan sedang menyusun koleksi buku langka ke dalam rak. Ia menyadari bahwa jika ia menyusun buku-buku tersebut dalam kelompok berisi 7 buku, tersisa 3 buku. Jika ia menyusunnya dalam kelompok berisi 11 buku, tersisa 5 buku. Jika jumlah total buku tersebut adalah bilangan tiga angka terkecil yang memenuhi kedua syarat tersebut, berapakah jumlah digit dari total buku tersebut?",
+    "jawaban": "8"
   }
 ]
