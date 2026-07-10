@@ -2,8 +2,11 @@ import statistics
 from datetime import datetime
 
 
+MIN_SAMPLE_THRESHOLD = 8
+
+
 def classify_records(records: list, follower_count: int = None) -> list:
-    if len(records) < 3:
+    if len(records) < MIN_SAMPLE_THRESHOLD:
         return []
 
     if follower_count is None:
@@ -33,6 +36,9 @@ def classify_records(records: list, follower_count: int = None) -> list:
             "classification": classification,
             "metric_triggered": metric,
             "follower_count_at_post": follower_count,
+            "account_type": r.get("account_type"),
+            "format": r.get("format"),
+            "theme": r.get("theme"),
             "computed_at": datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
         })
 

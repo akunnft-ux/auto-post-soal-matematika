@@ -17,31 +17,31 @@ TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
 HISTORY_PATH = "data/history.json"
 FONT_BOLD = "fonts/DejaVuSans-Bold.ttf"
 FONT_REGULAR = "fonts/DejaVuSans.ttf"
+FONT_FREDOKA = "fonts/Fredoka-Variable.ttf"
+FONT_KALAM = "fonts/Kalam-Regular.ttf"
+FONT_EMOJI = "fonts/Symbola.ttf"
 MAX_HISTORY_ITEMS = 180
 IMG_WIDTH = 1080
 IMG_HEIGHT = 1080
 
-COLOR_BG = (255, 248, 231)          # warm cream #FFF8E7
-COLOR_NAVY = (27, 42, 74)            # navy #1B2A4A
-COLOR_ORANGE = (255, 140, 66)        # bright orange #FF8C42
+# ── Account strategy (per rekomendasi pemisahan format/tema) ──
+ACCOUNT_TYPE = "personal"
+CONTENT_FORMAT = "gambar"
+PERSONAL_MAJOR_CT_WEIGHTS = {"soal": 1, "materi": 4, "fakta": 5}  # 80% light content
+PERSONAL_MINOR_CT_WEIGHTS = {"soal": 8, "materi": 1, "fakta": 1}  # 20% quiz
+STAGGER_FILE = "data/last_stagger.json"
+STAGGER_MIN_HOURS = 3
+
+COLOR_BG = (255, 248, 236)        # #FFF8EC cream
+COLOR_INK = (43, 39, 48)          # #2B2730
+COLOR_SUN = (255, 201, 74)        # #FFC94A
+COLOR_CORAL = (255, 107, 87)      # #FF6B57
+COLOR_HEADER_BG = (108, 79, 224)  # #6C4FE0 grape
 COLOR_WHITE = (255, 255, 255)
-COLOR_TEXT = (44, 62, 80)            # dark slate #2C3E50
-COLOR_FOOTER = (149, 165, 166)       # gray #95A5A6
-COLOR_STICKY = (255, 243, 176)       # sticky note yellow #FFF3B0
+COLOR_PAPER = (255, 255, 255)
+COLOR_BORDER = (216, 207, 186)    # #d8cfba
 
 CATEGORIES_FILE = "data/categories.json"
-
-TOPIC_COLORS = {
-    "deret_angka":         ((46, 134, 222), (214, 234, 248)),    # blue
-    "aritmatika_aljabar":  ((39, 174, 96), (213, 245, 227)),     # green
-    "peluang_statistika":  ((142, 68, 173), (232, 218, 239)),    # purple
-    "geometri":            ((231, 76, 60), (250, 219, 216)),     # red/pink
-    "fungsi_grafik":       ((243, 156, 18), (253, 235, 208)),    # orange/gold
-    "teori_bilangan":      ((0, 150, 136), (224, 242, 241)),     # teal
-    "kombinatorika":       ((233, 30, 99), (252, 228, 236)),     # pink
-}
-
-DODDLE_ICONS = ["★", "◆", "●", "✓", "➤"]
 
 TOPICS = [
     "deret_angka",
@@ -74,100 +74,27 @@ HASHTAG_POOL = [
     "#LatihanCPNS", "#StudiCPNS",
 ]
 
-CONTENT_TYPE_LABELS = {
-    "soal": "SOAL MATEMATIKA",
-    "materi": "MATERI MATEMATIKA",
-    "fakta": "FAKTA MATEMATIKA",
-}
-
-CONTENT_TYPE_HEADER_SUB = {
-    "soal": "CPNS  •  TKA  •  SNBT",
-    "materi": "Belajar Konsep & Rumus",
-    "fakta": "Fakta Menarik",
-}
-
 EMOJI_POOL = ["🧮", "📐", "📝", "✏️", "📊", "➗", "➕", "❌"]
 
-FOOTER_POOL = [
-    "",
-    "Simak pembahasan di akhir video",
-    "Semoga membantu",
-    "Selamat belajar",
+BADGE_MAP = {
+    "soal": "\U0001f4dd Soal Kilat",
+    "materi": "\U0001f4a1 Math Trik Harian",
+    "fakta": "\U0001f92f Fun Fact",
+}
+
+TRICK_FLAG_MAP = {
+    "soal": "\U0001f9e0 Trik Cepat",
+    "materi": "\U0001f4d0 Rumus",
+    "fakta": "\U0001f4a1 Triknya",
+}
+
+CTA_TAGLINES = [
+    "Coba sendiri, ya! \U0001f440",
+    "Kamu pasti bisa! \U0001f4aa",
+    "Yuk, latihan lagi! \U0001f525",
+    "Share ke temanmu! \U0001f4e4",
+    "Follow buat belajar tiap hari! \U0001f514",
 ]
-
-_topic_image_cache = {}
-
-
-def get_topic_image(topic, size=200, opacity=0.15):
-    key = (topic, size)
-    if key not in _topic_image_cache:
-        img = Image.new("RGBA", (size, size), (0, 0, 0, 0))
-        draw = ImageDraw.Draw(img)
-        accent, _ = TOPIC_COLORS.get(topic, ((100, 100, 100), (220, 220, 220)))
-        accent_rgba = (*accent, 255)
-        light_rgba = (*accent, 60)
-        cx, cy = size // 2, size // 2
-        r = size // 2 - 12
-
-        if topic == "geometri":
-            pts = [(cx - r, cy + r), (cx + r, cy + r), (cx - r, cy - r)]
-            draw.polygon(pts, fill=light_rgba, outline=accent_rgba, width=3)
-            draw.text((cx - r - 10, cy + r - 8), "a", fill=accent_rgba, anchor="rb")
-            draw.text((cx + r + 10, cy + r - 8), "b", fill=accent_rgba, anchor="lb")
-            draw.text((cx - r - 10, cy - r + 8), "c", fill=accent_rgba, anchor="rt")
-
-        elif topic == "fungsi_grafik":
-            draw.line([(12, cy), (size - 12, cy)], fill=accent_rgba, width=2)
-            draw.line([(cx, 12), (cx, size - 12)], fill=accent_rgba, width=2)
-            arr = [(cx + int(x / r * r * 0.85), cy - int((x / r) ** 2 * r * 0.75)) for x in range(-r, r + 1)]
-            draw.line(arr, fill=accent_rgba, width=3)
-
-        elif topic == "peluang_statistika":
-            bw = r // 4
-            gap = 8
-            heights = [int(r * 0.75), int(r * 0.95), int(r * 0.55)]
-            colors = [(*accent, 200), (*accent, 220), (*accent, 150)]
-            for i in range(3):
-                x1 = cx - r + i * (bw + gap)
-                y1 = cy + r
-                y2 = y1 - heights[i]
-                draw.rectangle([x1, y2, x1 + bw, y1], fill=colors[i], outline=accent_rgba, width=2)
-
-        elif topic == "deret_angka":
-            draw.line([(15, cy), (size - 15, cy)], fill=accent_rgba, width=3)
-            spacing = 2 * r // 5
-            dot_rad = 5
-            for i in range(5):
-                px = cx - 2 * spacing + i * spacing
-                dr = dot_rad + i
-                draw.ellipse([px - dr, cy - dr, px + dr, cy + dr], fill=accent_rgba)
-
-        elif topic == "aritmatika_aljabar":
-            draw.line([(cx - r, cy + 10), (cx + r, cy + 10)], fill=accent_rgba, width=3)
-            draw.line([(cx - r, cy + 10), (cx - r, cy - 30)], fill=accent_rgba, width=2)
-            draw.line([(cx + r, cy + 10), (cx + r, cy - 30)], fill=accent_rgba, width=2)
-            draw.polygon([(cx - 7, cy + 10), (cx + 7, cy + 10), (cx, cy + 22)], fill=accent_rgba)
-            draw.text((cx - r, cy - 40), "x+5=10", fill=accent_rgba, anchor="mt", font=ImageFont.truetype(FONT_BOLD, 16))
-
-        elif topic == "teori_bilangan":
-            draw.text((cx, cy - 25), "42", fill=accent_rgba, anchor="mm", font=ImageFont.truetype(FONT_BOLD, 48))
-            pts = [(cx - r + 10, cy + r - 10), (cx + r - 10, cy + r - 10), (cx, cy - r + 10)]
-            draw.polygon(pts, fill=light_rgba, outline=accent_rgba, width=2)
-
-        elif topic == "kombinatorika":
-            draw.text((cx, cy - 15), "n!", fill=accent_rgba, anchor="mm", font=ImageFont.truetype(FONT_BOLD, 56))
-            arr = [(cx - r + i * 10, cy + 15 + (i % 3) * 8) for i in range(1 + (size - 24) // 10)]
-            draw.line(arr, fill=accent_rgba, width=2)
-
-        _topic_image_cache[key] = img
-    else:
-        img = _topic_image_cache[key].copy()
-
-    if opacity < 1.0:
-        alpha = img.split()[3]
-        alpha = alpha.point(lambda p: int(p * opacity))
-        img.putalpha(alpha)
-    return img
 
 HOOK_TEMPLATES = [
     "Coba soal matematika ini! 🧐",
@@ -554,223 +481,232 @@ def draw_rounded_rect(draw, xy, radius, fill):
     draw.rounded_rectangle([x1, y1, x2, y2], radius=radius, fill=fill)
 
 
-def render_soal(draw, data, topic, margin, usable_width, font_soal, font_pilihan, font_badge, topic_accent, topic_bg, badge_y, header_h):
-    y = badge_y + 80
-    soal_lines = wrap_text(data["soal"], font_soal, draw, usable_width)
+def _draw_header(draw, content_type, title, margin, usable_width):
+    """Draw grape header with badge pill and centered title."""
+    header_h = 210
+    draw.rounded_rectangle([(0, 0), (IMG_WIDTH, header_h)], radius=0, fill=COLOR_HEADER_BG)
+
+    font_badge = ImageFont.truetype(FONT_EMOJI, 26)
+    font_title = ImageFont.truetype(FONT_FREDOKA, 50)
+
+    badge_text = BADGE_MAP.get(content_type, "\U0001f4dd Soal Kilat")
+    badge_w = draw.textlength(badge_text, font=font_badge) + 36
+    badge_h = 36
+    badge_x = (IMG_WIDTH - badge_w) / 2
+    badge_y = 44
+    draw_rounded_rect(draw, [badge_x, badge_y, badge_x + badge_w, badge_y + badge_h], radius=18, fill=COLOR_SUN)
+    draw.text((IMG_WIDTH / 2, badge_y + badge_h / 2), badge_text, fill=COLOR_INK, anchor="mm", font=font_badge)
+
+    title_y = badge_y + badge_h + 24
+    title_lines = wrap_text(title, font_title, draw, usable_width)
+    if len(title_lines) == 1:
+        draw.text((IMG_WIDTH / 2, title_y + 5), title_lines[0], fill=COLOR_WHITE, anchor="mm", font=font_title)
+    else:
+        for line in title_lines:
+            draw.text((IMG_WIDTH / 2, title_y), line, fill=COLOR_WHITE, anchor="mt", font=font_title)
+            title_y += 56
+
+    return header_h
+
+
+def _draw_trick_box(draw, x, y, w, flag_text, elements):
+    """Draw trick-box with flag pill and content.
+    elements: list of (text, font, color) tuples
+    Returns y position after the box.
+    """
+    pad = 24
+    line_h = 36
+
+    total_h = 0
+    for text, font, _ in elements:
+        lines = wrap_text(text, font, draw, w - 2 * pad)
+        total_h += len(lines) * line_h + 4
+
+    box_h = total_h + 2 * pad + 16
+
+    # Shadow
+    draw_rounded_rect(draw, [x + 8, y + 8, x + w + 8, y + box_h + 8], radius=14, fill=COLOR_SUN)
+    # Main box
+    draw.rounded_rectangle([x, y, x + w, y + box_h], radius=14, fill=COLOR_PAPER, outline=COLOR_INK, width=3)
+
+    # Flag pill
+    font_flag = ImageFont.truetype(FONT_EMOJI, 24)
+    flag_w = draw.textlength(flag_text, font=font_flag) + 36
+    flag_h = 34
+    flag_x = x + 24
+    flag_y = y - 17
+    draw_rounded_rect(draw, [flag_x, flag_y, flag_x + flag_w, flag_y + flag_h], radius=17, fill=COLOR_CORAL)
+    draw.text((flag_x + flag_w / 2, flag_y + flag_h / 2), flag_text, fill=COLOR_WHITE, anchor="mm", font=font_flag)
+
+    # Content
+    cy = y + 22
+    for text, font, color in elements:
+        lines = wrap_text(text, font, draw, w - 2 * pad)
+        for line in lines:
+            draw.text((x + pad, cy), line, fill=color, font=font)
+            cy += line_h
+        cy += 4
+
+    return y + box_h + 16
+
+
+def _draw_footer(draw, y):
+    """Draw footer with dashed line, tagline and CTA pill."""
+    margin = 64
+    font_tagline = ImageFont.truetype(FONT_EMOJI, 28)
+    font_cta = ImageFont.truetype(FONT_EMOJI, 24)
+
+    # Dashed line
+    dash_len = 16
+    gap_len = 8
+    dx = margin
+    while dx < IMG_WIDTH - margin:
+        draw.line([(dx, y), (min(dx + dash_len, IMG_WIDTH - margin), y)], fill=COLOR_BORDER, width=3)
+        dx += dash_len + gap_len
+
+    # Tagline (left)
+    tagline = random.choice(CTA_TAGLINES)
+    draw.text((margin, y + 24), tagline, fill=COLOR_INK, font=font_tagline)
+
+    # CTA pill (right)
+    cta_text = "Follow \u2192"
+    cta_w = draw.textlength(cta_text, font=font_cta) + 44
+    cta_h = 40
+    cta_x = IMG_WIDTH - margin - cta_w
+    cta_y = y + 14
+    draw_rounded_rect(draw, [cta_x, cta_y, cta_x + cta_w, cta_y + cta_h], radius=20, fill=COLOR_CORAL)
+    draw.text((cta_x + cta_w / 2, cta_y + cta_h / 2), cta_text, fill=COLOR_WHITE, anchor="mm", font=font_cta)
+
+    return y + 80
+
+
+def _render_body_soal(draw, data, margin, usable_width, y_start):
+    """Render body for soal type: question + options + trick-box."""
+    font_body = ImageFont.truetype(FONT_REGULAR, 30)
+    font_option = ImageFont.truetype(FONT_REGULAR, 28)
+    font_jawaban = ImageFont.truetype(FONT_FREDOKA, 30)
+    font_penjelasan = ImageFont.truetype(FONT_REGULAR, 26)
+
+    y = y_start
+    # Question
+    soal_lines = wrap_text(data["soal"], font_body, draw, usable_width)
     for line in soal_lines:
-        draw.text((margin, y), line, fill=COLOR_TEXT, font=font_soal)
-        y += 52
-    y += 30
+        draw.text((margin, y), line, fill=COLOR_INK, font=font_body)
+        y += 42
+    y += 20
+
+    # Options A-D
     for i, p in enumerate(data["pilihan"]):
         letter = chr(65 + i)
-        option_text = f"{letter}.  {p}"
-        option_lines = wrap_text(option_text, font_pilihan, draw, usable_width - 50)
-        bg_y = y - 8
-        text_block_h = len(option_lines) * 44 + 18
-        draw_rounded_rect(draw, [margin, bg_y, IMG_WIDTH - margin, bg_y + text_block_h], radius=14, fill=COLOR_WHITE)
-        draw.rounded_rectangle([margin + 2, bg_y + 2, IMG_WIDTH - margin - 2, bg_y + text_block_h - 2], radius=12, fill=None, outline=topic_bg, width=2)
-        draw.rounded_rectangle([margin, bg_y, margin + 8, bg_y + text_block_h], radius=4, fill=topic_accent)
-        for line in option_lines:
-            draw.text((margin + 30, y), line, fill=COLOR_TEXT, font=font_pilihan)
-            y += 44
-        y += 14
-    return y
-
-
-def render_materi(draw, data, topic, margin, usable_width, font_soal, font_materi_judul, font_materi_body, font_label, topic_accent, topic_bg, badge_y, header_h):
-    y = badge_y + 60
-
-    font_rumus = ImageFont.truetype(FONT_BOLD, 28)
-
-    # ── Icon + Label ──
-    label = "📖 MATERI"
-    lw = draw.textlength(label, font=font_label)
-    draw_rounded_rect(draw, [margin, y, margin + lw + 24, y + 34], radius=6, fill=topic_accent)
-    draw.text((margin + 12, y + 17), label, fill=COLOR_WHITE, anchor="lm", font=font_label)
-    y += 50
-
-    # ── Judul ──
-    judul_lines = wrap_text(data["judul"], font_materi_judul, draw, usable_width)
-    for line in judul_lines:
-        draw.text((margin, y), line, fill=COLOR_NAVY, font=font_materi_judul)
-        y += 42
-    y += 10
-
-    # ── Isi Materi ──
-    isi_lines = wrap_text(data["isi_materi"], font_materi_body, draw, usable_width)
-    for line in isi_lines:
-        draw.text((margin, y), line, fill=COLOR_TEXT, font=font_materi_body)
-        y += 36
-    y += 12
-
-    # ── Rumus box ──
-    rumus_text = data.get("rumus", "")
-    if rumus_text:
-        rumus_pad = 14
-        rumus_lines = wrap_text(rumus_text, font_rumus, draw, usable_width - 2 * rumus_pad)
-        rumus_h = len(rumus_lines) * 36 + 2 * rumus_pad
-        draw_rounded_rect(draw, [margin, y, IMG_WIDTH - margin, y + rumus_h], radius=10, fill=tuple(min(c + 220, 255) for c in topic_accent))
-        draw.rounded_rectangle([margin, y, IMG_WIDTH - margin, y + rumus_h], radius=10, fill=None, outline=topic_accent, width=2)
-        draw.text((margin + 12, y + rumus_pad), "📐", fill=topic_accent, font=font_label)
-        rumus_y = y + rumus_pad + 4
-        for line in rumus_lines:
-            draw.text((margin + 44, rumus_y), line, fill=COLOR_NAVY, font=font_rumus)
-            rumus_y += 36
-        y += rumus_h + 20
-
-    # ── Contoh ──
-    contoh_text = data.get("contoh", "")
-    if contoh_text:
-        c_label = "💡 Contoh"
-        draw.text((margin, y), c_label, fill=topic_accent, font=font_materi_judul)
-        y += 38
-        contoh_lines = wrap_text(contoh_text, font_materi_body, draw, usable_width)
-        for line in contoh_lines:
-            draw.text((margin, y), line, fill=COLOR_TEXT, font=font_materi_body)
+        opt_text = f"{letter}. {p}"
+        opt_lines = wrap_text(opt_text, font_option, draw, usable_width - 40)
+        opt_h = len(opt_lines) * 36 + 16
+        draw_rounded_rect(draw, [margin, y, margin + usable_width, y + opt_h], radius=10, fill=COLOR_PAPER)
+        draw.rounded_rectangle([margin, y, margin + usable_width, y + opt_h], radius=10, fill=None, outline=COLOR_BORDER, width=2)
+        for line in opt_lines:
+            draw.text((margin + 20, y + 8), line, fill=COLOR_INK, font=font_option)
             y += 36
+        y += 10
+    y += 10
+
+    # Trick-box: Trik Cepat
+    jawaban_text = f"Jawaban: {data['jawaban']}"
+    elements = [
+        (jawaban_text, font_jawaban, COLOR_HEADER_BG),
+        (data["penjelasan"], font_penjelasan, COLOR_INK),
+    ]
+    y = _draw_trick_box(draw, margin, y, usable_width, TRICK_FLAG_MAP["soal"], elements)
 
     return y
 
 
-def render_fakta(draw, data, topic, margin, usable_width, font_soal, font_materi_judul, font_materi_body, font_label, topic_accent, topic_bg, badge_y, header_h):
-    y = badge_y + 60
+def _render_body_materi(draw, data, margin, usable_width, y_start):
+    """Render body for materi type: content + trick-box with rumus+contoh."""
+    font_body = ImageFont.truetype(FONT_REGULAR, 32)
+    font_rumus = ImageFont.truetype(FONT_FREDOKA, 30)
+    font_contoh = ImageFont.truetype(FONT_REGULAR, 26)
 
-    # ── Icon + Label ──
-    label = "✨ FAKTA"
-    lw = draw.textlength(label, font=font_label)
-    draw_rounded_rect(draw, [margin, y, margin + lw + 24, y + 34], radius=6, fill=topic_accent)
-    draw.text((margin + 12, y + 17), label, fill=COLOR_WHITE, anchor="lm", font=font_label)
-    y += 55
-
-    # ── Judul ──
-    judul_lines = wrap_text(data["judul"], font_materi_judul, draw, usable_width)
-    for line in judul_lines:
-        draw.text((margin, y), line, fill=COLOR_NAVY, font=font_materi_judul)
-        y += 42
-    y += 10
-
-    # ── Decorative large quote mark ──
-    draw.text((margin, y), "❝", fill=topic_accent, font=ImageFont.truetype(FONT_BOLD, 60))
-    y += 10
-
-    # ── Isi Fakta ──
-    isi_lines = wrap_text(data["isi_fakta"], font_materi_body, draw, usable_width)
+    y = y_start
+    isi_lines = wrap_text(data["isi_materi"], font_body, draw, usable_width)
     for line in isi_lines:
-        draw.text((margin + 20, y), line, fill=COLOR_TEXT, font=font_materi_body)
-        y += 36
-    y += 5
+        draw.text((margin, y), line, fill=COLOR_INK, font=font_body)
+        y += 40
+    y += 20
 
-    # ── Closing quote ──
-    draw.text((IMG_WIDTH - margin - 20, y), "❞", fill=topic_accent, font=ImageFont.truetype(FONT_BOLD, 60), anchor="rt")
+    elements = []
+    rumus = data.get("rumus", "")
+    if rumus:
+        elements.append((rumus, font_rumus, COLOR_HEADER_BG))
+    contoh = data.get("contoh", "")
+    if contoh:
+        elements.append((f"Contoh: {contoh}", font_contoh, COLOR_INK))
 
-    # ── Sumber ──
+    if elements:
+        y = _draw_trick_box(draw, margin, y, usable_width, TRICK_FLAG_MAP["materi"], elements)
+    else:
+        y += 10
+
+    return y
+
+
+def _render_body_fakta(draw, data, margin, usable_width, y_start):
+    """Render body for fakta type: content + trick-box with sumber/CTA."""
+    font_body = ImageFont.truetype(FONT_REGULAR, 32)
+    font_sumber = ImageFont.truetype(FONT_EMOJI, 26)
+
+    y = y_start
+    isi_lines = wrap_text(data["isi_fakta"], font_body, draw, usable_width)
+    for line in isi_lines:
+        draw.text((margin, y), line, fill=COLOR_INK, font=font_body)
+        y += 40
+    y += 20
+
     sumber = data.get("sumber", "")
     if sumber:
-        y += 50
-        draw.text((margin, y), f"📌 {sumber}", fill=COLOR_FOOTER, font=ImageFont.truetype(FONT_REGULAR, 22))
+        elements = [(f"\U0001f4cc {sumber}", font_sumber, COLOR_INK)]
+    else:
+        elements = [("Simpan postingan ini buat referensi belajar! \U0001f4cc", font_sumber, COLOR_INK)]
+
+    y = _draw_trick_box(draw, margin, y, usable_width, TRICK_FLAG_MAP["fakta"], elements)
 
     return y
 
 
-def buat_gambar_konten(data, topic, content_type, kategori=None, categories=None, filename="soal/konten_hari_ini.png"):
+def render_card(data, content_type, kategori=None, categories=None, filename="soal/konten_hari_ini.png"):
+    """Main rendering function — replaces buat_gambar_konten."""
     os.makedirs(os.path.dirname(filename), exist_ok=True)
 
     img = Image.new("RGB", (IMG_WIDTH, IMG_HEIGHT), COLOR_BG)
     draw = ImageDraw.Draw(img)
 
-    topic_img = get_topic_image(topic, size=240, opacity=0.12)
-    wx = IMG_WIDTH - 240 - 40
-    wy = IMG_HEIGHT - 240 - 60
-    img.paste(topic_img, (wx, wy), topic_img)
-
-    font_heading = ImageFont.truetype(FONT_BOLD, 48)
-    font_subtitle = ImageFont.truetype(FONT_REGULAR, 26)
-    font_badge = ImageFont.truetype(FONT_BOLD, 24)
-    font_soal = ImageFont.truetype(FONT_REGULAR, 34)
-    font_pilihan = ImageFont.truetype(FONT_REGULAR, 30)
-    font_footer = ImageFont.truetype(FONT_REGULAR, 22)
-    font_icon = ImageFont.truetype(FONT_BOLD, 28)
-    font_materi_judul = ImageFont.truetype(FONT_BOLD, 30)
-    font_materi_body = ImageFont.truetype(FONT_REGULAR, 26)
-    font_label = ImageFont.truetype(FONT_BOLD, 22)
-
-    margin = 60
+    margin = 64
     usable_width = IMG_WIDTH - 2 * margin
-    header_h = 160
 
-    topic_accent, topic_bg = TOPIC_COLORS.get(topic, (COLOR_NAVY, (220, 220, 220)))
-
-    # ── Common Header ──
-    draw.rounded_rectangle([(0, 0), (IMG_WIDTH, header_h)], radius=0, fill=COLOR_NAVY)
-    draw.rounded_rectangle([(0, header_h - 8), (IMG_WIDTH, header_h + 4)], radius=0, fill=COLOR_ORANGE)
-
-    if categories and kategori:
-        cat = categories.get(kategori, {})
-        header_title = cat.get("header_label", CONTENT_TYPE_LABELS.get(content_type, "MATEMATIKA"))
-        header_sub = cat.get("header_sub", CONTENT_TYPE_HEADER_SUB.get(content_type, ""))
-    else:
-        header_title = CONTENT_TYPE_LABELS.get(content_type, "SOAL MATEMATIKA")
-        header_sub = CONTENT_TYPE_HEADER_SUB.get(content_type, "CPNS  •  TKA  •  SNBT")
-    draw.text((IMG_WIDTH / 2, 55), header_title, fill=COLOR_WHITE, anchor="mm", font=font_heading)
-    draw.text((IMG_WIDTH / 2, 115), header_sub, fill=(255, 200, 150), anchor="mm", font=font_subtitle)
-
-    # Sticky note corner
-    sticky_x = IMG_WIDTH - 120
-    sticky_y = 20
-    draw.rounded_rectangle([(sticky_x, sticky_y), (sticky_x + 80, sticky_y + 70)], radius=6, fill=COLOR_STICKY, outline=(200, 180, 100), width=2)
-    draw.text((sticky_x + 40, sticky_y + 35), "✏️", fill=(80, 60, 20), anchor="mm", font=font_icon)
-
-    # Decorative star top-left
-    draw.text((40, 25), "★", fill=(255, 200, 100), anchor="mm", font=font_icon)
-    draw.text((100, 130), "✦", fill=(255, 200, 100), anchor="mm", font=font_icon)
-
-    # ── Topic badge ──
-    topic_label = TOPIC_LABELS.get(topic, topic)
-    badge_label = f"★ {topic_label}"
-    badge_w = draw.textlength(badge_label, font=font_badge) + 44
-    badge_x = (IMG_WIDTH - badge_w) / 2
-    badge_y = header_h + 28
-    draw_rounded_rect(draw, [badge_x, badge_y, badge_x + badge_w, badge_y + 42], radius=21, fill=topic_accent)
-    draw.rounded_rectangle([badge_x + 4, badge_y + 4, badge_x + badge_w - 4, badge_y + 38], radius=17, fill=None, outline=COLOR_WHITE, width=2)
-    draw.text((IMG_WIDTH / 2, badge_y + 21), badge_label, fill=COLOR_WHITE, anchor="mm", font=font_badge)
-
-    # ── Content body ──
     if content_type == "soal":
-        y = render_soal(draw, data, topic, margin, usable_width, font_soal, font_pilihan, font_badge, topic_accent, topic_bg, badge_y, header_h)
-    elif content_type == "materi":
-        y = render_materi(draw, data, topic, margin, usable_width, font_soal, font_materi_judul, font_materi_body, font_label, topic_accent, topic_bg, badge_y, header_h)
-    else:  # fakta
-        y = render_fakta(draw, data, topic, margin, usable_width, font_soal, font_materi_judul, font_materi_body, font_label, topic_accent, topic_bg, badge_y, header_h)
-
-    # ── Footer ──
-    footer_y = min(IMG_HEIGHT - 80, y + 60)
-    if footer_y > IMG_HEIGHT - 80:
-        footer_y = IMG_HEIGHT - 80
-    draw.line([(margin, footer_y), (IMG_WIDTH - margin, footer_y)], fill=topic_bg, width=3)
-
-    deco_icon = random.choice(DODDLE_ICONS)
-    footer = random.choice(FOOTER_POOL)
-    if footer:
-        draw.text(
-            (IMG_WIDTH / 2 - 20, footer_y + 32),
-            footer,
-            fill=COLOR_FOOTER, anchor="mm", font=font_footer
-        )
-        fw = draw.textlength(footer, font=font_footer)
-        draw.text(
-            (IMG_WIDTH / 2 + fw / 2 + 20, footer_y + 32),
-            f" {deco_icon}",
-            fill=COLOR_ORANGE, anchor="mm", font=font_footer
-        )
+        title = data.get("judul", "Ayo Coba Soal Ini!")
     else:
-        draw.text(
-            (IMG_WIDTH / 2, footer_y + 32),
-            deco_icon,
-            fill=COLOR_ORANGE, anchor="mm", font=font_icon
-        )
+        title = data.get("judul", "Materi Matematika")
+
+    header_h = _draw_header(draw, content_type, title, margin, usable_width)
+
+    y = header_h + 24
+    if content_type == "soal":
+        y = _render_body_soal(draw, data, margin, usable_width, y)
+    elif content_type == "materi":
+        y = _render_body_materi(draw, data, margin, usable_width, y)
+    else:
+        y = _render_body_fakta(draw, data, margin, usable_width, y)
+
+    footer_y = max(y, IMG_HEIGHT - 140)
+    _draw_footer(draw, footer_y)
 
     img.save(filename)
     return filename
+
+
+# --- Legacy alias ---
+buat_gambar_konten = render_card
+
 
 
 def post_to_facebook(image_path, caption):
@@ -786,6 +722,41 @@ def post_to_facebook(image_path, caption):
         raise RuntimeError(f"Gagal posting: {result}")
 
     return result
+
+
+# NOTE: post_to_facebook_profile() — disabled until FB_USER_TOKEN/FB_USER_ID are ready
+
+def check_stagger():
+    if not os.path.exists(STAGGER_FILE):
+        return True
+    try:
+        with open(STAGGER_FILE) as f:
+            data = json.load(f)
+        last_time = datetime.fromisoformat(data.get("last_post_time", ""))
+        hours_since = (datetime.now() - last_time).total_seconds() / 3600
+        if hours_since < STAGGER_MIN_HOURS:
+            print(f"[STAGGER] Only {hours_since:.1f}h since last post to other account — skipping (min {STAGGER_MIN_HOURS}h)")
+            return False
+        return True
+    except (ValueError, KeyError, FileNotFoundError):
+        return True
+
+
+def record_stagger():
+    os.makedirs("data", exist_ok=True)
+    with open(STAGGER_FILE, "w") as f:
+        json.dump({"last_post_time": datetime.now().isoformat()}, f)
+
+
+def pick_content_type_for_account():
+    roll = random.random()
+    if roll < 0.8:
+        weights = PERSONAL_MAJOR_CT_WEIGHTS
+    else:
+        weights = PERSONAL_MINOR_CT_WEIGHTS
+    types = list(CONTENT_TYPES)
+    w = [weights.get(t, 1) for t in types]
+    return random.choices(types, weights=w, k=1)[0]
 
 
 def compliance_check(caption):
@@ -947,6 +918,7 @@ def load_and_apply_learning_config():
         changed.append("hashtags")
     if changed:
         print(f"[SL] Applied learning config: {', '.join(changed)}")
+    return cfg
 
 
 def process_telegram_csv():
@@ -1064,6 +1036,10 @@ def main():
     load_and_apply_learning_config()
     process_telegram_csv()
 
+    if not check_stagger():
+        print("[STAGGER] Skip — too soon since other account post")
+        return
+
     categories = load_categories()
     history = load_history()
     print(f"Histori: {len(history)} item")
@@ -1078,7 +1054,7 @@ def main():
     topic = pick_topic(history, kategori, categories)
     print(f"Topik terpilih: {topic} ({TOPIC_LABELS.get(topic, topic)})")
 
-    content_type = pick_content_type()
+    content_type = pick_content_type_for_account()
     print(f"Tipe konten: {content_type.upper()}")
 
     data = generate_content(topic, content_type, history, kategori, categories)
@@ -1106,6 +1082,9 @@ def main():
         print(f"Posting berhasil! Post ID: {result.get('id', 'unknown')}")
 
     history_item = make_history_item(data, topic, content_type, kategori)
+    history_item["account_type"] = ACCOUNT_TYPE
+    history_item["format"] = CONTENT_FORMAT
+    history_item["theme"] = kategori or "cpns"
     history.append(history_item)
     save_history(history)
 

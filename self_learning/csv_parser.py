@@ -4,6 +4,7 @@ import json
 import os
 import re
 from datetime import datetime
+import json
 
 try:
     from google import genai
@@ -64,6 +65,12 @@ def _map_columns(lowered: list, original: list) -> dict:
             mapping["comments"] = original[i]
         elif any(t in hl for t in ["shares", "bagikan", "share"]):
             mapping["shares"] = original[i]
+        elif any(t in hl for t in ["account_type", "account type", "akun", "jenis akun"]):
+            mapping["account_type"] = original[i]
+        elif any(t in hl for t in ["format", "content format", "content_format", "format konten"]):
+            mapping["format"] = original[i]
+        elif any(t in hl for t in ["theme", "tema", "content_theme", "content theme", "topik konten"]):
+            mapping["theme"] = original[i]
 
     if "views" in mapping and ("likes" in mapping or "comments" in mapping or "shares" in mapping):
         return mapping
@@ -84,6 +91,10 @@ def _extract_record(row: dict, col_map: dict) -> dict:
         engagement = (likes or 0) + (comments or 0) + (shares or 0)
         engagement_rate = round(engagement / views, 4) if views and views > 0 else 0.0
 
+        account_type = str(row.get(col_map.get("account_type", ""), "")).strip()
+        format_ = str(row.get(col_map.get("format", ""), "")).strip()
+        theme = str(row.get(col_map.get("theme", ""), "")).strip()
+
         return {
             "post_id": post_id,
             "platform": "facebook",
@@ -92,6 +103,9 @@ def _extract_record(row: dict, col_map: dict) -> dict:
             "comments": comments or 0,
             "shares": shares or 0,
             "engagement_rate": engagement_rate,
+            "account_type": account_type if account_type else None,
+            "format": format_ if format_ else None,
+            "theme": theme if theme else None,
             "source": "manual",
             "fetched_at": datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
         }
@@ -110,6 +124,8 @@ def _parse_csv_via_gemini(raw: str) -> list:
     prompt = (
         "Parse CSV Facebook Insights. "
         "Ekstrak: post_id, post_date, views, likes, comments, shares. "
+        "Jika ada kolom account_type (personal/page), format (slide/manim/gambar), "
+        "atau theme (cpns/utbk/anbk/tips_trik/fun_fact), ekstrak juga. "
         "Kembalikan JSON array: [{\"post_id\":\"...\",\"views\":100,\"likes\":5,\"comments\":1,\"shares\":0}]\n\n"
         f"CSV:\n{raw[:50000]}"
     )
@@ -127,6 +143,9 @@ def _parse_csv_via_gemini(raw: str) -> list:
                 r["engagement_rate"] = 0.0
                 r["source"] = "manual"
                 r["fetched_at"] = now
+                r.setdefault("account_type", None)
+                r.setdefault("format", None)
+                r.setdefault("theme", None)
                 views = r.get("views", 0) or 0
                 eng = (r.get("likes", 0) or 0) + (r.get("comments", 0) or 0) + (r.get("shares", 0) or 0)
                 r["engagement_rate"] = round(eng / views, 4) if views > 0 else 0.0
