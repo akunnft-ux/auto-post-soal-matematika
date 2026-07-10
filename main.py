@@ -514,8 +514,8 @@ def _draw_trick_box(draw, x, y, w, flag_text, elements):
     elements: list of (text, font, color) tuples
     Returns y position after the box.
     """
-    pad = 24
-    line_h = 36
+    pad = 16
+    line_h = 30
 
     total_h = 0
     for text, font, _ in elements:
@@ -539,7 +539,7 @@ def _draw_trick_box(draw, x, y, w, flag_text, elements):
     draw.text((flag_x + flag_w / 2, flag_y + flag_h / 2), flag_text, fill=COLOR_WHITE, anchor="mm", font=font_flag)
 
     # Content
-    cy = y + 22
+    cy = y + 16
     for text, font, color in elements:
         lines = wrap_text(text, font, draw, w - 2 * pad)
         for line in lines:
@@ -582,32 +582,32 @@ def _draw_footer(draw, y):
 
 def _render_body_soal(draw, data, margin, usable_width, y_start):
     """Render body for soal type: question + options + trick-box."""
-    font_body = ImageFont.truetype(FONT_REGULAR, 30)
-    font_option = ImageFont.truetype(FONT_REGULAR, 28)
-    font_jawaban = ImageFont.truetype(FONT_FREDOKA, 30)
-    font_penjelasan = ImageFont.truetype(FONT_REGULAR, 26)
+    font_body = ImageFont.truetype(FONT_REGULAR, 26)
+    font_option = ImageFont.truetype(FONT_REGULAR, 24)
+    font_jawaban = ImageFont.truetype(FONT_FREDOKA, 28)
+    font_penjelasan = ImageFont.truetype(FONT_REGULAR, 24)
 
     y = y_start
     # Question
     soal_lines = wrap_text(data["soal"], font_body, draw, usable_width)
     for line in soal_lines:
         draw.text((margin, y), line, fill=COLOR_INK, font=font_body)
-        y += 42
-    y += 20
+        y += 34
+    y += 16
 
     # Options A-D
     for i, p in enumerate(data["pilihan"]):
         letter = chr(65 + i)
         opt_text = f"{letter}. {p}"
         opt_lines = wrap_text(opt_text, font_option, draw, usable_width - 40)
-        opt_h = len(opt_lines) * 36 + 16
+        opt_h = len(opt_lines) * 30 + 14
         draw_rounded_rect(draw, [margin, y, margin + usable_width, y + opt_h], radius=10, fill=COLOR_PAPER)
         draw.rounded_rectangle([margin, y, margin + usable_width, y + opt_h], radius=10, fill=None, outline=COLOR_BORDER, width=2)
         for line in opt_lines:
             draw.text((margin + 20, y + 8), line, fill=COLOR_INK, font=font_option)
-            y += 36
-        y += 10
-    y += 10
+            y += 30
+        y += 8
+    y += 8
 
     # Trick-box: Trik Cepat
     jawaban_text = f"Jawaban: {data['jawaban']}"
@@ -622,16 +622,16 @@ def _render_body_soal(draw, data, margin, usable_width, y_start):
 
 def _render_body_materi(draw, data, margin, usable_width, y_start):
     """Render body for materi type: content + trick-box with rumus+contoh."""
-    font_body = ImageFont.truetype(FONT_REGULAR, 32)
-    font_rumus = ImageFont.truetype(FONT_FREDOKA, 30)
-    font_contoh = ImageFont.truetype(FONT_REGULAR, 26)
+    font_body = ImageFont.truetype(FONT_REGULAR, 28)
+    font_rumus = ImageFont.truetype(FONT_FREDOKA, 28)
+    font_contoh = ImageFont.truetype(FONT_REGULAR, 24)
 
     y = y_start
     isi_lines = wrap_text(data["isi_materi"], font_body, draw, usable_width)
     for line in isi_lines:
         draw.text((margin, y), line, fill=COLOR_INK, font=font_body)
-        y += 40
-    y += 20
+        y += 34
+    y += 16
 
     elements = []
     rumus = data.get("rumus", "")
@@ -651,15 +651,15 @@ def _render_body_materi(draw, data, margin, usable_width, y_start):
 
 def _render_body_fakta(draw, data, margin, usable_width, y_start):
     """Render body for fakta type: content + trick-box with sumber/CTA."""
-    font_body = ImageFont.truetype(FONT_REGULAR, 32)
-    font_sumber = ImageFont.truetype(FONT_EMOJI, 26)
+    font_body = ImageFont.truetype(FONT_REGULAR, 28)
+    font_sumber = ImageFont.truetype(FONT_EMOJI, 24)
 
     y = y_start
     isi_lines = wrap_text(data["isi_fakta"], font_body, draw, usable_width)
     for line in isi_lines:
         draw.text((margin, y), line, fill=COLOR_INK, font=font_body)
-        y += 40
-    y += 20
+        y += 34
+    y += 16
 
     sumber = data.get("sumber", "")
     if sumber:
