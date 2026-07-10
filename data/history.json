@@ -363,5 +363,13 @@
     "tanggal": "2026-07-09",
     "judul": "Keajaiban Kombinatorial dalam Musik Komposisi",
     "isi_fakta": "Dalam dunia musik, terdapat teknik yang disebut Musikel Würfelspiel atau 'permai"
+  },
+  {
+    "kategori": "olimpiade_smp",
+    "tipe": "soal",
+    "topik": "teori_bilangan",
+    "tanggal": "2026-07-10",
+    "soal": "Misalkan S adalah himpunan semua bilangan bulat n dengan 1 ≤ n ≤ 2025 sedemikian sehingga n^2 + 2025 habis dibagi oleh n + 45. Tentukan banyaknya anggota himpunan S.",
+    "jawaban": "6"
   }
 ]
