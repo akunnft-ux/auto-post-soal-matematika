@@ -382,5 +382,16 @@
     "account_type": "personal",
     "format": "gambar",
     "theme": "utbk"
+  },
+  {
+    "kategori": "olimpiade_sd",
+    "tipe": "materi",
+    "topik": "geometri",
+    "tanggal": "2026-07-10",
+    "judul": "Eksplorasi Geometri Fraktal: Segitiga Sierpinski",
+    "isi_materi": "Segitiga Sierpinski adalah sebuah objek geometri fraktal yang dibuat dengan memb",
+    "account_type": "personal",
+    "format": "gambar",
+    "theme": "olimpiade_sd"
   }
 ]
