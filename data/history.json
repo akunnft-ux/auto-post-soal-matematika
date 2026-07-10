@@ -371,5 +371,16 @@
     "tanggal": "2026-07-10",
     "soal": "Misalkan S adalah himpunan semua bilangan bulat n dengan 1 ≤ n ≤ 2025 sedemikian sehingga n^2 + 2025 habis dibagi oleh n + 45. Tentukan banyaknya anggota himpunan S.",
     "jawaban": "6"
+  },
+  {
+    "kategori": "utbk",
+    "tipe": "soal",
+    "topik": "geometri",
+    "tanggal": "2026-07-10",
+    "soal": "Sebuah menara observasi berbentuk prisma terpancung memiliki alas berupa persegi dengan panjang sisi 10 meter. Sisi atas menara tersebut juga berbentuk persegi namun miring, dengan panjang sisi 6 meter. Keempat rusuk tegak menara tersebut memiliki panjang yang berbeda, yaitu 12 m, 14 m, 16 m, dan 18 m secara berurutan. Jika bagian dalam menara tersebut akan diisi dengan gas helium, tentukan volume maksimum gas yang dapat ditampung oleh menara tersebut dalam satuan meter kubik.",
+    "jawaban": "1260",
+    "account_type": "personal",
+    "format": "gambar",
+    "theme": "utbk"
   }
 ]
