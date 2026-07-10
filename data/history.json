@@ -393,5 +393,16 @@
     "account_type": "personal",
     "format": "gambar",
     "theme": "olimpiade_sd"
+  },
+  {
+    "kategori": "sekolah_sma",
+    "tipe": "fakta",
+    "topik": "aritmatika_aljabar",
+    "tanggal": "2026-07-10",
+    "judul": "Anomali Bilangan Friedman: Ketika Angka Menjadi Rumusnya Sendiri",
+    "isi_fakta": "Bilangan Friedman adalah bilangan bulat unik yang dapat dituliskan kembali sebag",
+    "account_type": "personal",
+    "format": "gambar",
+    "theme": "sekolah_sma"
   }
 ]
