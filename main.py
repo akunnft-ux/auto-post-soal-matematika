@@ -672,7 +672,7 @@ def _render_body_fakta(draw, data, margin, usable_width, y_start):
     return y
 
 
-def render_card(data, content_type, kategori=None, categories=None, filename="soal/konten_hari_ini.png"):
+def render_card(data, topic, content_type, kategori=None, categories=None, filename="soal/konten_hari_ini.png"):
     """Main rendering function — replaces buat_gambar_konten."""
     os.makedirs(os.path.dirname(filename), exist_ok=True)
 
