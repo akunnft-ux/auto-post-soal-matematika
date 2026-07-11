@@ -47,7 +47,6 @@ TOPICS = [
     "deret_angka",
     "aritmatika_aljabar",
     "peluang_statistika",
-    "geometri",
     "fungsi_grafik",
     "teori_bilangan",
     "kombinatorika",
@@ -61,17 +60,18 @@ TOPIC_LABELS = {
     "deret_angka": "Deret Angka & Pola Bilangan",
     "aritmatika_aljabar": "Aritmatika & Aljabar",
     "peluang_statistika": "Peluang & Statistika",
-    "geometri": "Geometri",
     "fungsi_grafik": "Fungsi & Grafik",
     "teori_bilangan": "Teori Bilangan",
     "kombinatorika": "Kombinatorika",
 }
 
 HASHTAG_POOL = [
-    "#SoalMatematika", "#CPNS2026", "#BelajarMatematika",
-    "#MatematikaDasar", "#CPNS", "#TIUCPNS", "#SKDCPNS",
-    "#TryoutCPNS", "#RuangBelajar", "#Matematika",
-    "#LatihanCPNS", "#StudiCPNS",
+    "#SoalMatematika", "#BelajarMatematika",
+    "#MatematikaSD", "#MatematikaSMP",
+    "#RuangBelajar", "#Matematika",
+    "#OlimpiadeSD", "#OlimpiadeSMP",
+    "#UjianSekolah", "#LatihanSoal",
+    "#BelajarBareng", "#TipsMatematika",
 ]
 
 EMOJI_POOL = ["🧮", "📐", "📝", "✏️", "📊", "➗", "➕", "❌"]
@@ -99,7 +99,7 @@ CTA_TAGLINES = [
 HOOK_TEMPLATES = [
     "Coba soal matematika ini! 🧐",
     "90% orang salah jawab. Kamu bisa? ⚡",
-    "Kuis matematika untuk CPNS! 🎯",
+    "Kuis matematika untukmu! 🎯",
     "Jangan terkecoh dengan soal ini! 💡",
     "Kebanyakan orang menjawab salah. Ayo coba! 🤔",
     "Tes kemampuan matematikamu! 📝",
@@ -108,10 +108,10 @@ HOOK_TEMPLATES = [
 
 HOOK_MATERI = [
     "Pahami konsep matematika ini! 📖",
-    "Materi penting buat CPNS! 🎯",
+    "Materi penting buat kamu! 🎯",
     "Kuasai rumus ini biar makin jago! 💡",
     "Yuk belajar matematika! 📚",
-    "Rumus ini sering keluar di tes! 🔥",
+    "Rumus ini sering keluar di ujian! 🔥",
 ]
 
 HOOK_FAKTA = [
@@ -177,17 +177,6 @@ TOPIC_PROMPTS = {
                   "Sertakan rumus utama, interpretasi, dan contoh.",
         "fakta": "FAKTA menarik tentang Peluang atau Statistika. "
                  "Misal: paradoks Monty Hall, birthday paradox, kesalahan statistik terkenal, dll. "
-                 "Beri fakta yang mengejutkan dan edukatif.",
-    },
-    "geometri": {
-        "soal": "soal Geometri. "
-                "Contoh: luas & keliling bangun datar, volume bangun ruang, "
-                "kesebangunan, teorema Pythagoras, sudut, garis singgung, dll.",
-        "materi": "MATERI tentang Geometri. "
-                  "Jelaskan konsep seperti teorema Pythagoras, kesebangunan, atau rumus volume bangun ruang. "
-                  "Sertakan rumus utama, visualisasi konsep, dan contoh.",
-        "fakta": "FAKTA menarik tentang Geometri. "
-                 "Misal: bilangan phi (π) dan keunikannya, fraktal di alam, geometri non-Euclid, dll. "
                  "Beri fakta yang mengejutkan dan edukatif.",
     },
     "fungsi_grafik": {
@@ -348,7 +337,7 @@ def generate_content(topic, content_type, history, kategori=None, categories=Non
         level = cat.get("level", "sedang hingga sulit")
         category_context = f"Target: {audience}\nLevel kesulitan: {level}"
     else:
-        category_context = "Level: sedang hingga sulit (CPNS / TKA / SNBT)"
+        category_context = "Target: Siswa SD/SMP\nLevel: mudah hingga sedang"
 
     originality_rule = (
         "KONTEN HARUS ORISINIL DAN BELUM PERNAH ADA SEBELUMNYA.\n"
@@ -1013,7 +1002,7 @@ def post_to_telegram(image_path, caption):
 
 def make_history_item(data: dict, topic: str, content_type: str, kategori=None) -> dict:
     item = {
-        "kategori": kategori or "cpns",
+        "kategori": kategori or "sekolah_sd",
         "tipe": content_type,
         "topik": topic,
         "tanggal": date.today().isoformat(),
@@ -1084,7 +1073,7 @@ def main():
     history_item = make_history_item(data, topic, content_type, kategori)
     history_item["account_type"] = ACCOUNT_TYPE
     history_item["format"] = CONTENT_FORMAT
-    history_item["theme"] = kategori or "cpns"
+    history_item["theme"] = kategori or "sekolah_sd"
     history.append(history_item)
     save_history(history)
 

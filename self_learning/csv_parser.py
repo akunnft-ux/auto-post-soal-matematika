@@ -125,7 +125,7 @@ def _parse_csv_via_gemini(raw: str) -> list:
         "Parse CSV Facebook Insights. "
         "Ekstrak: post_id, post_date, views, likes, comments, shares. "
         "Jika ada kolom account_type (personal/page), format (slide/manim/gambar), "
-        "atau theme (cpns/utbk/anbk/tips_trik/fun_fact), ekstrak juga. "
+        "atau theme (sd/smp/tips_trik/fun_fact), ekstrak juga. "
         "Kembalikan JSON array: [{\"post_id\":\"...\",\"views\":100,\"likes\":5,\"comments\":1,\"shares\":0}]\n\n"
         f"CSV:\n{raw[:50000]}"
     )
