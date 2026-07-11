@@ -404,5 +404,16 @@
     "account_type": "personal",
     "format": "gambar",
     "theme": "sekolah_sma"
+  },
+  {
+    "kategori": "sekolah_sma",
+    "tipe": "fakta",
+    "topik": "peluang_statistika",
+    "tanggal": "2026-07-11",
+    "judul": "Fenomena Simpson's Paradox dalam Pengambilan Keputusan",
+    "isi_fakta": "Pernahkah kamu melihat data yang menunjukkan hasil berbeda saat dipisah dibandin",
+    "account_type": "personal",
+    "format": "gambar",
+    "theme": "sekolah_sma"
   }
 ]
