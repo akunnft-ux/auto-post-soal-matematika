@@ -415,5 +415,16 @@
     "account_type": "personal",
     "format": "gambar",
     "theme": "sekolah_sma"
+  },
+  {
+    "kategori": "cpns",
+    "tipe": "fakta",
+    "topik": "deret_angka",
+    "tanggal": "2026-07-11",
+    "judul": "Anomali Bilangan Vampire: Ketika Angka Menjadi 'Pemangsa' Faktornya Sendiri",
+    "isi_fakta": "Dalam dunia teori bilangan, terdapat entitas unik yang disebut Bilangan Vampire.",
+    "account_type": "personal",
+    "format": "gambar",
+    "theme": "cpns"
   }
 ]
