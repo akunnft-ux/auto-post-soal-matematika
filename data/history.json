@@ -426,5 +426,16 @@
     "account_type": "personal",
     "format": "gambar",
     "theme": "cpns"
+  },
+  {
+    "kategori": "olimpiade_sd",
+    "tipe": "soal",
+    "topik": "teori_bilangan",
+    "tanggal": "2026-07-12",
+    "soal": "Seorang arkeolog menemukan artefak kuno berupa kepingan batu yang bertuliskan sebuah bilangan n. Diketahui bahwa jika n dikalikan dengan 13, hasilnya adalah bilangan yang terdiri dari deretan angka 7 yang berulang (777...7). Jika n merupakan bilangan bulat positif terkecil yang memenuhi kondisi tersebut, berapakah jumlah digit-digit dari n?",
+    "jawaban": "27",
+    "account_type": "personal",
+    "format": "gambar",
+    "theme": "olimpiade_sd"
   }
 ]
