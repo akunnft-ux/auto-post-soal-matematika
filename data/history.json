@@ -437,5 +437,16 @@
     "account_type": "personal",
     "format": "gambar",
     "theme": "olimpiade_sd"
+  },
+  {
+    "kategori": "sekolah_smp",
+    "tipe": "materi",
+    "topik": "peluang_statistika",
+    "tanggal": "2026-07-12",
+    "judul": "Detektif Peluang: Analisis Frekuensi Relatif pada Tren Media Sosial",
+    "isi_materi": "Peluang empiris bukan sekadar teori di atas kertas, melainkan cara kita mempredi",
+    "account_type": "personal",
+    "format": "gambar",
+    "theme": "sekolah_smp"
   }
 ]
