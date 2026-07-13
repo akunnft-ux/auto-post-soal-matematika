@@ -459,5 +459,16 @@
     "account_type": "personal",
     "format": "gambar",
     "theme": "olimpiade_smp"
+  },
+  {
+    "kategori": "olimpiade_sd",
+    "tipe": "fakta",
+    "topik": "kombinatorika",
+    "tanggal": "2026-07-13",
+    "judul": "Keajaiban Kombinatorial dalam Struktur DNA",
+    "isi_fakta": "Tahukah kamu bahwa tubuh manusia adalah master kombinatorika? Urutan basa nitrog",
+    "account_type": "personal",
+    "format": "gambar",
+    "theme": "olimpiade_sd"
   }
 ]
