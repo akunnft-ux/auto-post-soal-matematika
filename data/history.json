@@ -448,5 +448,16 @@
     "account_type": "personal",
     "format": "gambar",
     "theme": "sekolah_smp"
+  },
+  {
+    "kategori": "olimpiade_smp",
+    "tipe": "fakta",
+    "topik": "peluang_statistika",
+    "tanggal": "2026-07-13",
+    "judul": "Fenomena Fenno-Scandian: Paradoks Probabilitas dalam Turnamen Eliminasi",
+    "isi_fakta": "Dalam teori turnamen, sering diasumsikan bahwa pemain terbaik selalu memenangkan",
+    "account_type": "personal",
+    "format": "gambar",
+    "theme": "olimpiade_smp"
   }
 ]
