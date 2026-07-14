@@ -470,30 +470,47 @@ def draw_rounded_rect(draw, xy, radius, fill):
     draw.rounded_rectangle([x1, y1, x2, y2], radius=radius, fill=fill)
 
 
-def _draw_header(draw, content_type, title, margin, usable_width):
-    """Draw grape header with badge pill and centered title."""
-    header_h = 210
-    draw.rounded_rectangle([(0, 0), (IMG_WIDTH, header_h)], radius=0, fill=COLOR_HEADER_BG)
+def _create_measure_draw():
+    return ImageDraw.Draw(Image.new("RGB", (1, 1)))
 
+
+def _measure_trick_box(draw, w, elements):
+    """elements: list of (text, font, color) tuples. Returns total height offset from y."""
+    pad = 16
+    total_content_h = 0
+    for text, font, _ in elements:
+        lines = wrap_text(text, font, draw, w - 2 * pad)
+        elem_line_h = font.size + 10
+        total_content_h += len(lines) * elem_line_h + 4
+    box_h = total_content_h + 2 * pad + 16
+    return box_h + 16
+
+
+def _draw_header(draw, content_type, title, margin, usable_width, img_width):
+    """Draw grape header with badge pill and centered title. Returns actual header height."""
     font_badge = ImageFont.truetype(FONT_EMOJI, 26)
     font_title = ImageFont.truetype(FONT_FREDOKA, 50)
 
     badge_text = BADGE_MAP.get(content_type, "\U0001f4dd Soal Kilat")
     badge_w = draw.textlength(badge_text, font=font_badge) + 36
     badge_h = 36
-    badge_x = (IMG_WIDTH - badge_w) / 2
+    badge_x = (img_width - badge_w) / 2
     badge_y = 44
-    draw_rounded_rect(draw, [badge_x, badge_y, badge_x + badge_w, badge_y + badge_h], radius=18, fill=COLOR_SUN)
-    draw.text((IMG_WIDTH / 2, badge_y + badge_h / 2), badge_text, fill=COLOR_INK, anchor="mm", font=font_badge)
+    title_gap = 24
+    title_line_h = 60
+    bottom_pad = 24
 
-    title_y = badge_y + badge_h + 24
     title_lines = wrap_text(title, font_title, draw, usable_width)
-    if len(title_lines) == 1:
-        draw.text((IMG_WIDTH / 2, title_y + 5), title_lines[0], fill=COLOR_WHITE, anchor="mm", font=font_title)
-    else:
-        for line in title_lines:
-            draw.text((IMG_WIDTH / 2, title_y), line, fill=COLOR_WHITE, anchor="mt", font=font_title)
-            title_y += 56
+    header_h = badge_y + badge_h + title_gap + len(title_lines) * title_line_h + bottom_pad
+
+    draw.rounded_rectangle([(0, 0), (img_width, header_h)], radius=0, fill=COLOR_HEADER_BG)
+    draw_rounded_rect(draw, [badge_x, badge_y, badge_x + badge_w, badge_y + badge_h], radius=18, fill=COLOR_SUN)
+    draw.text((img_width / 2, badge_y + badge_h / 2), badge_text, fill=COLOR_INK, anchor="mm", font=font_badge)
+
+    title_y = badge_y + badge_h + title_gap
+    for line in title_lines:
+        draw.text((img_width / 2, title_y), line, fill=COLOR_WHITE, anchor="mt", font=font_title)
+        title_y += title_line_h
 
     return header_h
 
@@ -504,21 +521,18 @@ def _draw_trick_box(draw, x, y, w, flag_text, elements):
     Returns y position after the box.
     """
     pad = 16
-    line_h = 30
 
     total_h = 0
     for text, font, _ in elements:
         lines = wrap_text(text, font, draw, w - 2 * pad)
-        total_h += len(lines) * line_h + 4
+        elem_line_h = font.size + 10
+        total_h += len(lines) * elem_line_h + 4
 
     box_h = total_h + 2 * pad + 16
 
-    # Shadow
     draw_rounded_rect(draw, [x + 8, y + 8, x + w + 8, y + box_h + 8], radius=14, fill=COLOR_SUN)
-    # Main box
     draw.rounded_rectangle([x, y, x + w, y + box_h], radius=14, fill=COLOR_PAPER, outline=COLOR_INK, width=3)
 
-    # Flag pill
     font_flag = ImageFont.truetype(FONT_EMOJI, 24)
     flag_w = draw.textlength(flag_text, font=font_flag) + 36
     flag_h = 34
@@ -527,41 +541,38 @@ def _draw_trick_box(draw, x, y, w, flag_text, elements):
     draw_rounded_rect(draw, [flag_x, flag_y, flag_x + flag_w, flag_y + flag_h], radius=17, fill=COLOR_CORAL)
     draw.text((flag_x + flag_w / 2, flag_y + flag_h / 2), flag_text, fill=COLOR_WHITE, anchor="mm", font=font_flag)
 
-    # Content
     cy = y + 16
     for text, font, color in elements:
         lines = wrap_text(text, font, draw, w - 2 * pad)
+        elem_line_h = font.size + 10
         for line in lines:
             draw.text((x + pad, cy), line, fill=color, font=font)
-            cy += line_h
+            cy += elem_line_h
         cy += 4
 
     return y + box_h + 16
 
 
-def _draw_footer(draw, y):
-    """Draw footer with dashed line, tagline and CTA pill."""
+def _draw_footer(draw, y, img_width):
+    """Draw footer with dashed line, tagline and CTA pill. Returns y after footer."""
     margin = 64
     font_tagline = ImageFont.truetype(FONT_EMOJI, 28)
     font_cta = ImageFont.truetype(FONT_EMOJI, 24)
 
-    # Dashed line
     dash_len = 16
     gap_len = 8
     dx = margin
-    while dx < IMG_WIDTH - margin:
-        draw.line([(dx, y), (min(dx + dash_len, IMG_WIDTH - margin), y)], fill=COLOR_BORDER, width=3)
+    while dx < img_width - margin:
+        draw.line([(dx, y), (min(dx + dash_len, img_width - margin), y)], fill=COLOR_BORDER, width=3)
         dx += dash_len + gap_len
 
-    # Tagline (left)
     tagline = random.choice(CTA_TAGLINES)
     draw.text((margin, y + 24), tagline, fill=COLOR_INK, font=font_tagline)
 
-    # CTA pill (right)
     cta_text = "Follow \u2192"
     cta_w = draw.textlength(cta_text, font=font_cta) + 44
     cta_h = 40
-    cta_x = IMG_WIDTH - margin - cta_w
+    cta_x = img_width - margin - cta_w
     cta_y = y + 14
     draw_rounded_rect(draw, [cta_x, cta_y, cta_x + cta_w, cta_y + cta_h], radius=20, fill=COLOR_CORAL)
     draw.text((cta_x + cta_w / 2, cta_y + cta_h / 2), cta_text, fill=COLOR_WHITE, anchor="mm", font=font_cta)
@@ -569,36 +580,59 @@ def _draw_footer(draw, y):
     return y + 80
 
 
+def _measure_body_soal(draw, data, usable_width):
+    font_body = ImageFont.truetype(FONT_REGULAR, 33)
+    font_option = ImageFont.truetype(FONT_REGULAR, 26)
+    font_jawaban = ImageFont.truetype(FONT_FREDOKA, 30)
+    font_penjelasan = ImageFont.truetype(FONT_REGULAR, 30)
+
+    h = 0
+    soal_lines = wrap_text(data["soal"], font_body, draw, usable_width)
+    h += len(soal_lines) * 43 + 16
+
+    for i, p in enumerate(data["pilihan"]):
+        opt_text = f"{chr(65 + i)}. {p}"
+        opt_lines = wrap_text(opt_text, font_option, draw, usable_width - 40)
+        h += len(opt_lines) * 36 + 14 + 8
+    h += 8
+
+    jawaban_text = f"Jawaban: {data['jawaban']}"
+    elements = [
+        (jawaban_text, font_jawaban, COLOR_HEADER_BG),
+        (data["penjelasan"], font_penjelasan, COLOR_INK),
+    ]
+    h += _measure_trick_box(draw, usable_width, elements)
+
+    return h
+
+
 def _render_body_soal(draw, data, margin, usable_width, y_start):
     """Render body for soal type: question + options + trick-box."""
-    font_body = ImageFont.truetype(FONT_REGULAR, 26)
-    font_option = ImageFont.truetype(FONT_REGULAR, 24)
-    font_jawaban = ImageFont.truetype(FONT_FREDOKA, 28)
-    font_penjelasan = ImageFont.truetype(FONT_REGULAR, 24)
+    font_body = ImageFont.truetype(FONT_REGULAR, 33)
+    font_option = ImageFont.truetype(FONT_REGULAR, 26)
+    font_jawaban = ImageFont.truetype(FONT_FREDOKA, 30)
+    font_penjelasan = ImageFont.truetype(FONT_REGULAR, 30)
 
     y = y_start
-    # Question
     soal_lines = wrap_text(data["soal"], font_body, draw, usable_width)
     for line in soal_lines:
         draw.text((margin, y), line, fill=COLOR_INK, font=font_body)
-        y += 34
+        y += 43
     y += 16
 
-    # Options A-D
     for i, p in enumerate(data["pilihan"]):
         letter = chr(65 + i)
         opt_text = f"{letter}. {p}"
         opt_lines = wrap_text(opt_text, font_option, draw, usable_width - 40)
-        opt_h = len(opt_lines) * 30 + 14
+        opt_h = len(opt_lines) * 36 + 14
         draw_rounded_rect(draw, [margin, y, margin + usable_width, y + opt_h], radius=10, fill=COLOR_PAPER)
         draw.rounded_rectangle([margin, y, margin + usable_width, y + opt_h], radius=10, fill=None, outline=COLOR_BORDER, width=2)
         for line in opt_lines:
             draw.text((margin + 20, y + 8), line, fill=COLOR_INK, font=font_option)
-            y += 30
+            y += 36
         y += 8
     y += 8
 
-    # Trick-box: Trik Cepat
     jawaban_text = f"Jawaban: {data['jawaban']}"
     elements = [
         (jawaban_text, font_jawaban, COLOR_HEADER_BG),
@@ -609,17 +643,40 @@ def _render_body_soal(draw, data, margin, usable_width, y_start):
     return y
 
 
+def _measure_body_materi(draw, data, usable_width):
+    font_body = ImageFont.truetype(FONT_REGULAR, 28)
+    font_rumus = ImageFont.truetype(FONT_FREDOKA, 28)
+    font_contoh = ImageFont.truetype(FONT_REGULAR, 26)
+
+    h = 0
+    isi_lines = wrap_text(data["isi_materi"], font_body, draw, usable_width)
+    h += len(isi_lines) * 38 + 16
+
+    elements = []
+    if data.get("rumus"):
+        elements.append((data["rumus"], font_rumus, COLOR_HEADER_BG))
+    if data.get("contoh"):
+        elements.append((f"Contoh: {data['contoh']}", font_contoh, COLOR_INK))
+
+    if elements:
+        h += _measure_trick_box(draw, usable_width, elements)
+    else:
+        h += 10
+
+    return h
+
+
 def _render_body_materi(draw, data, margin, usable_width, y_start):
     """Render body for materi type: content + trick-box with rumus+contoh."""
     font_body = ImageFont.truetype(FONT_REGULAR, 28)
     font_rumus = ImageFont.truetype(FONT_FREDOKA, 28)
-    font_contoh = ImageFont.truetype(FONT_REGULAR, 24)
+    font_contoh = ImageFont.truetype(FONT_REGULAR, 26)
 
     y = y_start
     isi_lines = wrap_text(data["isi_materi"], font_body, draw, usable_width)
     for line in isi_lines:
         draw.text((margin, y), line, fill=COLOR_INK, font=font_body)
-        y += 34
+        y += 38
     y += 16
 
     elements = []
@@ -638,6 +695,23 @@ def _render_body_materi(draw, data, margin, usable_width, y_start):
     return y
 
 
+def _measure_body_fakta(draw, data, usable_width):
+    font_body = ImageFont.truetype(FONT_REGULAR, 28)
+    font_sumber = ImageFont.truetype(FONT_EMOJI, 24)
+
+    h = 0
+    isi_lines = wrap_text(data["isi_fakta"], font_body, draw, usable_width)
+    h += len(isi_lines) * 38 + 16
+
+    sumber = data.get("sumber", "")
+    if not sumber:
+        sumber = "Simpan postingan ini buat referensi belajar! \U0001f4cc"
+    elements = [(f"\U0001f4cc {sumber}", font_sumber, COLOR_INK)]
+    h += _measure_trick_box(draw, usable_width, elements)
+
+    return h
+
+
 def _render_body_fakta(draw, data, margin, usable_width, y_start):
     """Render body for fakta type: content + trick-box with sumber/CTA."""
     font_body = ImageFont.truetype(FONT_REGULAR, 28)
@@ -647,7 +721,7 @@ def _render_body_fakta(draw, data, margin, usable_width, y_start):
     isi_lines = wrap_text(data["isi_fakta"], font_body, draw, usable_width)
     for line in isi_lines:
         draw.text((margin, y), line, fill=COLOR_INK, font=font_body)
-        y += 34
+        y += 38
     y += 16
 
     sumber = data.get("sumber", "")
@@ -661,24 +735,52 @@ def _render_body_fakta(draw, data, margin, usable_width, y_start):
     return y
 
 
-def render_card(data, topic, content_type, kategori=None, categories=None, filename="soal/konten_hari_ini.png"):
-    """Main rendering function — replaces buat_gambar_konten."""
-    os.makedirs(os.path.dirname(filename), exist_ok=True)
+def _validate_layout(draw_end_y, canvas_h, header_h, margin):
+    if draw_end_y > canvas_h:
+        print(f"[WARN] Konten melebihi canvas: y_akhir={draw_end_y} > H_canvas={canvas_h}")
+    remaining = canvas_h - draw_end_y
+    if remaining < 50:
+        print(f"[WARN] Sisa canvas hanya {remaining}px — konten mepet ke tepi bawah")
 
-    img = Image.new("RGB", (IMG_WIDTH, IMG_HEIGHT), COLOR_BG)
-    draw = ImageDraw.Draw(img)
+
+def render_card(data, topic, content_type, kategori=None, categories=None, filename="soal/konten_hari_ini.png"):
+    """Main rendering function with dynamic canvas sizing."""
+    os.makedirs(os.path.dirname(filename), exist_ok=True)
 
     margin = 64
     usable_width = IMG_WIDTH - 2 * margin
 
+    title = data.get("judul", "Ayo Coba Soal Ini!") if content_type == "soal" else data.get("judul", "Materi Matematika")
+
+    # ── Phase 1: Measure all text, calculate dynamic canvas height ──
+    mdraw = _create_measure_draw()
+    font_title = ImageFont.truetype(FONT_FREDOKA, 50)
+
+    title_lines = wrap_text(title, font_title, mdraw, usable_width)
+    header_h = 44 + 36 + 24 + len(title_lines) * 60 + 24
+
     if content_type == "soal":
-        title = data.get("judul", "Ayo Coba Soal Ini!")
+        body_h = _measure_body_soal(mdraw, data, usable_width)
+    elif content_type == "materi":
+        body_h = _measure_body_materi(mdraw, data, usable_width)
     else:
-        title = data.get("judul", "Materi Matematika")
+        body_h = _measure_body_fakta(mdraw, data, usable_width)
 
-    header_h = _draw_header(draw, content_type, title, margin, usable_width)
+    footer_h = 80
+    body_gap = 24
+    footer_gap = 20
+    bottom_margin = 32
+    canvas_h = header_h + body_gap + body_h + footer_gap + footer_h + bottom_margin
+    canvas_h = max(canvas_h, 500)
 
-    y = header_h + 24
+    # ── Phase 2: Create canvas with calculated height ──
+    img = Image.new("RGB", (IMG_WIDTH, canvas_h), COLOR_BG)
+    draw = ImageDraw.Draw(img)
+
+    # ── Phase 3: Draw all elements ──
+    header_end = _draw_header(draw, content_type, title, margin, usable_width, IMG_WIDTH)
+
+    y = header_end + body_gap
     if content_type == "soal":
         y = _render_body_soal(draw, data, margin, usable_width, y)
     elif content_type == "materi":
@@ -686,8 +788,10 @@ def render_card(data, topic, content_type, kategori=None, categories=None, filen
     else:
         y = _render_body_fakta(draw, data, margin, usable_width, y)
 
-    footer_y = max(y, IMG_HEIGHT - 140)
-    _draw_footer(draw, footer_y)
+    _draw_footer(draw, y + footer_gap, IMG_WIDTH)
+
+    # ── Phase 4: Validate ──
+    _validate_layout(y + footer_gap + footer_h, canvas_h, header_h, margin)
 
     img.save(filename)
     return filename
