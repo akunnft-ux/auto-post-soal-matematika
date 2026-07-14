@@ -481,5 +481,16 @@
     "account_type": "personal",
     "format": "gambar",
     "theme": "sekolah_smp"
+  },
+  {
+    "kategori": "olimpiade_sd",
+    "tipe": "fakta",
+    "topik": "kombinatorika",
+    "tanggal": "2026-07-14",
+    "judul": "Prinsip Sarang Merpati pada Jaringan Saraf Burung Migran",
+    "isi_fakta": "Dalam dunia kombinatorika, Prinsip Sarang Merpati menyatakan bahwa jika ada n+1 ",
+    "account_type": "personal",
+    "format": "gambar",
+    "theme": "olimpiade_sd"
   }
 ]
