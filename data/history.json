@@ -470,5 +470,16 @@
     "account_type": "personal",
     "format": "gambar",
     "theme": "olimpiade_sd"
+  },
+  {
+    "kategori": "sekolah_smp",
+    "tipe": "soal",
+    "topik": "peluang_statistika",
+    "tanggal": "2026-07-14",
+    "soal": "Dalam sebuah komunitas hobi berkebun, terdapat 15 anggota. Sebanyak 9 orang memiliki tanaman kaktus, 7 orang memiliki tanaman sukulen, dan 3 orang tidak memiliki keduanya. Jika satu orang dipilih secara acak dari komunitas tersebut, berapakah peluang terpilihnya anggota yang memiliki tanaman kaktus sekaligus sukulen?",
+    "jawaban": "1/5",
+    "account_type": "personal",
+    "format": "gambar",
+    "theme": "sekolah_smp"
   }
 ]
