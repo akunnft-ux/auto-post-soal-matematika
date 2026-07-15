@@ -503,5 +503,16 @@
     "account_type": "personal",
     "format": "gambar",
     "theme": "sekolah_smp"
+  },
+  {
+    "kategori": "sekolah_sd",
+    "tipe": "materi",
+    "topik": "aritmatika_aljabar",
+    "tanggal": "2026-07-15",
+    "judul": "Mengenal Perbandingan Senilai dalam Berbagi Bekal",
+    "isi_materi": "Perbandingan senilai adalah cara kita membandingkan dua hal yang bergerak searah",
+    "account_type": "personal",
+    "format": "gambar",
+    "theme": "sekolah_sd"
   }
 ]
