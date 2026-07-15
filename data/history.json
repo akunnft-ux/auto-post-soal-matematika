@@ -492,5 +492,16 @@
     "account_type": "personal",
     "format": "gambar",
     "theme": "olimpiade_sd"
+  },
+  {
+    "kategori": "sekolah_smp",
+    "tipe": "soal",
+    "topik": "aritmatika_aljabar",
+    "tanggal": "2026-07-15",
+    "soal": "Seorang pengrajin lilin aromaterapi mencampurkan dua jenis bahan dasar, yaitu lilin lebah dan lilin kedelai, dengan rasio 3 : 5. Jika pengrajin tersebut ingin membuat 6,4 kg campuran lilin, namun menyadari bahwa ia hanya memiliki 2,2 kg lilin lebah, berapa kilogram tambahan lilin lebah yang harus ia beli agar proporsi campuran tetap terjaga sesuai dengan rasio awal menggunakan seluruh stok lilin kedelai yang tersedia?",
+    "jawaban": "1,8 kg",
+    "account_type": "personal",
+    "format": "gambar",
+    "theme": "sekolah_smp"
   }
 ]
