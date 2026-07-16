@@ -525,5 +525,16 @@
     "account_type": "personal",
     "format": "gambar",
     "theme": "sekolah_sd"
+  },
+  {
+    "kategori": "sekolah_smp",
+    "tipe": "materi",
+    "topik": "aritmatika_aljabar",
+    "tanggal": "2026-07-16",
+    "judul": "Teka-teki Investasi Bibit Tanaman: Memahami Sistem Persamaan Linear Dua Variabel",
+    "isi_materi": "Sistem Persamaan Linear Dua Variabel (SPLDV) adalah metode untuk mencari nilai d",
+    "account_type": "personal",
+    "format": "gambar",
+    "theme": "sekolah_smp"
   }
 ]
