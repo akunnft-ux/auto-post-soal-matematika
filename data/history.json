@@ -514,5 +514,16 @@
     "account_type": "personal",
     "format": "gambar",
     "theme": "sekolah_sd"
+  },
+  {
+    "kategori": "sekolah_sd",
+    "tipe": "soal",
+    "topik": "deret_angka",
+    "tanggal": "2026-07-16",
+    "soal": "Di sebuah galeri seni, terdapat susunan lampu hias yang dipasang membentuk pola tertentu. Pada baris pertama ada 5 lampu, baris kedua ada 9 lampu, baris ketiga ada 13 lampu, dan baris keempat ada 17 lampu. Jika pola ini terus berlanjut, berapakah jumlah lampu pada baris kelima?",
+    "jawaban": "21",
+    "account_type": "personal",
+    "format": "gambar",
+    "theme": "sekolah_sd"
   }
 ]
