@@ -536,5 +536,16 @@
     "account_type": "personal",
     "format": "gambar",
     "theme": "sekolah_smp"
+  },
+  {
+    "kategori": "olimpiade_sd",
+    "tipe": "fakta",
+    "topik": "teori_bilangan",
+    "tanggal": "2026-07-17",
+    "judul": "Misteri Bilangan 'Self-Numbers' dan Ketidakhadiran Generator",
+    "isi_fakta": "Dalam teori bilangan, terdapat kelompok angka yang disebut 'Self-Numbers' (atau ",
+    "account_type": "personal",
+    "format": "gambar",
+    "theme": "olimpiade_sd"
   }
 ]
