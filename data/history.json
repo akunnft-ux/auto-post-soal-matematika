@@ -547,5 +547,16 @@
     "account_type": "personal",
     "format": "gambar",
     "theme": "olimpiade_sd"
+  },
+  {
+    "kategori": "sekolah_sd",
+    "tipe": "materi",
+    "topik": "aritmatika_aljabar",
+    "tanggal": "2026-07-17",
+    "judul": "Misi Rahasia Menukar Stiker",
+    "isi_materi": "Pernahkah kamu ingin menukar koleksi stikermu dengan teman? Bayangkan jika kamu ",
+    "account_type": "personal",
+    "format": "gambar",
+    "theme": "sekolah_sd"
   }
 ]
