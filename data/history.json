@@ -569,5 +569,16 @@
     "account_type": "personal",
     "format": "gambar",
     "theme": "olimpiade_sd"
+  },
+  {
+    "kategori": "sekolah_sd",
+    "tipe": "fakta",
+    "topik": "aritmatika_aljabar",
+    "tanggal": "2026-07-18",
+    "judul": "Keajaiban Angka 9 dalam Perkalian",
+    "isi_fakta": "Angka 9 memiliki keunikan ajaib yang disebut 'Efek Digital Root'. Jika kamu meng",
+    "account_type": "personal",
+    "format": "gambar",
+    "theme": "sekolah_sd"
   }
 ]
