@@ -558,5 +558,16 @@
     "account_type": "personal",
     "format": "gambar",
     "theme": "sekolah_sd"
+  },
+  {
+    "kategori": "olimpiade_sd",
+    "tipe": "soal",
+    "topik": "deret_angka",
+    "tanggal": "2026-07-18",
+    "soal": "Seorang kurator museum menyusun koin-koin kuno dalam sebuah rak pameran membentuk barisan bertingkat. Baris pertama berisi 3 koin, baris kedua 8 koin, baris ketiga 18 koin, dan baris keempat 38 koin. Jika pola penambahan jumlah koin ini konsisten, berapakah jumlah koin pada baris kelima?",
+    "jawaban": "78 koin",
+    "account_type": "personal",
+    "format": "gambar",
+    "theme": "olimpiade_sd"
   }
 ]
