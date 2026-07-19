@@ -580,5 +580,16 @@
     "account_type": "personal",
     "format": "gambar",
     "theme": "sekolah_sd"
+  },
+  {
+    "kategori": "sekolah_sd",
+    "tipe": "fakta",
+    "topik": "aritmatika_aljabar",
+    "tanggal": "2026-07-19",
+    "judul": "Keajaiban Bilangan Palindrom pada Penjumlahan",
+    "isi_fakta": "Tahukah kamu bahwa ada bilangan yang disebut 'bilangan palindrom' yang tetap sam",
+    "account_type": "personal",
+    "format": "gambar",
+    "theme": "sekolah_sd"
   }
 ]
