@@ -602,5 +602,16 @@
     "account_type": "personal",
     "format": "gambar",
     "theme": "sekolah_smp"
+  },
+  {
+    "kategori": "sekolah_sd",
+    "tipe": "fakta",
+    "topik": "deret_angka",
+    "tanggal": "2026-07-20",
+    "judul": "Misteri Bilangan Defisien yang Suka Berbagi",
+    "isi_fakta": "Tahukah kamu bahwa ada bilangan yang disebut 'Bilangan Defisien'? Bilangan ini s",
+    "account_type": "personal",
+    "format": "gambar",
+    "theme": "sekolah_sd"
   }
 ]
