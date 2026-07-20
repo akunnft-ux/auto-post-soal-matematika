@@ -591,5 +591,16 @@
     "account_type": "personal",
     "format": "gambar",
     "theme": "sekolah_sd"
+  },
+  {
+    "kategori": "sekolah_smp",
+    "tipe": "fakta",
+    "topik": "aritmatika_aljabar",
+    "tanggal": "2026-07-20",
+    "judul": "Anomali Bilangan 'Happy' yang Tersembunyi",
+    "isi_fakta": "Dalam aljabar, terdapat kelompok angka unik yang disebut 'Happy Numbers'. Sebuah",
+    "account_type": "personal",
+    "format": "gambar",
+    "theme": "sekolah_smp"
   }
 ]
