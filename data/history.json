@@ -624,5 +624,16 @@
     "account_type": "personal",
     "format": "gambar",
     "theme": "olimpiade_smp"
+  },
+  {
+    "kategori": "sekolah_sd",
+    "tipe": "fakta",
+    "topik": "aritmatika_aljabar",
+    "tanggal": "2026-07-21",
+    "judul": "Keajaiban Bilangan Ajaib 1089",
+    "isi_fakta": "Pernahkah kamu membayangkan ada angka yang selalu kembali ke dirinya sendiri? Co",
+    "account_type": "personal",
+    "format": "gambar",
+    "theme": "sekolah_sd"
   }
 ]
