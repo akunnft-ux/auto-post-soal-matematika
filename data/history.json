@@ -613,5 +613,16 @@
     "account_type": "personal",
     "format": "gambar",
     "theme": "sekolah_sd"
+  },
+  {
+    "kategori": "olimpiade_smp",
+    "tipe": "fakta",
+    "topik": "kombinatorika",
+    "tanggal": "2026-07-21",
+    "judul": "Teorema Erdős-Szekeres: Menemukan Keteraturan di Balik Kekacauan",
+    "isi_fakta": "Dalam kombinatorika, Teorema Erdős-Szekeres menyatakan bahwa untuk setiap bilang",
+    "account_type": "personal",
+    "format": "gambar",
+    "theme": "olimpiade_smp"
   }
 ]
