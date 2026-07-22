@@ -646,5 +646,16 @@
     "account_type": "personal",
     "format": "gambar",
     "theme": "sekolah_smp"
+  },
+  {
+    "kategori": "sekolah_sd",
+    "tipe": "fakta",
+    "topik": "aritmatika_aljabar",
+    "tanggal": "2026-07-22",
+    "judul": "Rahasia Angka Ajaib '9' yang Tidak Pernah Hilang",
+    "isi_fakta": "Tahukah kamu bahwa angka 9 memiliki kekuatan unik dalam penjumlahan? Jika kamu m",
+    "account_type": "personal",
+    "format": "gambar",
+    "theme": "sekolah_sd"
   }
 ]
