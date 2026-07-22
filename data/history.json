@@ -635,5 +635,16 @@
     "account_type": "personal",
     "format": "gambar",
     "theme": "sekolah_sd"
+  },
+  {
+    "kategori": "sekolah_smp",
+    "tipe": "materi",
+    "topik": "aritmatika_aljabar",
+    "tanggal": "2026-07-22",
+    "judul": "Analisis Perbandingan Berbalik Nilai pada Kecepatan Drone",
+    "isi_materi": "Dalam situasi di mana suatu besaran meningkat sementara besaran lain menurun sec",
+    "account_type": "personal",
+    "format": "gambar",
+    "theme": "sekolah_smp"
   }
 ]
