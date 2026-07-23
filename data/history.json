@@ -668,5 +668,16 @@
     "account_type": "personal",
     "format": "gambar",
     "theme": "olimpiade_smp"
+  },
+  {
+    "kategori": "sekolah_smp",
+    "tipe": "fakta",
+    "topik": "fungsi_grafik",
+    "tanggal": "2026-07-23",
+    "judul": "Grafik Kardioid: Denyut Jantung dalam Matematika",
+    "isi_fakta": "Tahukah kamu bahwa bentuk hati yang sempurna dapat digambarkan melalui fungsi ma",
+    "account_type": "personal",
+    "format": "gambar",
+    "theme": "sekolah_smp"
   }
 ]
