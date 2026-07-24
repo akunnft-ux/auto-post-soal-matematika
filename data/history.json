@@ -690,5 +690,16 @@
     "account_type": "personal",
     "format": "gambar",
     "theme": "sekolah_smp"
+  },
+  {
+    "kategori": "olimpiade_sd",
+    "tipe": "soal",
+    "topik": "teori_bilangan",
+    "tanggal": "2026-07-24",
+    "soal": "Seorang kurator perhiasan menemukan sebuah brankas kuno yang terkunci dengan kode angka n. Diketahui bahwa jika n dibagi oleh 11, sisanya adalah 7, dan jika n dibagi oleh 13, sisanya adalah 9. Jika n adalah bilangan bulat positif terkecil yang memenuhi kedua syarat tersebut, berapakah jumlah digit dari n?",
+    "jawaban": "8",
+    "account_type": "personal",
+    "format": "gambar",
+    "theme": "olimpiade_sd"
   }
 ]
