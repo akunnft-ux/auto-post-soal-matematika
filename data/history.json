@@ -679,5 +679,16 @@
     "account_type": "personal",
     "format": "gambar",
     "theme": "sekolah_smp"
+  },
+  {
+    "kategori": "sekolah_smp",
+    "tipe": "fakta",
+    "topik": "aritmatika_aljabar",
+    "tanggal": "2026-07-24",
+    "judul": "Fenomena Bilangan Beruntung Ulam",
+    "isi_fakta": "Dalam aljabar dan teori bilangan, terdapat deret yang disebut 'Lucky Numbers' at",
+    "account_type": "personal",
+    "format": "gambar",
+    "theme": "sekolah_smp"
   }
 ]
